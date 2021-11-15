@@ -26,16 +26,18 @@ public class WorldRenderer {
   public void render() {
     // Render blocks
     debugRenderer.setProjectionMatrix(camera.combined);
-    debugRenderer.begin(ShapeType.Filled);
+    debugRenderer.begin(ShapeType.Line);
 
-    for (Block block : world.getBlocks()) {
+    for (int i = 0; i < world.getBlocks().size; i++) {
+      Block block = world.getBlocks().get(i);
+
       Rectangle rect = (Rectangle) block.getBounds();
 
       float x1 = block.getPosition().x + rect.x;
 
       float y1 = block.getPosition().y + rect.y;
 
-      debugRenderer.setColor(new Color(1, 0, 0, 1));
+      debugRenderer.setColor(new Color(255, 255, 255, 10));
 
       debugRenderer.rect(x1, y1, rect.width, rect.height);
     }
