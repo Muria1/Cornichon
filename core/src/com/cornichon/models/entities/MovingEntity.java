@@ -1,9 +1,10 @@
-package com.cornichon.Models.Entities;
+package com.cornichon.models.entities;
 
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
+import com.cornichon.models.entities.helpers.Moveable;
 
-public class MovingEntity extends Entity {
+public class MovingEntity extends Entity implements Moveable {
 
   protected float speed; // unit per second
   protected float jumpVelocity;
@@ -27,34 +28,42 @@ public class MovingEntity extends Entity {
     this.velocity = velocity;
   }
 
+  @Override
   public float getSpeed() {
     return speed;
   }
 
+  @Override
   public void setSpeed(float speed) {
     this.speed = speed;
   }
 
+  @Override
   public float getJumpVelocity() {
     return jumpVelocity;
   }
 
+  @Override
   public void setJumpVelocity(float jumpVelocity) {
     this.jumpVelocity = jumpVelocity;
   }
 
+  @Override
   public Vector2 getAcceleration() {
     return acceleration;
   }
 
+  @Override
   public void setAcceleration(Vector2 acceleration) {
     this.acceleration = acceleration;
   }
 
+  @Override
   public Vector2 getVelocity() {
     return velocity;
   }
 
+  @Override
   public void setVelocity(Vector2 velocity) {
     this.velocity = velocity;
   }

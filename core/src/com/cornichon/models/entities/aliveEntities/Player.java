@@ -1,8 +1,8 @@
-package com.cornichon.Models.Entities.AliveEntities;
+package com.cornichon.models.entities.aliveEntities;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.cornichon.Models.Entities.MovingEntity;
+import com.cornichon.models.entities.MovingEntity;
 
 public class Player extends MovingEntity {
 

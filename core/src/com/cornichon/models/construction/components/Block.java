@@ -1,8 +1,8 @@
-package com.cornichon.Models.Construction.Components;
+package com.cornichon.models.construction.components;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.cornichon.Models.Entities.Entity;
+import com.cornichon.models.entities.Entity;
 
 public class Block extends Entity {
 

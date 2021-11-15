@@ -1,9 +1,9 @@
-package com.cornichon.Models.Construction;
+package com.cornichon.models.construction;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.cornichon.Models.Construction.Components.Block;
-import com.cornichon.Models.Entities.AliveEntities.Player;
+import com.cornichon.models.construction.components.Block;
+import com.cornichon.models.entities.aliveEntities.Player;
 
 public class World {
 

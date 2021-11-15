@@ -1,13 +1,13 @@
-package com.cornichon.Views;
+package com.cornichon.views;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
-import com.cornichon.Models.Construction.Components.Block;
-import com.cornichon.Models.Construction.World;
-import com.cornichon.Models.Entities.AliveEntities.Player;
+import com.cornichon.models.construction.World;
+import com.cornichon.models.construction.components.Block;
+import com.cornichon.models.entities.aliveEntities.Player;
 
 public class WorldRenderer {
 

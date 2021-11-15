@@ -1,10 +1,10 @@
-package com.cornichon.Screens;
+package com.cornichon.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.cornichon.Models.Construction.World;
-import com.cornichon.Views.WorldRenderer;
+import com.cornichon.models.construction.World;
+import com.cornichon.views.WorldRenderer;
 
 public class GameScreen implements Screen {
 

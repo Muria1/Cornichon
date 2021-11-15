@@ -1,4 +1,4 @@
-package com.cornichon.Models.Entities;
+package com.cornichon.models.entities;
 
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
