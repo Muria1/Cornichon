@@ -12,6 +12,6 @@ public class Block extends Entity {
     .setHeight(SIZE);
 
   public Block(Vector2 position) {
-    super(position, SIZE, BOUNDS);
+    super(position, SIZE, SIZE, BOUNDS);
   }
 }

@@ -6,12 +6,13 @@ import com.cornichon.models.entities.MovingEntity;
 
 public class Player extends MovingEntity {
 
-  public static final float SIZE = 0.5f; // half a uni
-  public static final float SPEED = 2f; // unit per second
+  public static final float SIZE_HEIGTH = 0.75f; // half a uni
+  public static final float SIZE_WIDTH = 0.5f; // half a uni
+  public static final float SPEED = 4f; // unit per second
   public static final float JUMP_VELOCITY = 1f;
   public static final Rectangle BOUNDS = new Rectangle()
-    .setWidth(SIZE)
-    .setHeight(SIZE);
+    .setWidth(SIZE_HEIGTH)
+    .setHeight(SIZE_WIDTH);
 
   // Will be extended with appropriate states
   public enum State {
@@ -27,7 +28,8 @@ public class Player extends MovingEntity {
   public Player(Vector2 position) {
     super(
       position,
-      SIZE,
+      SIZE_HEIGTH,
+      SIZE_WIDTH,
       BOUNDS,
       SPEED,
       JUMP_VELOCITY,
@@ -36,6 +38,10 @@ public class Player extends MovingEntity {
     );
     this.state = State.IDLE;
     this.facingLeft = false;
+  }
+
+  public void update(float delta) {
+    this.position.add(new Vector2(velocity.x * delta, velocity.y * delta));
   }
 
   public State getState() {

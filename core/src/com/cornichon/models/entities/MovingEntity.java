@@ -14,14 +14,15 @@ public class MovingEntity extends Entity implements Moveable {
 
   public MovingEntity(
     Vector2 position,
-    float size,
+    float sizeHeight,
+    float sizeWidth,
     Shape2D bounds,
     float speed,
     float jumpVelocity,
     Vector2 acceleration,
     Vector2 velocity
   ) {
-    super(position, size, bounds);
+    super(position, sizeHeight, sizeWidth, bounds);
     this.speed = speed;
     this.jumpVelocity = jumpVelocity;
     this.acceleration = acceleration;
