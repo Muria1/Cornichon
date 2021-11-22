@@ -57,6 +57,21 @@ public class PlayerController extends GeneralController {
       player.getVelocity().x = Player.SPEED;
     }
 
+    /** TRASH CODE START */
+
+    if (keys.get(Actions.JUMP)) {
+      // player.b2bBody.gravityScale += 80f;
+      player.setJumpVelocity(0.3f);
+      player.setPosition(player.getPosition().add(0, player.getJumpVelocity()));
+      // player.b2bBody.applyForceToCenter(0, 80f, true);
+    }
+
+    if (!keys.get(Actions.JUMP)) {
+      player.setJumpVelocity(0);
+    }
+
+    /** TRASH CODE END */
+
     if (
       (keys.get(Actions.LEFT) && keys.get(Actions.RIGHT)) ||
       (!keys.get(Actions.LEFT) && !(keys.get(Actions.RIGHT)))

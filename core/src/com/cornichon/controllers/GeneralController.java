@@ -2,7 +2,7 @@ package com.cornichon.controllers;
 
 import com.badlogic.gdx.InputProcessor;
 
-public class GeneralController implements InputProcessor {
+public abstract class GeneralController implements InputProcessor {
 
   @Override
   public boolean keyDown(int keycode) {

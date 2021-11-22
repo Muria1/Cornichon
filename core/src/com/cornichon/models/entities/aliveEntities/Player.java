@@ -2,6 +2,9 @@ package com.cornichon.models.entities.aliveEntities;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Box2D;
 import com.cornichon.models.entities.MovingEntity;
 
 public class Player extends MovingEntity {
@@ -24,6 +27,7 @@ public class Player extends MovingEntity {
 
   private State state;
   private boolean facingLeft;
+  public BodyDef b2bBody;
 
   public Player(Vector2 position) {
     super(
@@ -38,6 +42,7 @@ public class Player extends MovingEntity {
     );
     this.state = State.IDLE;
     this.facingLeft = false;
+    this.b2bBody = new BodyDef();
   }
 
   public void update(float delta) {
