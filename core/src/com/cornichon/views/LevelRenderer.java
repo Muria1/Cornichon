@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.cornichon.models.construction.Level;
 import com.cornichon.models.construction.components.Block;
 import com.cornichon.models.entities.aliveEntities.Player;
+import com.cornichon.models.entities.aliveEntities.Skeleton;
 
 public class LevelRenderer {
 
@@ -28,6 +29,7 @@ public class LevelRenderer {
 
   private Texture grassTexture; // Testing
   private Texture playeTexture;
+  private Texture skeletonTexture;
 
   private int width;
   private int height;
@@ -57,6 +59,8 @@ public class LevelRenderer {
   private void loadTextures() {
     grassTexture = new Texture(Gdx.files.internal("images/grass_block.png"));
     playeTexture = new Texture(Gdx.files.internal("images/player01.png"));
+    skeletonTexture = new Texture(Gdx.files.internal("images/skeleton.png"));
+
   }
 
   public void render() {
@@ -64,6 +68,9 @@ public class LevelRenderer {
 
     this.drawBlocks();
     this.drawPlayer();
+
+    //Temp method for testing
+    this.drawSkeleton();
 
     spriteBatch.end();
 
@@ -90,6 +97,18 @@ public class LevelRenderer {
       playeTexture,
       player.getPosition().x * ppuX,
       player.getPosition().y * ppuY,
+      Player.SIZE_WIDTH * ppuX,
+      Player.SIZE_HEIGTH * ppuY
+    );
+  }
+
+  //temp
+  private void drawSkeleton() {
+    Skeleton skeleton = level.getSkeleton();
+    spriteBatch.draw(
+      skeletonTexture,
+      skeleton.getPosition().x * ppuX,
+      skeleton.getPosition().y * ppuY,
       Player.SIZE_WIDTH * ppuX,
       Player.SIZE_HEIGTH * ppuY
     );
@@ -127,6 +146,18 @@ public class LevelRenderer {
     debugRenderer.setColor(new Color(0, 1, 0, 1));
 
     debugRenderer.rect(x1, y1, rect.height, rect.width);
+
+    Skeleton skeleton = level.getSkeleton();
+
+    Rectangle rectS = (Rectangle) skeleton.getBounds();
+
+    float xS = skeleton.getPosition().x + rectS.x;
+    float yS = skeleton.getPosition().y + rectS.y;
+
+    debugRenderer.setColor(new Color(0, 1, 0, 1));
+
+    debugRenderer.rect(xS, yS, rectS.height, rectS.width);
+
 
     debugRenderer.end();
   }

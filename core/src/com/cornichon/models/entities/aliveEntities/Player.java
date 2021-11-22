@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.cornichon.models.entities.MovingEntity;
+import com.cornichon.models.entities.helpers.State;
 
 public class Player extends MovingEntity {
 
@@ -15,15 +16,7 @@ public class Player extends MovingEntity {
   public static final float JUMP_VELOCITY = 1f;
   public static final Rectangle BOUNDS = new Rectangle()
     .setWidth(SIZE_HEIGTH)
-    .setHeight(SIZE_WIDTH);
-
-  // Will be extended with appropriate states
-  public enum State {
-    IDLE,
-    WALKING,
-    JUMPING,
-    DYING,
-  }
+    .setHeight(SIZE_WIDTH);  
 
   private State state;
   private boolean facingLeft;

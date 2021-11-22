@@ -1,0 +1,33 @@
+
+textureAtlas.png
+size: 1024, 1024
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+player01
+  rotate: false
+  xy: 2, 2
+  size: 556, 889
+  orig: 556, 889
+  offset: 0, 0
+  index: -1
+skeleton
+  rotate: false
+  xy: 560, 571
+  size: 320, 320
+  orig: 320, 320
+  offset: 0, 0
+  index: -1
+
+textureAtlas2.png
+size: 1024, 1024
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+grass_block
+  rotate: false
+  xy: 2, 2
+  size: 642, 641
+  orig: 642, 641
+  offset: 0, 0
+  index: -1

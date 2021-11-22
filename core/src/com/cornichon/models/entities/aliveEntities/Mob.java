@@ -1,0 +1,45 @@
+package com.cornichon.models.entities.aliveEntities;
+
+import com.badlogic.gdx.math.Shape2D;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.cornichon.models.entities.MovingEntity;
+import com.cornichon.models.entities.helpers.State;
+
+public class Mob extends MovingEntity {
+
+    private State state;
+    private boolean facingLeft;
+    public BodyDef b2bBody;
+
+    public Mob(Vector2 position, float sizeHeight, float sizeWidth, Shape2D bounds, float speed, float jumpVelocity,
+            Vector2 acceleration, Vector2 velocity) {
+        super(position, sizeHeight, sizeWidth, bounds, speed, jumpVelocity, acceleration, velocity);
+
+        this.state = State.IDLE;
+        this.facingLeft = false;
+        this.b2bBody = new BodyDef();
+
+    }
+
+    public void update(float delta) {
+        this.position.add(new Vector2(velocity.x * delta, velocity.y * delta));
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    public boolean isFacingLeft() {
+        return facingLeft;
+    }
+
+    public void setFacingLeft(boolean facingLeft) {
+        this.facingLeft = facingLeft;
+    }
+
+}
