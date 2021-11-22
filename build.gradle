@@ -10,7 +10,6 @@ buildscript {
     }
     dependencies {
         
-
     }
 }
 
@@ -47,7 +46,7 @@ project(":desktop") {
         api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
-        
+        api "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
     }
 }
 
@@ -58,6 +57,6 @@ project(":core") {
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
-        
+        api "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
     }
 }
