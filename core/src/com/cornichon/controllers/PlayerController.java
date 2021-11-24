@@ -2,7 +2,8 @@ package com.cornichon.controllers;
 
 import com.badlogic.gdx.Input.Keys;
 import com.cornichon.models.entities.aliveEntities.Player;
-import com.cornichon.models.entities.aliveEntities.Player.State;
+import com.cornichon.models.entities.helpers.State;
+import com.cornichon.models.*;
 import java.util.HashMap;
 import java.util.Map;
 

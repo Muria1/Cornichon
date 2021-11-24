@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.cornichon.models.construction.components.Block;
 import com.cornichon.models.entities.aliveEntities.Player;
+import com.cornichon.models.entities.aliveEntities.Skeleton;
 
 public class Level {
 
@@ -11,6 +12,7 @@ public class Level {
 
   protected Array<Block> blocks;
   protected Player player;
+  protected Skeleton skeleton;
 
   public Level() {
     this.createWorld();
@@ -22,6 +24,7 @@ public class Level {
   private void createWorld() {
     // Player's position vector will be determined by the starting point in the starting rooms
     this.player = new Player(new Vector2(7, 2));
+    this.skeleton = new Skeleton(new Vector2(15,2));
     this.blocks = new Array<Block>();
 
     for (int i = 0; i < 100; i++) {
@@ -48,5 +51,9 @@ public class Level {
 
   public Player getPlayer() {
     return player;
+  }
+
+  public Skeleton getSkeleton() {
+    return skeleton;
   }
 }

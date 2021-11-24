@@ -1,41 +1,47 @@
 package com.cornichon.models.entities.aliveEntities;
 
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Box2D;
 import com.cornichon.models.entities.MovingEntity;
 import com.cornichon.models.entities.helpers.State;
 
-public class Player extends MovingEntity {
-
-  public static final float SIZE_HEIGTH = 0.75f; // half a uni
-  public static final float SIZE_WIDTH = 0.5f; // half a uni
-  public static final float SPEED = 4f; // unit per second
-  public static final float JUMP_VELOCITY = 1f;
-  public static final Rectangle BOUNDS = new Rectangle()
-    .setWidth(SIZE_HEIGTH)
-    .setHeight(SIZE_WIDTH);  
+public class Mob extends MovingEntity {
 
   private State state;
   private boolean facingLeft;
+  private int health;
+  private int damage;
   public BodyDef b2bBody;
 
-  public Player(Vector2 position) {
+  public Mob(
+    Vector2 position,
+    float sizeHeight,
+    float sizeWidth,
+    Shape2D bounds,
+    float speed,
+    float jumpVelocity,
+    Vector2 acceleration,
+    Vector2 velocity,
+    int health,
+    int damage
+  ) {
     super(
       position,
-      SIZE_HEIGTH,
-      SIZE_WIDTH,
-      BOUNDS,
-      SPEED,
-      JUMP_VELOCITY,
-      new Vector2(), // Acceleration
-      new Vector2() // Velocity
+      sizeHeight,
+      sizeWidth,
+      bounds,
+      speed,
+      jumpVelocity,
+      acceleration,
+      velocity
     );
+
+    this.damage = damage;
     this.state = State.IDLE;
     this.facingLeft = false;
     this.b2bBody = new BodyDef();
+    this.health = health;
   }
 
   public void update(float delta) {
@@ -57,4 +63,14 @@ public class Player extends MovingEntity {
   public void setFacingLeft(boolean facingLeft) {
     this.facingLeft = facingLeft;
   }
+
+  public int getHealth() {
+    return health;
+  }
+
+  public int getDamage() {
+    return damage;
+  }
+
+  
 }
