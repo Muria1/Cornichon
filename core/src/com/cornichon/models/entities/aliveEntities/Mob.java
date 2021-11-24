@@ -8,38 +8,69 @@ import com.cornichon.models.entities.helpers.State;
 
 public class Mob extends MovingEntity {
 
-    private State state;
-    private boolean facingLeft;
-    public BodyDef b2bBody;
+  private State state;
+  private boolean facingLeft;
+  private int health;
+  private int damage;
+  public BodyDef b2bBody;
 
-    public Mob(Vector2 position, float sizeHeight, float sizeWidth, Shape2D bounds, float speed, float jumpVelocity,
-            Vector2 acceleration, Vector2 velocity) {
-        super(position, sizeHeight, sizeWidth, bounds, speed, jumpVelocity, acceleration, velocity);
+  public Mob(
+    Vector2 position,
+    float sizeHeight,
+    float sizeWidth,
+    Shape2D bounds,
+    float speed,
+    float jumpVelocity,
+    Vector2 acceleration,
+    Vector2 velocity,
+    int health,
+    int damage
+  ) {
+    super(
+      position,
+      sizeHeight,
+      sizeWidth,
+      bounds,
+      speed,
+      jumpVelocity,
+      acceleration,
+      velocity
+    );
 
-        this.state = State.IDLE;
-        this.facingLeft = false;
-        this.b2bBody = new BodyDef();
+    this.damage = damage;
+    this.state = State.IDLE;
+    this.facingLeft = false;
+    this.b2bBody = new BodyDef();
+    this.health = health;
+  }
 
-    }
+  public void update(float delta) {
+    this.position.add(new Vector2(velocity.x * delta, velocity.y * delta));
+  }
 
-    public void update(float delta) {
-        this.position.add(new Vector2(velocity.x * delta, velocity.y * delta));
-    }
+  public State getState() {
+    return state;
+  }
 
-    public State getState() {
-        return state;
-    }
+  public void setState(State state) {
+    this.state = state;
+  }
 
-    public void setState(State state) {
-        this.state = state;
-    }
+  public boolean isFacingLeft() {
+    return facingLeft;
+  }
 
-    public boolean isFacingLeft() {
-        return facingLeft;
-    }
+  public void setFacingLeft(boolean facingLeft) {
+    this.facingLeft = facingLeft;
+  }
 
-    public void setFacingLeft(boolean facingLeft) {
-        this.facingLeft = facingLeft;
-    }
+  public int getHealth() {
+    return health;
+  }
 
+  public int getDamage() {
+    return damage;
+  }
+
+  
 }
