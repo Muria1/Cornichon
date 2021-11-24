@@ -1,7 +1,7 @@
 package com.cornichon;
 
 import com.badlogic.gdx.Game;
-import com.cornichon.screens.*;
+import com.cornichon.views.screens.*;
 
 public class Cornichon extends Game {
 

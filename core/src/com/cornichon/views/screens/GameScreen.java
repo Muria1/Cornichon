@@ -1,4 +1,4 @@
-package com.cornichon.screens;
+package com.cornichon.views.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
