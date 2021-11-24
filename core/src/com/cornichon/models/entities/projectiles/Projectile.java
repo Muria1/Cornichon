@@ -1,4 +1,4 @@
-package com.cornichon.models.entities.Projectiles;
+package com.cornichon.models.entities.projectiles;
 
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;

@@ -2,8 +2,8 @@ package com.cornichon.models.entities.aliveEntities;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.cornichon.models.entities.Projectiles.Fireball;
-import com.cornichon.models.entities.Projectiles.Projectile;
+import com.cornichon.models.entities.projectiles.Fireball;
+import com.cornichon.models.entities.projectiles.Projectile;
 
 /**
  * Example mob class
@@ -49,12 +49,11 @@ public class Skeleton extends Mob {
 
   //
   public boolean checkDeath() {
-      if( this.getHealth() <= 0) {
-          return true;
-      }
-      else {
-          return false;
-      }
+    if (this.getHealth() <= 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   //
