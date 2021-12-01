@@ -57,4 +57,5 @@ public class GameScreen implements Screen {
   public void dispose() {
     Gdx.input.setInputProcessor(null);
   }
+  //ERDEM
 }
