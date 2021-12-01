@@ -5,6 +5,7 @@ import com.badlogic.gdx.utils.Array;
 import com.cornichon.models.construction.components.Block;
 import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.models.entities.aliveEntities.Skeleton;
+import com.cornichon.utils.LevelReader;
 
 public class Level {
 
@@ -22,27 +23,9 @@ public class Level {
    * Temp 2D {@link Level}
    */
   private void createWorld() {
-    // Player's position vector will be determined by the starting point in the starting rooms
-    this.player = new Player(new Vector2(7, 2));
-    this.skeleton = new Skeleton(new Vector2(15,2));
-    this.blocks = new Array<Block>();
-
-    for (int i = 0; i < 100; i++) {
-      blocks.add(new Block(new Vector2(i, 0)));
-      // blocks.add(new Block(new Vector2(i, 7)));
-      blocks.add(new Block(new Vector2(i, 20)));
-      if (i > 5) blocks.add(new Block(new Vector2(i, 1)));
-    }
-
-    blocks.add(new Block(new Vector2(9, 4)));
-    blocks.add(new Block(new Vector2(9, 5)));
-    blocks.add(new Block(new Vector2(19, 2)));
-    blocks.add(new Block(new Vector2(19, 3)));
-    blocks.add(new Block(new Vector2(19, 4)));
-    blocks.add(new Block(new Vector2(19, 5)));
-    blocks.add(new Block(new Vector2(6, 3)));
-    blocks.add(new Block(new Vector2(6, 4)));
-    blocks.add(new Block(new Vector2(6, 5)));
+    this.player = new Player(new Vector2(7, 3));
+    this.skeleton = new Skeleton(new Vector2(15, 3));
+    this.blocks = LevelReader.readLevel("level1.json");
   }
 
   public Array<Block> getBlocks() {
