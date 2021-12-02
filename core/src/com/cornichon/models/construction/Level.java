@@ -23,8 +23,8 @@ public class Level {
    * Temp 2D {@link Level}
    */
   private void createWorld() {
-    this.player = new Player(new Vector2(7, 3));
-    this.skeleton = new Skeleton(new Vector2(15, 3));
+    this.player = new Player(new Vector2(7, 2));
+    this.skeleton = new Skeleton(new Vector2(15, 2));
     this.blocks = LevelReader.readLevel("level1.json");
   }
 

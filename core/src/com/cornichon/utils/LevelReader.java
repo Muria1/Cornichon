@@ -25,7 +25,7 @@ public class LevelReader {
           // arr[0] 0 => (100)
           switch (arr.get(y).get(x).asInt()) {
             case BlockValues.BRICK:
-              blocks.add(new Block(new Vector2(x, arr.size - y)));
+              blocks.add(new Block(new Vector2(x, arr.size - y - 1)));
               break;
           }
         }
