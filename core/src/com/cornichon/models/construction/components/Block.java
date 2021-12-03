@@ -1,5 +1,7 @@
 package com.cornichon.models.construction.components;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.cornichon.models.entities.Entity;
@@ -11,7 +13,18 @@ public class Block extends Entity {
     .setWidth(SIZE)
     .setHeight(SIZE);
 
+  private Texture texture;
+
   public Block(Vector2 position) {
     super(position, SIZE, SIZE, BOUNDS);
+    this.texture = new Texture(Gdx.files.internal("images/grass_block.png"));
+  }
+
+  public Texture getTexture() {
+    return this.texture;
+  }
+
+  public void setTexture(Texture t) {
+    this.texture = t;
   }
 }

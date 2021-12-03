@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.cornichon.models.construction.components.Block;
+import com.cornichon.models.construction.components.Brick;
 import com.cornichon.models.construction.helpers.BlockValues;
 
 public class LevelReader {
@@ -25,7 +26,7 @@ public class LevelReader {
           // arr[0] 0 => (100)
           switch (arr.get(y).get(x).asInt()) {
             case BlockValues.BRICK:
-              blocks.add(new Block(new Vector2(x, arr.size - y - 1)));
+              blocks.add(new Brick(new Vector2(x, arr.size - y - 1)));
               break;
           }
         }

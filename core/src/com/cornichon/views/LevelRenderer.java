@@ -15,8 +15,8 @@ import com.cornichon.models.entities.aliveEntities.Skeleton;
 
 public class LevelRenderer {
 
-  private static final float CAMERA_WIDTH = 20f;
-  private static final float CAMERA_HEIGHT = 14f;
+  private static final float CAMERA_WIDTH = 30f;
+  private static final float CAMERA_HEIGHT = 21f;
 
   private Level level;
   private OrthographicCamera camera;
@@ -27,8 +27,7 @@ public class LevelRenderer {
   private boolean debug = false;
   private SpriteBatch spriteBatch;
 
-  private Texture grassTexture; // Testing
-  private Texture playeTexture;
+  private Texture playerTexture;
   private Texture skeletonTexture;
 
   private int width;
@@ -47,24 +46,33 @@ public class LevelRenderer {
   public LevelRenderer(Level level, boolean debug) {
     this.level = level;
     this.camera = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
-    this.camera.position.set(CAMERA_WIDTH / 2f, CAMERA_HEIGHT / 2f, 0);
-    this.camera.update();
     this.debug = debug;
     this.spriteBatch = new SpriteBatch();
+    this.camera.position.set(
+        level.getPlayer().getPosition().x,
+        level.getPlayer().getPosition().y,
+        0
+      );
+    this.camera.update();
     this.setSize(width, height);
 
     this.loadTextures();
   }
 
   private void loadTextures() {
-    grassTexture = new Texture(Gdx.files.internal("images/grass_block.png"));
-    playeTexture = new Texture(Gdx.files.internal("images/player01.png"));
+    playerTexture = new Texture(Gdx.files.internal("images/player01.png"));
     skeletonTexture = new Texture(Gdx.files.internal("images/skeleton.png"));
-
   }
 
   public void render() {
     spriteBatch.begin();
+
+    this.camera.position.set(
+        level.getPlayer().getPosition().x,
+        level.getPlayer().getPosition().y,
+        1
+      );
+    this.camera.update();
 
     this.drawBlocks();
     this.drawPlayer();
@@ -80,37 +88,43 @@ public class LevelRenderer {
   }
 
   private void drawBlocks() {
+    spriteBatch.setProjectionMatrix(this.camera.combined);
+
     for (Block block : level.getBlocks()) {
       spriteBatch.draw(
-        grassTexture,
-        block.getPosition().x * ppuX,
-        block.getPosition().y * ppuY,
-        Block.SIZE * ppuX,
-        Block.SIZE * ppuY
+        block.getTexture(),
+        block.getPosition().x,
+        block.getPosition().y,
+        Block.SIZE,
+        Block.SIZE
       );
     }
   }
 
   private void drawPlayer() {
     Player player = level.getPlayer();
+    spriteBatch.setProjectionMatrix(this.camera.combined);
+
     spriteBatch.draw(
-      playeTexture,
-      player.getPosition().x * ppuX,
-      player.getPosition().y * ppuY,
-      Player.SIZE_WIDTH * ppuX,
-      Player.SIZE_HEIGTH * ppuY
+      playerTexture,
+      player.getPosition().x,
+      player.getPosition().y,
+      Player.SIZE_WIDTH,
+      Player.SIZE_HEIGTH
     );
   }
 
   //temp
   private void drawSkeleton() {
     Skeleton skeleton = level.getSkeleton();
+
+    spriteBatch.setProjectionMatrix(this.camera.combined);
     spriteBatch.draw(
       skeletonTexture,
-      skeleton.getPosition().x * ppuX,
-      skeleton.getPosition().y * ppuY,
-      Player.SIZE_WIDTH * ppuX,
-      Player.SIZE_HEIGTH * ppuY
+      skeleton.getPosition().x,
+      skeleton.getPosition().y,
+      Player.SIZE_WIDTH,
+      Player.SIZE_HEIGTH
     );
   }
 
@@ -157,7 +171,6 @@ public class LevelRenderer {
     debugRenderer.setColor(new Color(0, 1, 0, 1));
 
     debugRenderer.rect(xS, yS, rectS.height, rectS.width);
-
 
     debugRenderer.end();
   }
