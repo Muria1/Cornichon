@@ -20,7 +20,6 @@ public class Level {
   }
 
   private void createWorld() {
-    this.player = new Player(new Vector2(13, 7));
     this.drawables = LevelReader.readLevel("level1.json", this);
   }
 
