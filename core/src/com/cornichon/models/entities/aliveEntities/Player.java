@@ -1,10 +1,10 @@
 package com.cornichon.models.entities.aliveEntities;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Box2D;
 import com.cornichon.models.entities.MovingEntity;
 import com.cornichon.models.entities.helpers.State;
 
@@ -16,7 +16,7 @@ public class Player extends MovingEntity {
   public static final float JUMP_VELOCITY = 1f;
   public static final Rectangle BOUNDS = new Rectangle()
     .setWidth(SIZE_HEIGTH)
-    .setHeight(SIZE_WIDTH);  
+    .setHeight(SIZE_WIDTH);
 
   private State state;
   private boolean facingLeft;
@@ -36,6 +36,7 @@ public class Player extends MovingEntity {
     this.state = State.IDLE;
     this.facingLeft = false;
     this.b2bBody = new BodyDef();
+    this.setTexture(new Texture(Gdx.files.internal("images/player01.png")));
   }
 
   public void update(float delta) {

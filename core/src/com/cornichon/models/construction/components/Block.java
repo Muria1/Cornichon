@@ -13,18 +13,8 @@ public class Block extends Entity {
     .setWidth(SIZE)
     .setHeight(SIZE);
 
-  private Texture texture;
-
   public Block(Vector2 position) {
     super(position, SIZE, SIZE, BOUNDS);
-    this.texture = new Texture(Gdx.files.internal("images/grass_block.png"));
-  }
-
-  public Texture getTexture() {
-    return this.texture;
-  }
-
-  public void setTexture(Texture t) {
-    this.texture = t;
+    this.setTexture(new Texture(Gdx.files.internal("images/grass_block.png")));
   }
 }

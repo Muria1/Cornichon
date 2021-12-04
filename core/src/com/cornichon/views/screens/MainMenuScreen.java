@@ -1,15 +1,9 @@
 package com.cornichon.views.screens;
 
-import java.util.EventListener;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -20,107 +14,104 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.cornichon.Cornichon;
 
-import com.cornichon.views.screens.GameScreen;
-
 public class MainMenuScreen implements Screen {
-    
-    Cornichon game;
-    OrthographicCamera camera;
-    public Stage stage;
 
-    public MainMenuScreen(Cornichon game) {
-        this.game = game;
+  Cornichon game;
+  OrthographicCamera camera;
+  public Stage stage;
 
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 400);
+  public MainMenuScreen(Cornichon game) {
+    this.game = game;
 
-        stage = new Stage(new ScreenViewport());
-        Gdx.input.setInputProcessor(stage);
-    }
+    camera = new OrthographicCamera();
+    camera.setToOrtho(false, 800, 400);
 
-    @Override
-    public void render(float delta){
-        ScreenUtils.clear(0,0,0.2f,1);
-        Gdx.gl.glClearColor(0f, 0f, 0f, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    stage = new Stage(new ScreenViewport());
+    Gdx.input.setInputProcessor(stage);
+  }
 
-        camera.update();
-		game.batch.setProjectionMatrix(camera.combined);
+  @Override
+  public void render(float delta) {
+    ScreenUtils.clear(0, 0, 0.2f, 1);
+    Gdx.gl.glClearColor(0f, 0f, 0f, 1);
+    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        game.batch.begin();
-        game.batch.draw(game.img, 0, 0);
+    camera.update();
+    game.batch.setProjectionMatrix(camera.combined);
 
-        //Things to print (game.font.draw(game.batch, "Welcome to Drop!!! ", 100, 150))
-        game.batch.end();
+    game.batch.begin();
+    game.batch.draw(game.img, 0, 0);
 
-        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
-        stage.draw();
-    }
+    //Things to print (game.font.draw(game.batch, "Welcome to Drop!!! ", 100, 150))
+    game.batch.end();
 
-    @Override
-	public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true);
-	}
+    stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+    stage.draw();
+  }
 
-    @Override
-	public void show() {
+  @Override
+  public void resize(int width, int height) {
+    stage.getViewport().update(width, height, true);
+  }
 
-        Table table = new Table();
-		//table.setFillParent(true);
-        table.setDebug(true);
-        stage.addActor(table);
+  @Override
+  public void show() {
+    Table table = new Table();
+    //table.setFillParent(true);
+    table.setDebug(true);
+    stage.addActor(table);
 
-        Skin skin = new Skin(Gdx.files.internal("images/uiskin.json"));
+    Skin skin = new Skin(Gdx.files.internal("images/uiskin.json"));
 
-        TextButton newGame = new TextButton("New Game", skin);
-        TextButton leaderBoard = new TextButton("Leaderboard", skin);
-        TextButton exit = new TextButton("Exit", skin);
+    TextButton newGame = new TextButton("New Game", skin);
+    TextButton leaderBoard = new TextButton("Leaderboard", skin);
+    TextButton exit = new TextButton("Exit", skin);
 
-        table.setBounds(550,50, 200,100);
-        table.add(newGame).fillX().uniformX();
-		table.row().pad(10, 0, 10, 0);
-		table.row();
-		table.add(exit).fillX().uniformX();
-        table.row();
-        table.add(leaderBoard).fillX().uniformX();
+    table.setBounds(550, 50, 200, 100);
+    table.add(newGame).fillX().uniformX();
+    table.row().pad(10, 0, 10, 0);
+    table.row();
+    table.add(exit).fillX().uniformX();
+    table.row();
+    table.add(leaderBoard).fillX().uniformX();
 
-        exit.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				Gdx.app.exit();				
-			}
-		});
-		
-		newGame.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				game.setScreen(new GameScreen());
-			}
-		});
+    exit.addListener(
+      new ChangeListener() {
+        @Override
+        public void changed(ChangeEvent event, Actor actor) {
+          Gdx.app.exit();
+        }
+      }
+    );
 
-        //leaderBoard.addListener(new ChangeListener() {
-		//	@Override
-		//	public void changed(ChangeEvent event, Actor actor) {
-		//		game.setScreen(new LeaderboardScreen());
-		//	}
-		//});
-		
-	}
+    newGame.addListener(
+      new ChangeListener() {
+        @Override
+        public void changed(ChangeEvent event, Actor actor) {
+          game.setScreen(new GameScreen());
+        }
+      }
+    );
+    //leaderBoard.addListener(new ChangeListener() {
+    //	@Override
+    //	public void changed(ChangeEvent event, Actor actor) {
+    //		game.setScreen(new LeaderboardScreen());
+    //	}
+    //});
 
-    @Override
-	public void hide() {
-	}
+  }
 
-	@Override
-	public void pause() {
-	}
+  @Override
+  public void hide() {}
 
-	@Override
-	public void resume() {
-	}
+  @Override
+  public void pause() {}
 
-	@Override
-	public void dispose() {
-        stage.dispose();
-	}
+  @Override
+  public void resume() {}
+
+  @Override
+  public void dispose() {
+    stage.dispose();
+  }
 }

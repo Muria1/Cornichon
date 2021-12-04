@@ -1,7 +1,6 @@
 package com.cornichon.models.entities.projectiles;
 
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
 
 public class Fireball extends Projectile {

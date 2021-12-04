@@ -1,8 +1,9 @@
 package com.cornichon.models.entities.aliveEntities;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.cornichon.models.entities.projectiles.Fireball;
 import com.cornichon.models.entities.projectiles.Projectile;
 
 /**
@@ -42,6 +43,7 @@ public class Skeleton extends Mob {
     );
     // this.projectile = new Fireball(5, position);
 
+    this.setTexture(new Texture(Gdx.files.internal("images/skeleton.png")));
   }
 
   //Will be added later
