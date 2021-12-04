@@ -1,6 +1,5 @@
 package com.cornichon.models.construction;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.models.entities.aliveEntities.Skeleton;
@@ -20,7 +19,8 @@ public class Level {
   }
 
   private void createWorld() {
-    this.drawables = LevelReader.readLevel("level1.json", this);
+    this.drawables = LevelReader.readLevel("level1_background.json", this);
+    this.drawables.addAll(LevelReader.readLevel("level1.json", this));
   }
 
   public Array<ScreenDrawable> getDrawables() {

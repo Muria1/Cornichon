@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.cornichon.models.construction.Level;
+import com.cornichon.models.construction.background.BackgroundBrick;
 import com.cornichon.models.construction.components.Brick;
 import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.models.entities.aliveEntities.Skeleton;
@@ -38,6 +39,12 @@ public class LevelReader {
               break;
             case DrawableValues.SKELETON:
               drawables.add(new Skeleton(new Vector2(x, arr.size - y - 1)));
+              // Maybe add to the mob array in level to use later?
+              break;
+            case DrawableValues.BRICK_BACKGROUND:
+              drawables.add(
+                new BackgroundBrick(new Vector2(x, arr.size - y - 1))
+              );
               // Maybe add to the mob array in level to use later?
               break;
           }

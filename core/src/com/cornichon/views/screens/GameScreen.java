@@ -19,7 +19,7 @@ public class GameScreen implements Screen {
   public void show() {
     level = new Level();
     playerController = new PlayerController(level.getPlayer());
-    renderer = new LevelRenderer(level, true);
+    renderer = new LevelRenderer(level, false);
 
     // Not sure whether we can add more than one input processer
     // If not, we will create a main controller, put sub controllers inside it
