@@ -1,14 +1,19 @@
 package com.cornichon.models.entities;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
+import com.cornichon.views.helpers.ScreenDrawable;
 
-public abstract class Entity {
+public abstract class Entity implements ScreenDrawable {
 
   protected Vector2 position;
   protected float sizeHeight;
   protected float sizeWidth;
   protected Shape2D bounds;
+
+  protected Texture texture;
 
   public Entity(
     Vector2 position,
@@ -52,5 +57,26 @@ public abstract class Entity {
 
   public void setSizeWidth(float sizeWidth) {
     this.sizeWidth = sizeWidth;
+  }
+
+  @Override
+  public Texture getTexture() {
+    return this.texture;
+  }
+
+  @Override
+  public void setTexture(Texture t) {
+    this.texture = t;
+  }
+
+  @Override
+  public void draw(SpriteBatch batch) {
+    batch.draw(
+      this.getTexture(),
+      this.getPosition().x,
+      this.getPosition().y,
+      this.getSizeWidth(),
+      this.getSizeHeight()
+    );
   }
 }
