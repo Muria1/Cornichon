@@ -33,6 +33,7 @@ public class GameScreen implements Screen {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
     playerController.update(delta);
+    level.getWorld().step(1f/60f, 6, 2);
     renderer.render();
   }
 

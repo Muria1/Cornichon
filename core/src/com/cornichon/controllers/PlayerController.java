@@ -1,6 +1,7 @@
 package com.cornichon.controllers;
 
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.math.Vector2;
 import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.models.entities.helpers.State;
 import com.cornichon.views.LevelRenderer;
@@ -50,14 +51,19 @@ public class PlayerController extends GeneralController {
       // left is pressed
       player.setFacingLeft(true);
       player.setState(State.WALKING);
-      player.getVelocity().x = -Player.SPEED;
+      // player.getVelocity().x = -Player.SPEED;
+      // player.getBody().applyLinearImpulse(new Vector2(-0.5f, 0), player.getBody().getPosition(), true);
+      player.getBody().setLinearVelocity(new Vector2(-Player.SPEED,0));
+
     }
 
     if (keys.get(Actions.RIGHT)) {
       // right is pressed
       player.setFacingLeft(false);
       player.setState(State.WALKING);
-      player.getVelocity().x = Player.SPEED;
+      // player.getVelocity().x = Player.SPEED;
+      // player.getBody().applyLinearImpulse(new Vector2(0.5f, 0), player.getBody().getPosition(), true);
+      player.getBody().setLinearVelocity(new Vector2(Player.SPEED,0));
     }
 
     /** TRASH CODE START */
@@ -66,9 +72,10 @@ public class PlayerController extends GeneralController {
       player.setState(State.JUMPING);
 
       // player.setJumpVelocity(0.3f);
-      // player.setPosition(player.getPosition().add(0, player.getJumpVelocity()));
+     
 
-      player.getBody().applyForceToCenter(0, 200f, true);
+      player.getBody().applyForceToCenter(0, 15f, true);
+      player.setPosition(player.getBody().getPosition());
     }
 
     if (!keys.get(Actions.JUMP)) {
@@ -84,7 +91,7 @@ public class PlayerController extends GeneralController {
       // acceleration is 0 on the x
       player.getAcceleration().x = 0;
       // horizontal speed is 0
-      player.getVelocity().x = 0;
+      player.getBody().setLinearVelocity(new Vector2(0, player.getBody().getLinearVelocity().y));
     }
   }
 

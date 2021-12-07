@@ -42,7 +42,8 @@ public class Player extends MovingEntity {
   }
 
   public void update(float delta) {
-    this.position.add(new Vector2(velocity.x * delta, velocity.y * delta));
+    // this.position.add(new Vector2(velocity.x * delta, velocity.y * delta));
+    this.position = b2bBody.getPosition();
   }
 
   public State getState() {
