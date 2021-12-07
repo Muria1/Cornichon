@@ -86,7 +86,6 @@ public class GameSelectionScreen implements Screen{
 
         game.batch.begin();
 
-        //Things to print (game.font.draw(game.batch, "Welcome to Drop!!! ", 100, 150))
         game.batch.end();
 
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
@@ -101,19 +100,16 @@ public class GameSelectionScreen implements Screen{
 
     @Override
     public void pause() {
-        // TODO Auto-generated method stub
         
     }
 
     @Override
     public void resume() {
-        // TODO Auto-generated method stub
         
     }
 
     @Override
     public void hide() {
-        // TODO Auto-generated method stub
         
     }
 
