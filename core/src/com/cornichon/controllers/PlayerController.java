@@ -3,6 +3,7 @@ package com.cornichon.controllers;
 import com.badlogic.gdx.Input.Keys;
 import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.models.entities.helpers.State;
+import com.cornichon.views.LevelRenderer;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ public class PlayerController extends GeneralController {
   }
 
   private Player player;
+  private LevelRenderer renderer;
 
   static Map<Actions, Boolean> keys = new HashMap<PlayerController.Actions, Boolean>();
 
@@ -29,8 +31,9 @@ public class PlayerController extends GeneralController {
     keys.put(Actions.ATTACK, false);
   }
 
-  public PlayerController(Player player) {
+  public PlayerController(Player player, LevelRenderer renderer) {
     this.player = player;
+    this.renderer = renderer;
   }
 
   /** The main update method **/
@@ -73,8 +76,7 @@ public class PlayerController extends GeneralController {
     /** TRASH CODE END */
 
     if (
-      (keys.get(Actions.LEFT) && keys.get(Actions.RIGHT)) ||
-      (!keys.get(Actions.LEFT) && !(keys.get(Actions.RIGHT)))
+      (keys.get(Actions.LEFT) && keys.get(Actions.RIGHT)) || (!keys.get(Actions.LEFT) && !(keys.get(Actions.RIGHT)))
     ) {
       player.setState(State.IDLE);
       // acceleration is 0 on the x
@@ -91,6 +93,7 @@ public class PlayerController extends GeneralController {
     if (keycode == Keys.SPACE) keys.put(Actions.JUMP, true);
     if (keycode == Keys.Z) keys.put(Actions.SPELL, true);
     if (keycode == Keys.X) keys.put(Actions.ATTACK, true);
+    if (keycode == Keys.NUM_0) renderer.toggleDebug();
 
     return true;
   }
