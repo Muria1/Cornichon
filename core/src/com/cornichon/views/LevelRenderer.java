@@ -37,11 +37,7 @@ public class LevelRenderer {
     this.camera = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
     this.debug = debug;
     this.spriteBatch = new SpriteBatch();
-    this.camera.position.set(
-        level.getPlayer().getPosition().x,
-        level.getPlayer().getPosition().y,
-        0
-      );
+    this.camera.position.set(level.getPlayer().getPosition().x, level.getPlayer().getPosition().y, 0);
     this.camera.update();
     this.setSize(width, height);
   }
@@ -49,11 +45,7 @@ public class LevelRenderer {
   public void render() {
     spriteBatch.begin();
 
-    this.camera.position.set(
-        level.getPlayer().getPosition().x,
-        level.getPlayer().getPosition().y,
-        1
-      );
+    this.camera.position.set(level.getPlayer().getPosition().x, level.getPlayer().getPosition().y, 1);
     this.camera.update();
 
     this.drawEverything();
@@ -92,5 +84,9 @@ public class LevelRenderer {
     }
 
     debugRenderer.end();
+  }
+
+  public void toggleDebug() {
+    this.debug = !this.debug;
   }
 }
