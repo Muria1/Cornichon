@@ -1,6 +1,5 @@
-package com.cornichon.views.screens; 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Screen;
+package com.cornichon.views.screens;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -15,13 +14,13 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.cornichon.Cornichon;
 
-public class GameSelectionScreen implements Screen{
+public class GameSelectionScreen implements Screen {
 
-    Cornichon game;
-    OrthographicCamera camera;
-    public Stage stage;
+  Cornichon game;
+  OrthographicCamera camera;
+  public Stage stage;
 
-    public GameSelectionScreen(Cornichon game) {
+  public GameSelectionScreen(Cornichon game) {
     this.game = game;
 
     camera = new OrthographicCamera();
@@ -29,93 +28,82 @@ public class GameSelectionScreen implements Screen{
 
     stage = new Stage(new ScreenViewport());
     Gdx.input.setInputProcessor(stage);
-    }
+  }
 
-    @Override
-    public void show() {
+  @Override
+  public void show() {
+    Table firstTable = new Table();
+    Table secondTable = new Table();
 
-        Table firstTable = new Table();
-        Table secondTable = new Table();
+    //firstTable.setFillParent(true);
+    firstTable.setDebug(true);
+    stage.addActor(firstTable);
 
-        //firstTable.setFillParent(true);
-        firstTable.setDebug(true);
-        stage.addActor(firstTable);
+    secondTable.setDebug(true);
+    stage.addActor(secondTable);
 
-        secondTable.setDebug(true);
-        stage.addActor(secondTable);
+    Skin skin = new Skin(Gdx.files.internal("images/uiskin.json"));
 
-        Skin skin = new Skin(Gdx.files.internal("images/uiskin.json"));
+    TextButton storyMode = new TextButton("Story Mode", skin);
+    TextButton speedRun = new TextButton("Speed Run", skin);
 
-        TextButton storyMode = new TextButton("Story Mode", skin);
-        TextButton speedRun = new TextButton("Speed Run", skin);
+    firstTable.setBounds(0, 0, 650, 800);
+    secondTable.setBounds(650, 0, 650, 800);
+    firstTable.add(storyMode).fillX().uniformX();
+    secondTable.add(speedRun).fillX().uniformX();
 
-        firstTable.setBounds(0, 0, 650, 800);
-        secondTable.setBounds(650, 0, 650, 800);
-        firstTable.add(storyMode).fillX().uniformX();
-        secondTable.add(speedRun).fillX().uniformX();
-
-        storyMode.addListener(
-        new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-            game.setScreen(new GameScreen());
-            }
+    storyMode.addListener(
+      new ChangeListener() {
+        @Override
+        public void changed(ChangeEvent event, Actor actor) {
+          game.setScreen(new GameScreen());
         }
-        );
+      }
+    );
 
-        speedRun.addListener(
-        new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-            game.setScreen(new GameScreen());
-            }
+    speedRun.addListener(
+      new ChangeListener() {
+        @Override
+        public void changed(ChangeEvent event, Actor actor) {
+          game.setScreen(new GameScreen());
         }
-        );
-        
-    }
+      }
+    );
+  }
 
-    @Override
-    public void render(float delta) {
-        
-        ScreenUtils.clear(0, 0, 0.2f, 1);
-        Gdx.gl.glClearColor(0f, 0f, 0f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+  @Override
+  public void render(float delta) {
+    ScreenUtils.clear(0, 0, 0.2f, 1);
+    Gdx.gl.glClearColor(0f, 0f, 0f, 1);
+    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        camera.update();
-        game.batch.setProjectionMatrix(camera.combined);
+    camera.update();
+    game.batch.setProjectionMatrix(camera.combined);
 
-        game.batch.begin();
+    game.batch.begin();
 
-        game.batch.end();
+    game.batch.end();
 
-        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
-        stage.draw();
-    }
+    stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+    stage.draw();
+  }
 
-    @Override
-    public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true);
-        
-    }
+  @Override
+  public void resize(int width, int height) {
+    stage.getViewport().update(width, height, true);
+  }
 
-    @Override
-    public void pause() {
-        
-    }
+  @Override
+  public void pause() {}
 
-    @Override
-    public void resume() {
-        
-    }
+  @Override
+  public void resume() {}
 
-    @Override
-    public void hide() {
-        
-    }
+  @Override
+  public void hide() {}
 
-    @Override
-    public void dispose() {
-        stage.dispose();
-    }
-    
+  @Override
+  public void dispose() {
+    stage.dispose();
+  }
 }

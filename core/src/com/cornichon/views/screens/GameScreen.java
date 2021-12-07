@@ -18,6 +18,7 @@ public class GameScreen implements Screen {
   @Override
   public void show() {
     level = new Level();
+
     renderer = new LevelRenderer(level, true);
     playerController = new PlayerController(level.getPlayer(), renderer);
 
