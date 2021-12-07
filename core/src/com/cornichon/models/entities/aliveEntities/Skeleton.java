@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.cornichon.models.entities.projectiles.Projectile;
 
 /**
@@ -20,6 +22,8 @@ public class Skeleton extends Mob {
     .setHeight(SIZE_WIDTH);
   public static final int HEALTH = 100;
   public static final int DAMAGE = 10;
+
+  public BodyDef b2bBody;
 
   //Will be added
   private Projectile projectile;

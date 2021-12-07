@@ -2,6 +2,7 @@ package com.cornichon.models.entities;
 
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.cornichon.models.entities.helpers.Moveable;
 
 public class MovingEntity extends Entity implements Moveable {
@@ -27,6 +28,8 @@ public class MovingEntity extends Entity implements Moveable {
     this.jumpVelocity = jumpVelocity;
     this.acceleration = acceleration;
     this.velocity = velocity;
+
+    this.setBodytype(BodyType.DynamicBody);
   }
 
   @Override
