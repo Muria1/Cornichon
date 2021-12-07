@@ -1,9 +1,12 @@
 package com.cornichon.utils;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.cornichon.models.construction.Level;
 import com.cornichon.models.construction.components.Brick;
+import com.cornichon.models.entities.Entity;
 import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.models.entities.aliveEntities.Skeleton;
 import com.cornichon.views.helpers.DrawableValues;
@@ -14,6 +17,8 @@ public final class LevelReader {
 
   public static Array<ScreenDrawable> readLevel(String levelFile, Level level) {
     final Array<ScreenDrawable> drawables = new Array<ScreenDrawable>();
+    ArrayList<Entity> entities = new ArrayList<Entity>();
+
 
     try {
       // JsonValue map = LevelReader.readJsonFile(levelFile);
@@ -29,6 +34,7 @@ public final class LevelReader {
             case DrawableValues.BRICK:
             case DrawableValues.BRICK_PLATFORM:
               drawables.add(new Brick(new Vector2(x, map.length - y - 1)));
+              entities.add(new Brick(new Vector2(x, map.length - y -1)));
               break;
             case DrawableValues.PLAYER:
               Player player = new Player(new Vector2(x, map.length - y - 1));
@@ -37,6 +43,7 @@ public final class LevelReader {
               break;
             case DrawableValues.SKELETON:
               drawables.add(new Skeleton(new Vector2(x, map.length - y - 1)));
+              entities.add(new Skeleton(new Vector2(x, map.length - y - 1)));
               // Maybe add to the mob array in level to use later?
               break;
             case DrawableValues.BRICK_BACKGROUND:
@@ -45,10 +52,14 @@ public final class LevelReader {
           }
         }
       }
+
+      level.setEntities(entities);
+
     } catch (Exception e) {
       e.printStackTrace();
     }
 
     return drawables;
   }
+
 }

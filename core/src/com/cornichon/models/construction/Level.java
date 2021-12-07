@@ -1,6 +1,16 @@
 package com.cornichon.models.construction;
 
+import java.util.ArrayList;
+
+import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.cornichon.models.entities.Entity;
 import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.models.entities.aliveEntities.Skeleton;
 import com.cornichon.utils.LevelReader;
@@ -13,6 +23,9 @@ public class Level {
   protected Array<ScreenDrawable> drawables;
   protected Player player;
   protected Skeleton skeleton;
+  protected World world;
+  protected LevelReader reader;
+  protected ArrayList<Entity> entities;
 
   public Level() {
     this.createWorld();
@@ -20,6 +33,23 @@ public class Level {
 
   private void createWorld() {
     this.drawables = LevelReader.readLevel("level1.json", this);
+
+    world = new World(new Vector2(0, -0.5f), true);
+    player.setBody(world.createBody(player.getBodyDef()));
+
+    PolygonShape shape = new PolygonShape();
+
+    shape.setAsBox(player.getSizeWidth(), player.getSizeHeight());
+
+    FixtureDef fixtureDef = new FixtureDef();
+    fixtureDef.density = 1f;
+    fixtureDef.shape = shape;
+    Fixture fix = player.getBody().createFixture(fixtureDef);
+
+    for (Entity e : entities) {
+      Body body = world.createBody(e.getBodyDef());
+      e.setBody(body);
+    }
     // this.drawables.addAll(LevelReader.readLevel("level1.json", this));
   }
 
@@ -33,5 +63,13 @@ public class Level {
 
   public void setPlayer(Player player) {
     this.player = player;
+  }
+
+  public void setEntities(ArrayList<Entity> entities) {
+    this.entities = entities;
+  }
+
+  public World getWorld() {
+    return world;
   }
 }
