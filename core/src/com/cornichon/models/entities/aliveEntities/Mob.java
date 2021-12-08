@@ -2,7 +2,6 @@ package com.cornichon.models.entities.aliveEntities;
 
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.cornichon.models.entities.MovingEntity;
 import com.cornichon.models.entities.helpers.State;
 
@@ -12,7 +11,6 @@ public class Mob extends MovingEntity {
   private boolean facingLeft;
   private int health;
   private int damage;
-  public BodyDef b2bBody;
 
   public Mob(
     Vector2 position,
@@ -40,7 +38,6 @@ public class Mob extends MovingEntity {
     this.damage = damage;
     this.state = State.IDLE;
     this.facingLeft = false;
-    this.b2bBody = new BodyDef();
     this.health = health;
   }
 

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.cornichon.models.entities.Entity;
 
 public class Block extends Entity {
@@ -15,6 +16,7 @@ public class Block extends Entity {
 
   public Block(Vector2 position) {
     super(position, SIZE, SIZE, BOUNDS);
+    this.setBodytype(BodyType.StaticBody);
     this.setTexture(new Texture(Gdx.files.internal("images/grass_block.png")));
   }
 }

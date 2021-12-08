@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
 import com.cornichon.models.construction.background.BackgroundBrick;
+import com.cornichon.models.entities.Entity;
 import com.cornichon.views.helpers.DrawableValues;
 import com.cornichon.views.helpers.ScreenDrawable;
 
@@ -16,11 +17,11 @@ public final class LevelWriter {
    *
    *
    * @param level {@link JsonValue} from {@link LevelReader}
-   * @param drawables {@link Array}
+   * @param entities {@link Array}
    * @param x -1's x value
    * @param y -1's y value
    */
-  public static void fillBackground(int[][] level, Array<ScreenDrawable> drawables, int x, int y) {
+  public static void fillBackground(int[][] level, Array<Entity> entities, int x, int y) {
     int roomWidth = 0;
     int roomHeight = 0;
 
@@ -34,7 +35,7 @@ public final class LevelWriter {
 
     for (int i = 0; i < roomHeight; i += 1) {
       for (int j = 0; j < roomWidth; j += 1) {
-        drawables.add(new BackgroundBrick(new Vector2(x + j, level.length - y - i - 1)));
+        entities.add(new BackgroundBrick(new Vector2(x + j, level.length - y - i - 1)));
       }
     }
   }

@@ -4,6 +4,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.cornichon.views.helpers.ScreenDrawable;
 
 public abstract class Entity implements ScreenDrawable {
@@ -12,6 +15,9 @@ public abstract class Entity implements ScreenDrawable {
   protected float sizeHeight;
   protected float sizeWidth;
   protected Shape2D bounds;
+  
+  protected BodyDef b2bBodyDef;
+  protected Body b2bBody;
 
   protected Texture texture;
 
@@ -25,6 +31,9 @@ public abstract class Entity implements ScreenDrawable {
     this.sizeHeight = sizeHeight;
     this.sizeWidth = sizeWidth;
     this.bounds = bounds;
+
+    b2bBodyDef = new BodyDef();
+    b2bBodyDef.position.set(position);
   }
 
   public Vector2 getPosition() {
@@ -79,4 +88,21 @@ public abstract class Entity implements ScreenDrawable {
       this.getSizeHeight()
     );
   }
+
+  public void setBodytype(BodyType bodyType) {
+    b2bBodyDef.type = bodyType;
+  }
+
+  public BodyDef getBodyDef() {
+    return b2bBodyDef;
+  }
+
+  public Body getBody() {
+    return b2bBody;
+  }
+
+  public void setBody( Body body) {
+    b2bBody = body;
+  }
+
 }
