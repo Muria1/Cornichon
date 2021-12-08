@@ -51,7 +51,9 @@ public class Skeleton extends Mob {
   }
 
   //Will be added later
-  public void fireProjectile() {}
+  public void fireProjectile() {
+    
+  }
 
   //
   public boolean checkDeath() {
