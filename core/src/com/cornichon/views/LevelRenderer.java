@@ -60,8 +60,8 @@ public class LevelRenderer {
   private void drawEverything() {
     spriteBatch.setProjectionMatrix(this.camera.combined);
 
-    for (ScreenDrawable drawable : level.getDrawables()) {
-      drawable.draw(spriteBatch);
+    for (Entity entity : level.getEntities()) {
+      ((ScreenDrawable) entity).draw(spriteBatch);
     }
   }
 
@@ -70,8 +70,7 @@ public class LevelRenderer {
 
     debugRenderer.begin(ShapeType.Line);
 
-    for (ScreenDrawable drawable : level.getDrawables()) {
-      Entity entity = (Entity) drawable;
+    for (Entity entity : level.getEntities()) {
       Rectangle rect = (Rectangle) entity.getBounds();
 
       float x1 = entity.getPosition().x + rect.x;

@@ -1,7 +1,5 @@
 package com.cornichon.models.construction;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -15,24 +13,24 @@ import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.models.entities.aliveEntities.Skeleton;
 import com.cornichon.utils.LevelReader;
 import com.cornichon.views.helpers.ScreenDrawable;
+import java.util.ArrayList;
 
 public class Level {
 
   // This class will be extented this is just for testing
 
-  protected Array<ScreenDrawable> drawables;
   protected Player player;
   protected Skeleton skeleton;
   protected World world;
   protected LevelReader reader;
-  protected ArrayList<Entity> entities;
+  protected Array<Entity> entities;
 
   public Level() {
     this.createWorld();
   }
 
   private void createWorld() {
-    this.drawables = LevelReader.readLevel("level1.json", this);
+    this.entities = LevelReader.readLevel(this);
 
     world = new World(new Vector2(0, -10f), true);
     player.setBody(world.createBody(player.getBodyDef()));
@@ -47,14 +45,11 @@ public class Level {
     Fixture fix = player.getBody().createFixture(fixtureDef);
 
     for (Entity e : entities) {
-      Body body = world.createBody(e.getBodyDef());
-      e.setBody(body);
+      if (!e.equals(player)) {
+        Body body = world.createBody(e.getBodyDef());
+        e.setBody(body);
+      }
     }
-    // this.drawables.addAll(LevelReader.readLevel("level1.json", this));
-  }
-
-  public Array<ScreenDrawable> getDrawables() {
-    return drawables;
   }
 
   public Player getPlayer() {
@@ -65,8 +60,12 @@ public class Level {
     this.player = player;
   }
 
-  public void setEntities(ArrayList<Entity> entities) {
+  public void setEntities(Array<Entity> entities) {
     this.entities = entities;
+  }
+
+  public Array<Entity> getEntities() {
+    return entities;
   }
 
   public World getWorld() {
