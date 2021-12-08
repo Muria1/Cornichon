@@ -1,5 +1,7 @@
 package com.cornichon.views;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -8,6 +10,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.cornichon.models.construction.Level;
 import com.cornichon.models.entities.Entity;
+import com.cornichon.views.components.HealthBar;
 import com.cornichon.views.helpers.ScreenDrawable;
 
 public class LevelRenderer {
@@ -17,12 +20,15 @@ public class LevelRenderer {
 
   private Level level;
   private OrthographicCamera camera;
+  private OrthographicCamera hudCam;
 
   private ShapeRenderer debugRenderer = new ShapeRenderer();
 
   /* TEXTURES */
   private boolean debug = false;
   private SpriteBatch spriteBatch;
+  private SpriteBatch hudBatch;
+  private HealthBar healthBar;
 
   private int width;
   private int height;
@@ -35,10 +41,13 @@ public class LevelRenderer {
   public LevelRenderer(Level level, boolean debug) {
     this.level = level;
     this.camera = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
+    this.hudCam = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
     this.debug = debug;
     this.spriteBatch = new SpriteBatch();
+    this.hudBatch = new SpriteBatch();
     this.camera.position.set(level.getPlayer().getPosition().x, level.getPlayer().getPosition().y, 0);
     this.camera.update();
+    this.healthBar = new HealthBar(this);
     this.setSize(width, height);
   }
 
@@ -52,6 +61,11 @@ public class LevelRenderer {
 
     spriteBatch.end();
 
+    hudBatch.begin();
+    hudBatch.setProjectionMatrix(this.hudCam.combined);
+    this.drawHealthBar();
+    hudBatch.end();
+
     if (debug) {
       this.drawDebug();
     }
@@ -64,6 +78,21 @@ public class LevelRenderer {
       ((ScreenDrawable) entity).draw(spriteBatch);
     }
   }
+
+  private void drawHealthBar(){
+      
+    
+    float health = healthBar.getHealth();
+
+    if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){
+      if(health > 0.01f){
+        healthBar.setHealth((health - 0.1f));
+      }
+      
+    }  
+
+    healthBar.draw(hudBatch);
+}
 
   private void drawDebug() {
     debugRenderer.setProjectionMatrix(camera.combined);
