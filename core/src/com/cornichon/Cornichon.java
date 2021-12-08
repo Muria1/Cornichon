@@ -3,6 +3,7 @@ package com.cornichon;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.cornichon.views.screens.*;
@@ -12,32 +13,33 @@ public class Cornichon extends Game {
   public SpriteBatch batch;
   public Texture img;
   protected MainMenuScreen mainMenu;
-  static boolean isPaused = false;
-  PauseScreen pauseScreen;
+  protected GameScreen gameScreen;
+  private boolean isPaused = false;
 
   @Override
   public void create() {
-    batch = new SpriteBatch();
-    img = new Texture("images/cornichon.png");
-    mainMenu = new MainMenuScreen(this);
-    setScreen(mainMenu);
-    
+    this.batch = new SpriteBatch();
+    this.img = new Texture("images/cornichon.png");
+    this.mainMenu = new MainMenuScreen(this);
+    this.gameScreen = new GameScreen(this);
+    this.setScreen(mainMenu);
   }
+
   @Override
   public void render() {
-      
-      super.render();
+    super.render();
 
-      if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
-        Cornichon.setPaused(true);
-        pauseScreen = new PauseScreen(this);
-        setScreen(pauseScreen);
+    if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
+      if (!this.isPaused) {
+        gameScreen.pause();
       }
-
+    }
   }
 
   @Override
-  public void dispose() {batch.dispose();}
+  public void dispose() {
+    batch.dispose();
+  }
 
   // @Override
   // public void resize(int width, int height) {}
@@ -52,7 +54,11 @@ public class Cornichon extends Game {
     super.resume();
   }
 
-  public static void setPaused(boolean status){
-    isPaused = status;
+  public void setPaused(boolean paused) {
+    this.isPaused = paused;
+  }
+
+  public boolean getPaused() {
+    return this.isPaused;
   }
 }

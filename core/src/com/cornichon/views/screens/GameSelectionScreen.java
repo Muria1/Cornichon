@@ -1,6 +1,7 @@
 package com.cornichon.views.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -16,8 +17,8 @@ import com.cornichon.Cornichon;
 
 public class GameSelectionScreen implements Screen {
 
-  Cornichon game;
-  OrthographicCamera camera;
+  private Cornichon game;
+  private OrthographicCamera camera;
   public Stage stage;
 
   public GameSelectionScreen(Cornichon game) {
@@ -56,7 +57,7 @@ public class GameSelectionScreen implements Screen {
       new ChangeListener() {
         @Override
         public void changed(ChangeEvent event, Actor actor) {
-          game.setScreen(new GameScreen());
+          game.setScreen(new GameScreen(game));
         }
       }
     );
@@ -65,7 +66,7 @@ public class GameSelectionScreen implements Screen {
       new ChangeListener() {
         @Override
         public void changed(ChangeEvent event, Actor actor) {
-          game.setScreen(new GameScreen());
+          game.setScreen(new GameScreen(game));
         }
       }
     );
