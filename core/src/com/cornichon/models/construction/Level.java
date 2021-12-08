@@ -34,7 +34,7 @@ public class Level {
   private void createWorld() {
     this.drawables = LevelReader.readLevel("level1.json", this);
 
-    world = new World(new Vector2(0, -0.5f), true);
+    world = new World(new Vector2(0, -10f), true);
     player.setBody(world.createBody(player.getBodyDef()));
 
     PolygonShape shape = new PolygonShape();

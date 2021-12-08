@@ -2,6 +2,7 @@ package com.cornichon.models.entities.projectiles;
 
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.cornichon.models.entities.MovingEntity;
 
 public class Projectile extends MovingEntity {
@@ -29,6 +30,7 @@ public class Projectile extends MovingEntity {
       acceleration,
       velocity
     );
+    this.b2bBody.setGravityScale(0);
     this.damage = damage;
   }
 
