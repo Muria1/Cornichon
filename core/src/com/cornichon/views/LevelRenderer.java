@@ -44,7 +44,6 @@ public class LevelRenderer {
     this.hudCam = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
     this.debug = debug;
     this.spriteBatch = new SpriteBatch();
-    this.hudBatch = new SpriteBatch();
     this.camera.position.set(level.getPlayer().getPosition().x, level.getPlayer().getPosition().y, 0);
     this.camera.update();
     this.healthBar = new HealthBar(this);
@@ -59,12 +58,10 @@ public class LevelRenderer {
 
     this.drawEverything();
 
-    spriteBatch.end();
-
-    hudBatch.begin();
-    hudBatch.setProjectionMatrix(this.hudCam.combined);
+    spriteBatch.setProjectionMatrix(this.camera.projection);
     this.drawHealthBar();
-    hudBatch.end();
+
+    spriteBatch.end();
 
     if (debug) {
       this.drawDebug();
@@ -91,7 +88,9 @@ public class LevelRenderer {
       
     }  
 
-    healthBar.draw(hudBatch);
+    healthBar.draw(spriteBatch);
+
+
 }
 
   private void drawDebug() {

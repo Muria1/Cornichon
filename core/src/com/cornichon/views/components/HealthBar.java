@@ -41,8 +41,8 @@ public class HealthBar implements ScreenDrawable{
 
     @Override
     public void draw(SpriteBatch batch) {
-        batch.draw(heart, 0, -0.8f, 0.75f, 0.5f);
-        batch.draw(bar, 0.75f, -0.7f, 1 * getHealth() , 0.3f);
+        batch.draw(heart, 0, -1f, 0.5f, 0.5f);
+        batch.draw(bar, 0.5f, -0.9f, 1 * getHealth() , 0.25f);
     }
     
     
