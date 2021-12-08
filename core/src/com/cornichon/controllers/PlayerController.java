@@ -16,8 +16,7 @@ public class PlayerController extends GeneralController {
     RIGHT,
     JUMP,
     SPELL,
-    ATTACK,
-    /** MORE */
+    ATTACK,/** MORE */
   }
 
   private Player player;
@@ -49,7 +48,8 @@ public class PlayerController extends GeneralController {
   /** Change playerplayer's state and parameters based on input controls **/
 
   private void processInput() {
-    if(Gdx.input.isKeyJustPressed(Keys.SPACE)) {
+    if (Gdx.input.isKeyJustPressed(Keys.SPACE)
+        && (player.getState() != State.JUMPING || player.getState() != State.FALLING)) {
       player.getBody().applyForceToCenter(0, 800f, true);
 
     }
@@ -57,9 +57,7 @@ public class PlayerController extends GeneralController {
       // left is pressed
       player.setFacingLeft(true);
       player.setState(State.WALKING);
-      // player.getVelocity().x = -Player.SPEED;
-      // player.getBody().applyLinearImpulse(new Vector2(-0.5f, 0),
-      // player.getBody().getPosition(), true);
+
       player.getBody().setLinearVelocity(new Vector2(-Player.SPEED, player.getBody().getLinearVelocity().y));
 
     }
@@ -68,53 +66,33 @@ public class PlayerController extends GeneralController {
       // right is pressed
       player.setFacingLeft(false);
       player.setState(State.WALKING);
-      // player.getVelocity().x = Player.SPEED;
-      // player.getBody().applyLinearImpulse(new Vector2(0.5f, 0),
-      // player.getBody().getPosition(), true);
+
       player.getBody().setLinearVelocity(new Vector2(Player.SPEED, player.getBody().getLinearVelocity().y));
     }
 
-    /** TRASH CODE START */
-
-    // if (keys.get(Actions.JUMP)) {
-    //   player.setState(State.JUMPING);
-
-    //   // player.setJumpVelocity(0.3f);
-    //   // if (player.getBody().getLinearVelocity().y <= 10f) {
-    //     // player.getBody().applyLinearImpulse(new Vector2(0, 1.9f),
-    //     // player.getBody().getPosition(), false);
-
-    //     player.getBody().applyForceToCenter(0, 20f, true);
-
-    //     // player.getBody().setLinearVelocity(new Vector2(player.getBody().getLinearVelocity().x, 10f));
-    //   // }
-
-    //   // else{
-    //   // player.getBody().setLinearVelocity(new
-    //   // Vector2(player.getBody().getLinearVelocity().x,0));
-    //   // }
-    //   player.setPosition(player.getBody().getPosition());
-
+    if (player.getBody().getPosition().y <= 1) {
+      player.getBody().setLinearVelocity(new Vector2(player.getBody().getLinearVelocity().x, 0));
+      // player.getBody().setGravityScale(0);
+      player.getBody().applyForce(new Vector2(0, 10f), player.getBody().getPosition(), true);
+    }
+    // else {
+    // player.getBody().setLinearVelocity(
+    // new Vector2(player.getBody().getLinearVelocity().x,
+    // player.getBody().getLinearVelocity().y));
+    // player.getBody().setGravityScale(1f);
     // }
 
-    if (!keys.get(Actions.JUMP)) {
-      player.setJumpVelocity(0);
-
-      if (player.getBody().getPosition().y <= 0) {
-        player.getBody().setLinearVelocity(new Vector2(player.getBody().getLinearVelocity().x, 0));
-        player.getBody().setGravityScale(0);
-      } else {
-        player.getBody().setLinearVelocity(
-            new Vector2(player.getBody().getLinearVelocity().x, player.getBody().getLinearVelocity().y));
-        player.getBody().setGravityScale(1f);
-      }
-
+    if (player.getBody().getLinearVelocity().y > 0) {
+    player.setState(State.JUMPING);
+    } else if (player.getBody().getLinearVelocity().y < 0) {
+    player.setState(State.FALLING);
+    } else {
+    player.setState(State.IDLE);
     }
 
-    /** TRASH CODE END */
+    if ((keys.get(Actions.LEFT) && keys.get(Actions.RIGHT)) || (!keys.get(Actions.LEFT) && !(keys.get(Actions.RIGHT))))
 
-    if ((keys.get(Actions.LEFT) && keys.get(Actions.RIGHT))
-        || (!keys.get(Actions.LEFT) && !(keys.get(Actions.RIGHT)))) {
+    {
       player.setState(State.IDLE);
       // acceleration is 0 on the x
       player.getAcceleration().x = 0;
@@ -129,7 +107,7 @@ public class PlayerController extends GeneralController {
       keys.put(Actions.LEFT, true);
     if (keycode == Keys.D)
       keys.put(Actions.RIGHT, true);
-   
+
     if (keycode == Keys.Z)
       keys.put(Actions.SPELL, true);
     if (keycode == Keys.X)
@@ -153,5 +131,4 @@ public class PlayerController extends GeneralController {
     return true;
   }
 
-  
 }
