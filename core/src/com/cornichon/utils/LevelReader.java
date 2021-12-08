@@ -8,9 +8,7 @@ import com.cornichon.models.entities.Entity;
 import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.models.entities.aliveEntities.Skeleton;
 import com.cornichon.views.helpers.DrawableValues;
-import com.cornichon.views.helpers.ScreenDrawable;
 import com.cornichon.views.maps.Map;
-import java.util.ArrayList;
 
 public final class LevelReader {
 

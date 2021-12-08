@@ -6,7 +6,6 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.cornichon.models.construction.background.BackgroundBrick;
 import com.cornichon.models.entities.Entity;
 import com.cornichon.views.helpers.DrawableValues;
-import com.cornichon.views.helpers.ScreenDrawable;
 
 public final class LevelWriter {
 

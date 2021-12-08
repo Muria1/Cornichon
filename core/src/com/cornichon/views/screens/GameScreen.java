@@ -1,7 +1,6 @@
 package com.cornichon.views.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -16,7 +15,6 @@ public class GameScreen implements Screen {
   private Level level;
   private LevelRenderer renderer;
   private Cornichon game;
-  private boolean isPaused = false;
 
   /** controllers */
   private PlayerController playerController;
