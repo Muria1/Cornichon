@@ -22,6 +22,7 @@ public class MainMenuScreen implements Screen {
 
   public MainMenuScreen(Cornichon game) {
     this.game = game;
+    game.setPaused(false);
 
     camera = new OrthographicCamera();
     camera.setToOrtho(false, 800, 400);
@@ -42,7 +43,6 @@ public class MainMenuScreen implements Screen {
     game.batch.begin();
     game.batch.draw(game.img, 0, 0);
 
-    //Things to print (game.font.draw(game.batch, "Welcome to Drop!!! ", 100, 150))
     game.batch.end();
 
     stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
