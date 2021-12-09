@@ -22,10 +22,10 @@ public class MainMenuScreen implements Screen {
 
   public MainMenuScreen(Cornichon game) {
     this.game = game;
-    game.setPaused(false);
+    this.game.setPaused(false);
 
-    camera = new OrthographicCamera();
-    camera.setToOrtho(false, 800, 400);
+    this.camera = new OrthographicCamera();
+    this.camera.setToOrtho(false, 800, 400);
 
     stage = new Stage(new ScreenViewport());
     Gdx.input.setInputProcessor(stage);
@@ -57,7 +57,9 @@ public class MainMenuScreen implements Screen {
   @Override
   public void show() {
     Table table = new Table();
-    //table.setFillParent(true);
+    this.stage = new Stage(new ScreenViewport());
+    Gdx.input.setInputProcessor(stage);
+
     table.setDebug(true);
     stage.addActor(table);
 

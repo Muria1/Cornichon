@@ -11,7 +11,7 @@ public class Cornichon extends Game {
 
   public SpriteBatch batch;
   public Texture img;
-  public MainMenuScreen mainMenu;
+  public MainMenuScreen mainMenuScreen;
   protected GameScreen gameScreen;
   private boolean isPaused = false;
 
@@ -19,15 +19,14 @@ public class Cornichon extends Game {
   public void create() {
     this.batch = new SpriteBatch();
     this.img = new Texture("images/cornichon.png");
-    this.mainMenu = new MainMenuScreen(this);
+    this.mainMenuScreen = new MainMenuScreen(this);
     this.gameScreen = new GameScreen(this);
-    this.setScreen(mainMenu);
+    this.setScreen(mainMenuScreen);
   }
 
   @Override
   public void render() {
     super.render();
-
     if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
       if (!this.isPaused) {
         gameScreen.pause();
