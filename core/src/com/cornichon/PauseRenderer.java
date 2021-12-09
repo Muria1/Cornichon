@@ -26,9 +26,10 @@ public class PauseRenderer {
   public void render() {
     spriteBatch.begin();
 
+    
+
     this.drawText();
     this.drawButtons();
-
     spriteBatch.end();
   }
 
@@ -40,33 +41,47 @@ public class PauseRenderer {
   }
 
   private void drawButtons() {
-    // Add buttons here
-    Table buttons = new Table();
-    Skin skin = new Skin(Gdx.files.internal("images/uiskin.json"));
-    
-    TextButton resumeButton = new TextButton( "RESUME", skin);
-      resumeButton.addListener(new ClickListener(){
-          @Override
-          public void clicked(InputEvent event, float x , float y){
-              //game.setPaused(false);
-              System.out.println("clicked");
-          }    
-      });
+  //   // Add buttons here
+    BitmapFont resumeMap = new BitmapFont();
 
+    resumeMap.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+    resumeMap.getData().setScale(1, 1);
+    resumeMap.draw(spriteBatch, "press R to resume", 330, 200);
 
-    TextButton newGameButton = new TextButton("NEW GAME", skin);
-        
-    TextButton menuButton = new TextButton("MENU", skin);
-
-        buttons.padTop(64);
-        buttons.add(resumeButton).row();
-        buttons.add(newGameButton).row();
-        buttons.add(menuButton).row();
-        buttons.setSize(stage.getWidth() / 1.5f , stage.getHeight() / 1.5f);
-    
-    
-        stage.addActor(buttons);
-        buttons.draw(spriteBatch, 2f);
-  
+    BitmapFont mainMenu = new BitmapFont();
+    mainMenu.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+    mainMenu.getData().setScale(1, 1);
+    mainMenu.draw(spriteBatch, "press M to go to main menu", 330, 180);
   }
+
+
+  //   Table buttons = new Table();
+  //   Skin skin = new Skin(Gdx.files.internal("images/uiskin.json"));
+    
+  //   TextButton resumeButton = new TextButton( "RESUME", skin);
+  //     resumeButton.addListener(new ClickListener(){
+  //         @Override
+  //         public void clicked(InputEvent event, float x , float y){
+  //             //game.setPaused(false);
+  //             System.out.println("clicked");
+  //         }    
+  //     });
+
+
+  //   TextButton newGameButton = new TextButton("NEW GAME", skin);
+        
+  //   TextButton menuButton = new TextButton("MENU", skin);
+
+  //       buttons.setBounds(550, 50, 200, 100);
+  //       buttons.padTop(64);
+  //       buttons.add(resumeButton).row();
+  //       buttons.add(newGameButton).row();
+  //       buttons.add(menuButton).row();
+  //       buttons.setSize(stage.getWidth() / 1.5f , stage.getHeight() / 1.5f);
+    
+    
+  //       stage.addActor(buttons);
+  //       stage.draw();
+  
+  // 
 }

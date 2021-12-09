@@ -2,12 +2,15 @@ package com.cornichon.views.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.cornichon.Cornichon;
 import com.cornichon.PauseRenderer;
 import com.cornichon.controllers.PlayerController;
 import com.cornichon.models.construction.Level;
+import com.cornichon.utils.Constants;
 import com.cornichon.views.LevelRenderer;
 
 public class GameScreen implements Screen {
@@ -39,20 +42,28 @@ public class GameScreen implements Screen {
     Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-    // This code will be replaced with a button event listener
-    // Inside pause overlay class
-    if (Gdx.input.isKeyPressed(Keys.J)) {
-      game.setPaused(false);
-    }
-
+   
     if (!game.getPaused()) {
       playerController.update(delta);
       level.getWorld().step(1f / 60f, 6, 2);
       renderer.render();
     } else {
+
       pauseRenderer.render();
+
+      if (Gdx.input.isKeyPressed(Keys.R)) {
+        this.resume();
+      }
+
+      //will be changed, menu is not clickable
+      else if (Gdx.input.isKeyPressed(Keys.M)) {
+        
+        game.setPaused(false);
+        game.setScreen(game.mainMenu);
+      }
     }
   }
+
 
   @Override
   public void resize(int width, int height) {
@@ -79,5 +90,5 @@ public class GameScreen implements Screen {
   public void dispose() {
     Gdx.input.setInputProcessor(null);
   }
-  //ERDEM
+  
 }
