@@ -4,8 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.cornichon.Cornichon;
+import com.cornichon.PauseRenderer;
 import com.cornichon.controllers.PlayerController;
 import com.cornichon.models.construction.Level;
 import com.cornichon.views.LevelRenderer;
@@ -14,6 +14,7 @@ public class GameScreen implements Screen {
 
   private Level level;
   private LevelRenderer renderer;
+  private PauseRenderer pauseRenderer;
   private Cornichon game;
 
   /** controllers */
@@ -25,10 +26,10 @@ public class GameScreen implements Screen {
 
   @Override
   public void show() {
-    level = new Level();
-
-    renderer = new LevelRenderer(level, true);
-    playerController = new PlayerController(level.getPlayer(), renderer);
+    this.level = new Level(1);
+    this.renderer = new LevelRenderer(level, true);
+    this.pauseRenderer = new PauseRenderer(game.batch);
+    this.playerController = new PlayerController(level.getPlayer(), renderer);
 
     Gdx.input.setInputProcessor(playerController);
   }
@@ -49,15 +50,7 @@ public class GameScreen implements Screen {
       level.getWorld().step(1f / 60f, 6, 2);
       renderer.render();
     } else {
-      // Below code will be extracted to a class
-      game.batch.begin();
-
-      BitmapFont pauseMap = new BitmapFont();
-      pauseMap.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-      pauseMap.getData().setScale(4, 4);
-      pauseMap.draw(game.batch, "PAUSED", 290, 290);
-
-      game.batch.end();
+      pauseRenderer.render();
     }
   }
 

@@ -8,14 +8,14 @@ import com.cornichon.views.helpers.ScreenDrawable;
 
 public class HealthBar implements ScreenDrawable {
 
-  protected Texture texture;
+  private Texture texture;
   private Texture heart;
   private Texture bar;
   private float health;
 
   public HealthBar(LevelRenderer levelRenderer) {
-    heart = new Texture(Gdx.files.internal("images/heart.png"));
-    bar = new Texture(Gdx.files.internal("images/bar.png"));
+    this.heart = new Texture(Gdx.files.internal("images/heart.png"));
+    this.bar = new Texture(Gdx.files.internal("images/bar.png"));
     this.health = 1;
   }
 

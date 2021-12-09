@@ -26,7 +26,7 @@ public class Map {
     map[68][7] = 91;
   }
 
-  public int[][] getMap() {
+  public int[][] getMapIntArr() {
     return this.map;
   }
 }

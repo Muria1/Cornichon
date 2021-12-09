@@ -53,8 +53,6 @@ public class LevelRenderer {
     this.camera.update();
 
     this.drawEverything();
-
-    spriteBatch.setProjectionMatrix(this.camera.projection);
     this.drawHealthBar();
 
     spriteBatch.end();
@@ -73,6 +71,8 @@ public class LevelRenderer {
   }
 
   private void drawHealthBar() {
+    spriteBatch.setProjectionMatrix(this.camera.projection);
+
     float health = healthBar.getHealth();
 
     if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
@@ -86,18 +86,13 @@ public class LevelRenderer {
 
   private void drawDebug() {
     debugRenderer.setProjectionMatrix(camera.combined);
-
     debugRenderer.begin(ShapeType.Line);
 
     for (Entity entity : level.getEntities()) {
       Rectangle rect = (Rectangle) entity.getBounds();
-
       float x1 = entity.getPosition().x + rect.x;
-
       float y1 = entity.getPosition().y + rect.y;
-
       debugRenderer.setColor(new Color(1, 0, 0, 1));
-
       debugRenderer.rect(x1, y1, rect.height, rect.width);
     }
 

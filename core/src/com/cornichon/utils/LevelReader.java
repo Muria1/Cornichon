@@ -8,7 +8,6 @@ import com.cornichon.models.entities.Entity;
 import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.models.entities.aliveEntities.Skeleton;
 import com.cornichon.views.helpers.DrawableValues;
-import com.cornichon.views.maps.Map;
 
 public final class LevelReader {
 
@@ -16,12 +15,7 @@ public final class LevelReader {
     final Array<Entity> entities = new Array<Entity>();
 
     try {
-      // JsonValue map = LevelReader.readJsonFile(levelFile);
-
-      Map mapObj = new Map(1);
-      mapObj.processMap();
-
-      int[][] map = mapObj.getMap();
+      int[][] map = level.getMap().getMapIntArr();
 
       for (int y = 0; y < map.length; y += 1) {
         for (int x = 0; x < map[0].length; x += 1) {
@@ -45,8 +39,6 @@ public final class LevelReader {
           }
         }
       }
-
-      level.setEntities(entities);
     } catch (Exception e) {
       e.printStackTrace();
     }
