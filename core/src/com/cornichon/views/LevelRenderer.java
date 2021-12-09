@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.cornichon.models.construction.Level;
 import com.cornichon.models.entities.Entity;
 import com.cornichon.views.components.HealthBar;
+import com.cornichon.views.components.ManaBar;
 import com.cornichon.views.helpers.ScreenDrawable;
 
 public class LevelRenderer {
@@ -26,6 +27,7 @@ public class LevelRenderer {
   private boolean debug = false;
   private SpriteBatch spriteBatch;
   private HealthBar healthBar;
+  private ManaBar manaBar;
 
   private int width;
   private int height;
@@ -43,6 +45,7 @@ public class LevelRenderer {
     this.camera.position.set(level.getPlayer().getPosition().x, level.getPlayer().getPosition().y, 0);
     this.camera.update();
     this.healthBar = new HealthBar(this);
+    this.manaBar = new ManaBar(this);
     this.setSize(width, height);
   }
 
@@ -53,7 +56,7 @@ public class LevelRenderer {
     this.camera.update();
 
     this.drawEverything();
-    this.drawHealthBar();
+    this.drawBars();
 
     spriteBatch.end();
 
@@ -70,10 +73,12 @@ public class LevelRenderer {
     }
   }
 
-  private void drawHealthBar() {
+  private void drawBars() {
     spriteBatch.setProjectionMatrix(this.camera.projection);
 
     float health = healthBar.getHealth();
+    float progress = manaBar.getProgress();
+
 
     if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
       if (health > 0.01f) {
@@ -81,7 +86,20 @@ public class LevelRenderer {
       }
     }
 
+    if (Gdx.input.isKeyPressed(Input.Keys.X)) {
+      if (progress > 0.01f) {
+        manaBar.setProgress((progress - 0.01f));
+      }
+    }
+
+    if (Gdx.input.isKeyPressed(Input.Keys.Y)) {
+      if (progress < 1f) {
+        manaBar.setProgress((progress + 0.01f));
+      }
+    }
+
     healthBar.draw(spriteBatch);
+    manaBar.draw(spriteBatch);
   }
 
   private void drawDebug() {
