@@ -17,8 +17,8 @@ public class ManaBar extends Bar{
         this.progress = 1;
     }
 
-    public void setProgress(float f) {
-        this.progress = f;
+    public void setProgress(float progress) {
+        this.progress = progress;
       }
     
     public float getProgress() {
@@ -27,8 +27,9 @@ public class ManaBar extends Bar{
 
     @Override
     public void draw(SpriteBatch batch) {
-      batch.draw(mana, 0, -1.75f, 0.5f, 0.5f);
-      batch.draw(bar, 0.5f, -1.62f, 1.2f  * getProgress(), 0.25f);
+      batch.draw(bar, 0.3f, -1.55f, 1.5f  * getProgress(), 0.3f);
+      batch.draw(mana, -0.08f, -2.5f, 2f, 2f);
+      
     }
 
 

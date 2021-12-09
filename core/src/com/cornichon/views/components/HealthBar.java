@@ -17,8 +17,8 @@ public class HealthBar extends Bar {
     this.health = 1;
   }
 
-  public void setHealth(float f) {
-    this.health = f;
+  public void setHealth(float health) {
+    this.health = health;
   }
 
   public float getHealth() {
