@@ -5,6 +5,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Random;
 
+/**
+ * This class has been taken from https://stackoverflow.com/questions/21815839/simple-java-2d-array-maze-sample
+ * The maze implementation by catch23
+ */
 public class Maze {
 
   private int dimensionX, dimensionY; // dimension of maze
