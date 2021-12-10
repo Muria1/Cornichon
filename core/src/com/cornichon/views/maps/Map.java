@@ -7,14 +7,16 @@ import com.cornichon.utils.LevelWriter;
 public class Map {
 
   private int[][] map;
+  private LevelWriter levelWriter;
 
   public Map(int difficulty) {
     this.map = new int[70][100];
+    this.levelWriter = new LevelWriter(difficulty);
   }
 
   public void processMap() {
-    LevelWriter.initMap(map);
-    LevelWriter.placePlayer(map);
+    levelWriter.initMap(map);
+    levelWriter.placePlayer(map);
   }
 
   public int[][] getMapIntArr() {

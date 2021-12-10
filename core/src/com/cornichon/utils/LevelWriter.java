@@ -2,19 +2,22 @@ package com.cornichon.utils;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.JsonValue;
 import com.cornichon.models.construction.background.BackgroundBrick;
 import com.cornichon.models.entities.Entity;
 import com.cornichon.views.helpers.DrawableValues;
 
 public final class LevelWriter {
 
-  public static final Maze MAZE = new Maze(12);
+  public Maze maze;
 
-  public static void initMap(int[][] map) {
-    MAZE.solve();
-    final char[][] mazeArr = MAZE.getGridArr();
-    MAZE.draw();
+  public LevelWriter(int difficulty) {
+    this.maze = new Maze(difficulty, difficulty * 7 / 10);
+  }
+
+  public void initMap(int[][] map) {
+    this.maze.solve();
+    final char[][] mazeArr = maze.getGridArr();
+    maze.draw();
 
     for (int r = 0; r < mazeArr.length; r += 1) {
       for (int c = 0; c < mazeArr[0].length; c += 1) {
@@ -31,16 +34,16 @@ public final class LevelWriter {
     }
   }
 
-  public static void placePlayer(int[][] map) {
+  public void placePlayer(int[][] map) {
     map[2][1] = DrawableValues.PLAYER;
   }
 
-  public static void placeMobs(int[][] map) {
+  public void placeMobs(int[][] map) {
     map[2][2] = DrawableValues.SKELETON;
   }
 
-  public static void fillBackground(int[][] map, Array<Entity> entities) {
-    final char[][] mazeArr = MAZE.getGridArr();
+  public void fillBackground(int[][] map, Array<Entity> entities) {
+    final char[][] mazeArr = maze.getGridArr();
 
     for (int r = 0; r < mazeArr.length; r += 1) {
       for (int c = 0; c < mazeArr[0].length * 2 - 1; c += 1) {

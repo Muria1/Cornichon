@@ -20,8 +20,10 @@ public class Level {
   private World world;
   private Array<Entity> entities;
   private Map map;
+  private int difficulty;
 
   public Level(int difficulty) {
+    this.difficulty = difficulty;
     this.map = new Map(difficulty);
     this.createWorld();
   }
@@ -68,5 +70,13 @@ public class Level {
 
   public Map getMap() {
     return map;
+  }
+
+  public int getDifficulty() {
+    return difficulty;
+  }
+
+  public void setDifficulty(int difficulty) {
+    this.difficulty = difficulty;
   }
 }
