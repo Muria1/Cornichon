@@ -59,8 +59,8 @@ public class LeaderboardListScreen implements Screen {
       game.batch.begin();
       
       for(int i = 0; i < 20; i += 2){
-        game.font.draw(game.batch, database.read().get(i), 200, 300 - 10 *i);
-        game.font.draw(game.batch, database.read().get(i+1), 360, 300 - 10*i);
+        game.font.draw(game.batch, database.read().get(i), 270, 300 - 10 *i);
+        game.font.draw(game.batch, database.read().get(i+1), 430, 300 - 10*i);
       }
       
       game.batch.end();
@@ -99,7 +99,7 @@ public class LeaderboardListScreen implements Screen {
         table.add(mainMenu).fillX().uniformX(); */
 
         
-        mainMenu.setPosition(450, 30);
+        mainMenu.setPosition(550, 30);
         stage.addActor(mainMenu); 
     
         mainMenu.addListener(
