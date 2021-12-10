@@ -27,7 +27,7 @@ public class HealthBar extends Bar {
 
   @Override
   public void draw(SpriteBatch batch) {
-    batch.draw(bar, 0.2f, -0.9f, 1.5f * getHealth(), 0.3f);
-    batch.draw(heart, 0, -1f, 0.5f, 0.5f);
+    batch.draw(bar, 2.6f, 2.7f, 1.5f * getHealth(), 0.3f);
+    batch.draw(heart, 2.3f, 2.6f, 0.5f, 0.5f);
   }
 }
