@@ -56,7 +56,7 @@ public class LeaderboardScreen implements Screen {
             game.setScreen(new LeaderboardListScreen(game, score));
         }
 
-      game.font.draw(game.batch, "Please press SPACE to skip", 220, 20);
+      game.font.draw(game.batch, "Please press SPACE to skip", 300, 20);
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
 
