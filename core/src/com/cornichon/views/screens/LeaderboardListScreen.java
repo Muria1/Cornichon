@@ -7,11 +7,27 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.cornichon.Cornichon;
 import com.cornichon.utils.Database;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.cornichon.Cornichon;
 
 public class LeaderboardListScreen implements Screen {
 
@@ -51,6 +67,8 @@ public class LeaderboardListScreen implements Screen {
   
       stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
       stage.draw();
+
+
     }
   
     @Override
@@ -70,6 +88,28 @@ public class LeaderboardListScreen implements Screen {
 
         table.setDebug(true);
         stage.addActor(table);
+
+        
+        Skin skin = new Skin(Gdx.files.internal("images/uiskin.json"));
+
+        TextButton mainMenu = new TextButton("Return to Main Menu", skin);
+
+        /** 
+        table.setBounds(250, 100, 200, 10);
+        table.add(mainMenu).fillX().uniformX(); */
+
+        
+        mainMenu.setPosition(450, 30);
+        stage.addActor(mainMenu); 
+    
+        mainMenu.addListener(
+          new ChangeListener() {
+          @Override
+          public void changed(ChangeEvent event, Actor actor) {
+            game.setScreen(new MainMenuScreen(game));
+          }
+      }
+    );
     }
   
     @Override
