@@ -32,7 +32,7 @@ public class GameScreen implements Screen {
     this.level = new Level(1);
     this.renderer = new LevelRenderer(level, true);
     this.pauseRenderer = new PauseRenderer(game.batch);
-    this.playerController = new PlayerController(level.getPlayer(), renderer);
+    this.playerController = new PlayerController(level.getPlayer());
 
     Gdx.input.setInputProcessor(playerController);
   }

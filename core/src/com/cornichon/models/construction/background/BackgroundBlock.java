@@ -9,12 +9,9 @@ import com.cornichon.models.entities.Entity;
 public class BackgroundBlock extends Entity {
 
   public static final float SIZE = 1f;
-  public static final Rectangle BOUNDS = new Rectangle()
-    .setWidth(0)
-    .setHeight(0);
+  public static final Rectangle BOUNDS = new Rectangle().setWidth(0).setHeight(0);
 
   public BackgroundBlock(Vector2 position) {
     super(position, SIZE, SIZE, BOUNDS);
-    this.setTexture(new Texture(Gdx.files.internal("images/grass_block.png")));
   }
 }

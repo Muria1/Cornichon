@@ -3,13 +3,12 @@ package com.cornichon.models.construction.background;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.cornichon.views.textures.Textures;
 
 public class BackgroundBrick extends BackgroundBlock {
 
   public BackgroundBrick(Vector2 position) {
     super(position);
-    this.setTexture(
-        new Texture(Gdx.files.internal("images/background_brick_block.jpg"))
-      );
+    this.setTexture(Textures.BACKGROUND_BRICK);
   }
 }

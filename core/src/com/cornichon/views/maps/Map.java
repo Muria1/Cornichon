@@ -1,29 +1,20 @@
 package com.cornichon.views.maps;
 
+import com.badlogic.gdx.utils.Array;
+import com.cornichon.models.entities.Entity;
+import com.cornichon.utils.LevelWriter;
+
 public class Map {
 
   private int[][] map;
 
-  public Map(int config) {
+  public Map(int difficulty) {
     this.map = new int[70][100];
   }
 
   public void processMap() {
-    for (int i = 0; i < 10; i += 1) {
-      map[54][i] = 1;
-      map[69][i] = 1;
-    }
-
-    for (int i = 0; i < 15; i += 1) {
-      map[70 - i - 1][0] = 1;
-      map[70 - i - 1][10] = 1;
-    }
-
-    map[55][1] = -1;
-
-    map[68][2] = 90;
-    map[68][5] = 91;
-    map[68][7] = 91;
+    LevelWriter.initMap(map);
+    LevelWriter.placePlayer(map);
   }
 
   public int[][] getMapIntArr() {

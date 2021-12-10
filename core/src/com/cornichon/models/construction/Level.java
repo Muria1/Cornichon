@@ -21,8 +21,8 @@ public class Level {
   private Array<Entity> entities;
   private Map map;
 
-  public Level(int hard) {
-    this.map = new Map(hard);
+  public Level(int difficulty) {
+    this.map = new Map(difficulty);
     this.createWorld();
   }
 
