@@ -73,9 +73,10 @@ public class MainMenuScreen implements Screen {
     table.add(newGame).fillX().uniformX();
     table.row().pad(10, 0, 10, 0);
     table.row();
-    table.add(exit).fillX().uniformX();
-    table.row();
     table.add(leaderBoard).fillX().uniformX();
+    table.row();
+    table.add(exit).fillX().uniformX();
+    
 
     exit.addListener(
       new ChangeListener() {

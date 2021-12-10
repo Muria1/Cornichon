@@ -55,6 +55,13 @@ public class LeaderboardScreen implements Screen {
             Database.insert(playerName, score);
             game.setScreen(new LeaderboardListScreen(game, score));
         }
+
+      game.font.draw(game.batch, "Please press SPACE to skip", 220, 20);
+
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+
+          game.setScreen(new LeaderboardListScreen(game, 0));
+        }
       
       game.batch.end();
   
@@ -79,7 +86,6 @@ public class LeaderboardScreen implements Screen {
 
         table.setDebug(true);
         stage.addActor(table);
-
         
         scoreTextField.setMessageText("Your Name");
         scoreTextField.setPosition(550, 180);
