@@ -16,8 +16,8 @@ import com.cornichon.Cornichon;
 
 public class GameSelectionScreen implements Screen {
 
-  Cornichon game;
-  OrthographicCamera camera;
+  private Cornichon game;
+  private OrthographicCamera camera;
   public Stage stage;
 
   public GameSelectionScreen(Cornichon game) {
@@ -56,7 +56,7 @@ public class GameSelectionScreen implements Screen {
       new ChangeListener() {
         @Override
         public void changed(ChangeEvent event, Actor actor) {
-          game.setScreen(new GameScreen());
+          game.setScreen(new GameScreen(game));
         }
       }
     );
@@ -65,7 +65,7 @@ public class GameSelectionScreen implements Screen {
       new ChangeListener() {
         @Override
         public void changed(ChangeEvent event, Actor actor) {
-          game.setScreen(new GameScreen());
+          game.setScreen(new GameScreen(game));
         }
       }
     );

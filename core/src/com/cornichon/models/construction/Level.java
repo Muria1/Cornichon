@@ -1,6 +1,5 @@
 package com.cornichon.models.construction;
 
-import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -10,30 +9,31 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.cornichon.models.entities.Entity;
 import com.cornichon.models.entities.aliveEntities.Player;
-import com.cornichon.models.entities.aliveEntities.Skeleton;
 import com.cornichon.utils.LevelReader;
-import com.cornichon.views.helpers.ScreenDrawable;
-import java.util.ArrayList;
+import com.cornichon.views.maps.Map;
 
 public class Level {
 
   // This class will be extented this is just for testing
 
-  protected Player player;
-  protected Skeleton skeleton;
-  protected World world;
-  protected LevelReader reader;
-  protected Array<Entity> entities;
+  private Player player;
+  private World world;
+  private Array<Entity> entities;
+  private Map map;
+  private int difficulty;
 
-  public Level() {
+  public Level(int difficulty) {
+    this.difficulty = difficulty;
+    this.map = new Map(difficulty);
     this.createWorld();
   }
 
   private void createWorld() {
+    this.map.processMap();
     this.entities = LevelReader.readLevel(this);
 
-    world = new World(new Vector2(0, -10f), true);
-    player.setBody(world.createBody(player.getBodyDef()));
+    this.world = new World(new Vector2(0, -10f), true);
+    this.player.setBody(world.createBody(player.getBodyDef()));
 
     PolygonShape shape = new PolygonShape();
 
@@ -60,15 +60,23 @@ public class Level {
     this.player = player;
   }
 
-  public void setEntities(Array<Entity> entities) {
-    this.entities = entities;
-  }
-
   public Array<Entity> getEntities() {
     return entities;
   }
 
   public World getWorld() {
     return world;
+  }
+
+  public Map getMap() {
+    return map;
+  }
+
+  public int getDifficulty() {
+    return difficulty;
+  }
+
+  public void setDifficulty(int difficulty) {
+    this.difficulty = difficulty;
   }
 }

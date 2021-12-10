@@ -33,9 +33,8 @@ public class PlayerController extends GeneralController {
     keys.put(Actions.ATTACK, false);
   }
 
-  public PlayerController(Player player, LevelRenderer renderer) {
+  public PlayerController(Player player) {
     this.player = player;
-    this.renderer = renderer;
   }
 
   /** The main update method **/
@@ -48,10 +47,8 @@ public class PlayerController extends GeneralController {
   /** Change playerplayer's state and parameters based on input controls **/
 
   private void processInput() {
-    if (Gdx.input.isKeyJustPressed(Keys.SPACE)
-        && (player.getState() != State.JUMPING || player.getState() != State.FALLING)) {
+    if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
       player.getBody().applyForceToCenter(0, 800f, true);
-
     }
     if (keys.get(Actions.LEFT)) {
       // left is pressed
@@ -59,7 +56,6 @@ public class PlayerController extends GeneralController {
       player.setState(State.WALKING);
 
       player.getBody().setLinearVelocity(new Vector2(-Player.SPEED, player.getBody().getLinearVelocity().y));
-
     }
 
     if (keys.get(Actions.RIGHT)) {
@@ -82,53 +78,30 @@ public class PlayerController extends GeneralController {
     // player.getBody().setGravityScale(1f);
     // }
 
-    if (player.getBody().getLinearVelocity().y > 0) {
-    player.setState(State.JUMPING);
-    } else if (player.getBody().getLinearVelocity().y < 0) {
-    player.setState(State.FALLING);
-    } else {
-    player.setState(State.IDLE);
-    }
-
-    if ((keys.get(Actions.LEFT) && keys.get(Actions.RIGHT)) || (!keys.get(Actions.LEFT) && !(keys.get(Actions.RIGHT))))
-
-    {
       player.setState(State.IDLE);
       // acceleration is 0 on the x
       player.getAcceleration().x = 0;
       // horizontal speed is 0
       player.getBody().setLinearVelocity(new Vector2(0, player.getBody().getLinearVelocity().y));
     }
-  }
 
   @Override
   public boolean keyDown(int keycode) {
-    if (keycode == Keys.A)
-      keys.put(Actions.LEFT, true);
-    if (keycode == Keys.D)
-      keys.put(Actions.RIGHT, true);
+    if (keycode == Keys.A) keys.put(Actions.LEFT, true);
+    if (keycode == Keys.D) keys.put(Actions.RIGHT, true);
 
-    if (keycode == Keys.Z)
-      keys.put(Actions.SPELL, true);
-    if (keycode == Keys.X)
-      keys.put(Actions.ATTACK, true);
-    if (keycode == Keys.NUM_0)
-      renderer.toggleDebug();
+    if (keycode == Keys.Z) keys.put(Actions.SPELL, true);
+    if (keycode == Keys.X) keys.put(Actions.ATTACK, true);
     return true;
   }
 
   @Override
   public boolean keyUp(int keycode) {
-    if (keycode == Keys.A)
-      keys.put(Actions.LEFT, false);
-    if (keycode == Keys.D)
-      keys.put(Actions.RIGHT, false);
-    if (keycode == Keys.Z)
-      keys.put(Actions.SPELL, false);
-    if (keycode == Keys.X)
-      keys.put(Actions.ATTACK, false);
+    if (keycode == Keys.A) keys.put(Actions.LEFT, false);
+    if (keycode == Keys.D) keys.put(Actions.RIGHT, false);
+    if (keycode == Keys.Z) keys.put(Actions.SPELL, false);
+    if (keycode == Keys.X) keys.put(Actions.ATTACK, false);
 
     return true;
   }
-
 }

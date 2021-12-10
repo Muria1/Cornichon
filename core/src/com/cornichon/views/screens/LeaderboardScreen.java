@@ -1,34 +1,34 @@
 package com.cornichon.views.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.cornichon.Cornichon;
+import com.cornichon.utils.Database;
 
-public class MainMenuScreen implements Screen {
+public class LeaderboardScreen implements Screen {
 
   Cornichon game;
   OrthographicCamera camera;
   public Stage stage;
+  public Database database;
+  Skin skin = new Skin(Gdx.files.internal("images/uiskin.json"));
 
-  public MainMenuScreen(Cornichon game) {
+  TextField scoreTextField = new TextField("", skin);
+
+  public LeaderboardScreen(Cornichon game) {
     this.game = game;
-    this.game.setPaused(false);
-
     this.camera = new OrthographicCamera();
     this.camera.setToOrtho(false, 800, 400);
-
-    stage = new Stage(new ScreenViewport());
-    Gdx.input.setInputProcessor(stage);
+    Database.initDatabase();
   }
 
   @Override
@@ -41,7 +41,25 @@ public class MainMenuScreen implements Screen {
     game.batch.setProjectionMatrix(camera.combined);
 
     game.batch.begin();
-    game.batch.draw(game.img, 0, 0);
+
+    int score = 1324; //score example, will be updated after the implementation of the game
+
+    game.font.draw(game.batch, "Score:" + score, 350, 300);
+    game.font.draw(game.batch, "Enter your name to see your place in the leaderboard:", 220, 200);
+    game.font.draw(game.batch, "You will see your name if you are in top 10 (Nobody remembers losers)", 180, 240);
+
+    if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+      String playerName = scoreTextField.getText();
+
+      Database.insert(playerName, score);
+      game.setScreen(new LeaderboardListScreen(game, score));
+    }
+
+    game.font.draw(game.batch, "Please press SPACE to skip", 300, 20);
+
+    if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+      game.setScreen(new LeaderboardListScreen(game, 0));
+    }
 
     game.batch.end();
 
@@ -56,6 +74,9 @@ public class MainMenuScreen implements Screen {
 
   @Override
   public void show() {
+    stage = new Stage(new ScreenViewport());
+    Gdx.input.setInputProcessor(stage);
+
     Table table = new Table();
     this.stage = new Stage(new ScreenViewport());
     Gdx.input.setInputProcessor(stage);
@@ -63,45 +84,9 @@ public class MainMenuScreen implements Screen {
     table.setDebug(true);
     stage.addActor(table);
 
-    Skin skin = new Skin(Gdx.files.internal("images/uiskin.json"));
-
-    TextButton newGame = new TextButton("New Game", skin);
-    TextButton leaderBoard = new TextButton("Leaderboard", skin);
-    TextButton exit = new TextButton("Exit", skin);
-
-    table.setBounds(550, 50, 200, 100);
-    table.add(newGame).fillX().uniformX();
-    table.row().pad(10, 0, 10, 0);
-    table.row();
-    table.add(leaderBoard).fillX().uniformX();
-    table.row();
-    table.add(exit).fillX().uniformX();
-    
-
-    exit.addListener(
-      new ChangeListener() {
-        @Override
-        public void changed(ChangeEvent event, Actor actor) {
-          Gdx.app.exit();
-        }
-      }
-    );
-
-    newGame.addListener(
-      new ChangeListener() {
-        @Override
-        public void changed(ChangeEvent event, Actor actor) {
-          game.setScreen(new GameSelectionScreen(game));
-        }
-      }
-    );
-    leaderBoard.addListener(new ChangeListener() {
-    	@Override
-    	public void changed(ChangeEvent event, Actor actor) {
-    		game.setScreen(new LeaderboardScreen(game));
-    	}
-    });
-
+    scoreTextField.setMessageText("Your Name");
+    scoreTextField.setPosition(550, 180);
+    stage.addActor(scoreTextField);
   }
 
   @Override

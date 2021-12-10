@@ -10,13 +10,10 @@ import com.cornichon.models.entities.Entity;
 public class Block extends Entity {
 
   public static final float SIZE = 1f;
-  public static final Rectangle BOUNDS = new Rectangle()
-    .setWidth(SIZE)
-    .setHeight(SIZE);
+  public static final Rectangle BOUNDS = new Rectangle().setWidth(SIZE).setHeight(SIZE);
 
   public Block(Vector2 position) {
     super(position, SIZE, SIZE, BOUNDS);
     this.setBodytype(BodyType.StaticBody);
-    this.setTexture(new Texture(Gdx.files.internal("images/grass_block.png")));
   }
 }

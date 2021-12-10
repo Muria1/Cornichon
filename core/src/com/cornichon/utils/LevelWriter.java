@@ -2,40 +2,54 @@ package com.cornichon.utils;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.JsonValue;
 import com.cornichon.models.construction.background.BackgroundBrick;
 import com.cornichon.models.entities.Entity;
 import com.cornichon.views.helpers.DrawableValues;
-import com.cornichon.views.helpers.ScreenDrawable;
 
 public final class LevelWriter {
 
-  /**
-   * Starts from x, y which has the value -1
-   * Finds width and heigth of the rectangular room
-   * Fills the inside with {@link BackgroundBrick}s
-   *
-   *
-   * @param level {@link JsonValue} from {@link LevelReader}
-   * @param entities {@link Array}
-   * @param x -1's x value
-   * @param y -1's y value
-   */
-  public static void fillBackground(int[][] level, Array<Entity> entities, int x, int y) {
-    int roomWidth = 0;
-    int roomHeight = 0;
+  public Maze maze;
 
-    for (int _x = x; level[y][_x] != DrawableValues.BRICK; _x += 1) {
-      roomWidth += 1;
+  public LevelWriter(int difficulty) {
+    this.maze = new Maze(difficulty, difficulty * 7 / 10);
+  }
+
+  public void initMap(int[][] map) {
+    this.maze.solve();
+    final char[][] mazeArr = maze.getGridArr();
+    maze.draw();
+
+    for (int r = 0; r < mazeArr.length; r += 1) {
+      for (int c = 0; c < mazeArr[0].length; c += 1) {
+        char current = mazeArr[r][c];
+        if (current == 'X') {
+          map[r][2 * c] = DrawableValues.BRICK;
+          if (c < mazeArr[0].length - 1) {
+            if (mazeArr[r][c + 1] == 'X') {
+              map[r][2 * c + 1] = DrawableValues.BRICK;
+            }
+          }
+        }
+      }
     }
+  }
 
-    for (int _y = y; level[_y][x] != DrawableValues.BRICK; _y += 1) {
-      roomHeight += 1;
-    }
+  public void placePlayer(int[][] map) {
+    map[2][1] = DrawableValues.PLAYER;
+  }
 
-    for (int i = 0; i < roomHeight; i += 1) {
-      for (int j = 0; j < roomWidth; j += 1) {
-        entities.add(new BackgroundBrick(new Vector2(x + j, level.length - y - i - 1)));
+  public void placeMobs(int[][] map) {
+    map[2][2] = DrawableValues.SKELETON;
+  }
+
+  public void fillBackground(int[][] map, Array<Entity> entities) {
+    final char[][] mazeArr = maze.getGridArr();
+
+    for (int r = 0; r < mazeArr.length; r += 1) {
+      for (int c = 0; c < mazeArr[0].length * 2 - 1; c += 1) {
+        if (map[r][c] != 1) {
+          entities.add(new BackgroundBrick(new Vector2(c, map.length - r - 1)));
+        }
       }
     }
   }
