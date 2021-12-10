@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.cornichon.views.screens.*;
 
@@ -14,6 +15,8 @@ public class Cornichon extends Game {
   public MainMenuScreen mainMenuScreen;
   protected GameScreen gameScreen;
   private boolean isPaused = false;
+  public BitmapFont font;
+  
 
   @Override
   public void create() {
@@ -22,6 +25,7 @@ public class Cornichon extends Game {
     this.mainMenuScreen = new MainMenuScreen(this);
     this.gameScreen = new GameScreen(this);
     this.setScreen(mainMenuScreen);
+    font = new BitmapFont();
   }
 
   @Override

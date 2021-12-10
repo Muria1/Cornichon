@@ -9,7 +9,7 @@ buildscript {
         google()
     }
     dependencies {
-        
+
     }
 }
 
@@ -58,5 +58,8 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
+
+        api 'org.mongodb:mongodb-driver:3.11.0'
+        api 'org.mongodb:mongo-java-driver:3.11.0'
     }
 }
