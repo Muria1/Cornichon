@@ -29,7 +29,7 @@ public class GameScreen implements Screen {
 
   @Override
   public void show() {
-    this.level = new Level(10);
+    this.level = new Level(9);
     this.renderer = new LevelRenderer(level, true);
     this.pauseRenderer = new PauseRenderer(game.batch);
     this.playerController = new PlayerController(level.getPlayer());

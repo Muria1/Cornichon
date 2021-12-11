@@ -23,10 +23,10 @@ public final class LevelWriter {
       for (int c = 0; c < mazeArr[0].length; c += 1) {
         char current = mazeArr[r][c];
         if (current == 'X') {
-          map[r][2 * c] = DrawableValues.BRICK;
+          map[2 * c][r] = DrawableValues.BRICK;
           if (c < mazeArr[0].length - 1) {
             if (mazeArr[r][c + 1] == 'X') {
-              map[r][2 * c + 1] = DrawableValues.BRICK;
+              map[2 * c + 1][r] = DrawableValues.BRICK;
             }
           }
         }
@@ -45,8 +45,8 @@ public final class LevelWriter {
   public void fillBackground(int[][] map, Array<Entity> entities) {
     final char[][] mazeArr = maze.getGridArr();
 
-    for (int r = 0; r < mazeArr.length; r += 1) {
-      for (int c = 0; c < mazeArr[0].length * 2 - 1; c += 1) {
+    for (int r = 0; r < mazeArr[0].length * 2 - 1; r += 1) {
+      for (int c = 0; c < mazeArr.length; c += 1) {
         if (map[r][c] != 1) {
           entities.add(new BackgroundBrick(new Vector2(c, map.length - r - 1)));
         }

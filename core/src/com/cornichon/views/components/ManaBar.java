@@ -27,7 +27,7 @@ public class ManaBar extends Bar {
 
   @Override
   public void draw(SpriteBatch batch) {
-    batch.draw(bar, 2.6f, 2.2f, 1.5f * getProgress(), 0.3f);
-    batch.draw(mana, 2.35f, 2.17f, 0.4f, 0.4f);
+    batch.draw(bar, 2.6f, 2.1f, 1.5f * getProgress(), 0.3f);
+    batch.draw(mana, 2.35f, 2.07f, 0.4f, 0.4f);
   }
 }

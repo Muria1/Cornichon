@@ -5,17 +5,19 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.cornichon.models.construction.Level;
 import com.cornichon.models.entities.Entity;
-import com.cornichon.utils.LevelWriter;
+import com.cornichon.utils.Constants;
 import com.cornichon.views.components.HealthBar;
 import com.cornichon.views.components.ManaBar;
-import com.cornichon.views.helpers.DrawableValues;
 import com.cornichon.views.helpers.ScreenDrawable;
+import com.cornichon.views.textures.Textures;
 
 public class LevelRenderer {
 
@@ -55,11 +57,12 @@ public class LevelRenderer {
   public void render() {
     spriteBatch.begin();
 
-    this.camera.position.set(level.getPlayer().getPosition().x, level.getPlayer().getPosition().y, 1);
+    this.camera.position.set(level.getPlayer().getPosition().x, level.getPlayer().getPosition().y, 2);
     this.camera.update();
 
     this.drawEverything();
     this.drawBars();
+    this.drawHudTexts();
 
     spriteBatch.end();
 
@@ -73,6 +76,15 @@ public class LevelRenderer {
     for (Entity entity : level.getEntities()) {
       ((ScreenDrawable) entity).draw(spriteBatch);
     }
+  }
+
+  private void drawHudTexts() {
+    // spriteBatch.setProjectionMatrix(this.camera.combined);
+    final BitmapFont font = new BitmapFont();
+    font.getData().setScale(0.14f, 0.045f);
+    font.setColor(Color.WHITE);
+    font.draw(spriteBatch, level.getDifficulty() + "", -4.5f, 3.03f);
+    // spriteBatch.draw(Textures.BRICK, 0, 0, 1f, 1f);
   }
 
   private void drawBars() {
