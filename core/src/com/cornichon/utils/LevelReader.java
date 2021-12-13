@@ -13,9 +13,12 @@ public final class LevelReader {
 
   public static Array<Entity> readLevel(Level level) {
     final Array<Entity> entities = new Array<Entity>();
+    final LevelWriter levelWriter = new LevelWriter(level.getDifficulty());
 
     try {
       int[][] map = level.getMap().getMapIntArr();
+
+      levelWriter.fillBackground(map, entities);
 
       for (int y = 0; y < map.length; y += 1) {
         for (int x = 0; x < map[0].length; x += 1) {
@@ -32,9 +35,6 @@ public final class LevelReader {
             case DrawableValues.SKELETON:
               entities.add(new Skeleton(new Vector2(x, map.length - y - 1)));
               // Maybe add to the mob array in level to use later?
-              break;
-            case DrawableValues.BRICK_BACKGROUND:
-              LevelWriter.fillBackground(map, entities, x, y);
               break;
           }
         }

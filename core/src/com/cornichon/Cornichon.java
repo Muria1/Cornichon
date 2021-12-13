@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.cornichon.views.screens.*;
 
@@ -11,23 +12,25 @@ public class Cornichon extends Game {
 
   public SpriteBatch batch;
   public Texture img;
-  public MainMenuScreen mainMenu;
+  public MainMenuScreen mainMenuScreen;
   protected GameScreen gameScreen;
   private boolean isPaused = false;
+  public BitmapFont font;
+  
 
   @Override
   public void create() {
     this.batch = new SpriteBatch();
     this.img = new Texture("images/cornichon.png");
-    this.mainMenu = new MainMenuScreen(this);
+    this.mainMenuScreen = new MainMenuScreen(this);
     this.gameScreen = new GameScreen(this);
-    this.setScreen(mainMenu);
+    this.setScreen(mainMenuScreen);
+    font = new BitmapFont();
   }
 
   @Override
   public void render() {
     super.render();
-
     if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
       if (!this.isPaused) {
         gameScreen.pause();
