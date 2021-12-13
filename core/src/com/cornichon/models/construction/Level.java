@@ -22,7 +22,7 @@ public class Level {
   private Map map;
   private int difficulty;
 
-  public Level(int difficulty) {
+  public Level(int difficulty, int lastScore, float lastHealth) {
     this.difficulty = difficulty;
     this.map = new Map(difficulty);
     this.createWorld();
