@@ -1,6 +1,7 @@
 package com.cornichon.models.construction;
 
 import com.badlogic.gdx.math.Vector2;
+import com.cornichon.models.entities.aliveEntities.Sphere;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -17,6 +18,7 @@ public class Level {
   // This class will be extented this is just for testing
 
   private Player player;
+  private Sphere sphere;
   private World world;
   private Array<Entity> entities;
   private Map map;
@@ -34,18 +36,19 @@ public class Level {
 
     this.world = new World(new Vector2(0, -10f), true);
     this.player.setBody(world.createBody(player.getBodyDef()));
+    this.sphere.setBody(world.createBody(sphere.getBodyDef()));
 
     PolygonShape shape = new PolygonShape();
-
     shape.setAsBox(player.getSizeWidth(), player.getSizeHeight());
 
     FixtureDef fixtureDef = new FixtureDef();
     fixtureDef.density = 1f;
     fixtureDef.shape = shape;
     Fixture fix = player.getBody().createFixture(fixtureDef);
+    
 
     for (Entity e : entities) {
-      if (!e.equals(player)) {
+      if (!(e.equals(player)) && !(e.equals(sphere))) {
         Body body = world.createBody(e.getBodyDef());
         e.setBody(body);
       }
@@ -58,6 +61,14 @@ public class Level {
 
   public void setPlayer(Player player) {
     this.player = player;
+  }
+
+  public Sphere getSphere() {
+    return this.sphere;
+  }
+
+  public void setSphere(Sphere sphere) {
+    this.sphere = sphere;
   }
 
   public Array<Entity> getEntities() {
