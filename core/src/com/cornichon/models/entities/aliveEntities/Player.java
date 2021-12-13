@@ -32,7 +32,7 @@ public class Player extends MovingEntity {
     );
     this.state = State.IDLE;
     this.facingLeft = false;
-    this.setTexture(new Texture(Gdx.files.internal("images/player01.png")));
+    this.setTexture(new Texture(Gdx.files.internal("images/idle.png")));
   }
 
   public void update(float delta) {
