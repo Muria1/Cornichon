@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.models.entities.helpers.State;
 import com.cornichon.views.LevelRenderer;
+import com.cornichon.views.textures.Textures;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,6 +52,8 @@ public class PlayerController extends GeneralController {
   private void processInput() {
     if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
       player.getBody().applyForceToCenter(0, 800f, true);
+      player.setTexture(Textures.PLAYER_JUMPING);
+      player.setState(State.JUMPING);
     }
     if (keys.get(Actions.LEFT)) {
       // left is pressed

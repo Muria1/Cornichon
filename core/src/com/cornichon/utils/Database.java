@@ -58,7 +58,7 @@ public class Database {
 
   private static Array<String> readDocument() {
     FindIterable<Document> findIterable = collection.find().sort(descending("score"));
-    final String[] docs = new String[10];
+    
     final Array<String> result = new Array<String>();
 
     Consumer<Document> printConsumer = new Consumer<Document>() {
