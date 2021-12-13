@@ -1,7 +1,5 @@
 package com.cornichon.views;
 
-import java.time.Instant;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
@@ -23,11 +21,12 @@ import com.cornichon.views.components.HealthBar;
 import com.cornichon.views.components.ManaBar;
 import com.cornichon.views.helpers.ScreenDrawable;
 import com.cornichon.views.textures.Textures;
+import java.time.Instant;
 
 public class LevelRenderer {
 
-  private static final float CAMERA_WIDTH = 10f;
-  private static final float CAMERA_HEIGHT = 7f;
+  private static final float CAMERA_WIDTH = 15f;
+  private static final float CAMERA_HEIGHT = CAMERA_WIDTH * 7 / 10;
 
   private Level level;
   private OrthographicCamera camera;
@@ -42,8 +41,8 @@ public class LevelRenderer {
   private int width;
   private int height;
 
-  
   Player player;
+
   /** IN CASE SPRITES WILL BE USED INSTEAD OF TEXTURES
   private Sprite idleSprite = new Sprite(new Texture(Gdx.files.internal("images/idle.png")));
   private Sprite walkingSprite = new Sprite(new Texture(Gdx.files.internal("images/walking.png")));
@@ -149,59 +148,41 @@ public class LevelRenderer {
       this.debug = !this.debug;
     }
   }
-  
+
   //It does not have other states such as ATTACKING, DYING and DAMAGED.
   //They will be added the moment these states are in action.
-  
+
   private void drawSprite() {
+    long currentTime = System.currentTimeMillis() / 100;
 
-    long currentTime = System.currentTimeMillis() / 100; 
-
-    if(!player.isFacingLeft()){
-
-      if(level.getPlayer().getState() == State.IDLE ){
+    if (!player.isFacingLeft()) {
+      if (level.getPlayer().getState() == State.IDLE) {
         player.setTexture(Textures.PLAYER_IDLE);
-      }
-      else if (level.getPlayer().getState() == State.WALKING){
-
-        if(currentTime % 2 == 0){
+      } else if (level.getPlayer().getState() == State.WALKING) {
+        if (currentTime % 2 == 0) {
           player.setTexture(Textures.PLAYER_WALKING);
-        }
-        else{
+        } else {
           player.setTexture(Textures.PLAYER_WALKING2);
         }
-        
-      }
-      else if(level.getPlayer().getState() == State.JUMPING){
+      } else if (level.getPlayer().getState() == State.JUMPING) {
         player.setTexture(Textures.PLAYER_JUMPING);
-      }
-      else{
+      } else {
         //OTHER STATES WILL BE ADDED..
       }
-  
-    }
-    else{
-
-      if(level.getPlayer().getState() == State.IDLE ){
+    } else {
+      if (level.getPlayer().getState() == State.IDLE) {
         player.setTexture(Textures.PLAYER_IDLELEFT);
-      }
-      else if(level.getPlayer().getState() == State.WALKING){
-
-        if(currentTime % 2 == 0){
+      } else if (level.getPlayer().getState() == State.WALKING) {
+        if (currentTime % 2 == 0) {
           player.setTexture(Textures.PLAYER_WALKINGLEFT);
-        }
-        else{
+        } else {
           player.setTexture(Textures.PLAYER_WALKING2LEFT);
         }
-        
-      }
-      else if(level.getPlayer().getState() == State.JUMPING){
+      } else if (level.getPlayer().getState() == State.JUMPING) {
         player.setTexture(Textures.PLAYER_JUMPING);
-      }
-      else{
+      } else {
         //OTHER STATES WILL BE ADDED..
       }
-    } 
-
-  } 
+    }
+  }
 }

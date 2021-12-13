@@ -11,7 +11,8 @@ public final class LevelWriter {
   public Maze maze;
 
   public LevelWriter(int difficulty) {
-    this.maze = new Maze(difficulty, difficulty * 7 / 10);
+    int d = difficulty + 4;
+    this.maze = new Maze(d, d * 7 / 10);
   }
 
   public void initMap(int[][] map) {
