@@ -71,7 +71,7 @@ public class Player extends MovingEntity {
         this.getBody().getPosition().x - 0.2f,
         this.getBody().getPosition().y - 0.4f,
         this.getSizeWidth(),
-        this.getSizeHeight());
+        this.getSizeHeight());}
 
   public float getHealth() {
     return health;
