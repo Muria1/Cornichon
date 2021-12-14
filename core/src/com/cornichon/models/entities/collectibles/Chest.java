@@ -3,6 +3,7 @@ package com.cornichon.models.entities.collectibles;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
+import com.cornichon.models.construction.Level;
 import com.cornichon.models.entities.Entity;
 import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.models.entities.helpers.Collectible;
@@ -22,9 +23,6 @@ public class Chest extends Entity implements Collectible {
     this.setTexture(Textures.CHEST);
   }
 
-  @Override
-  public void collected(Player player) {}
-
   public Entity getEntity() {
     return entity;
   }
@@ -32,4 +30,7 @@ public class Chest extends Entity implements Collectible {
   public void setEntity(Entity entity) {
     this.entity = entity;
   }
+
+  @Override
+  public void collected(Player player, Level level) {}
 }

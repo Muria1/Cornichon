@@ -60,7 +60,7 @@ public class LevelRenderer {
     this.spriteBatch = new SpriteBatch();
     this.camera.position.set(level.getPlayer().getPosition().x, level.getPlayer().getPosition().y, 0);
     this.camera.update();
-    this.healthBar = new HealthBar(this);
+    this.healthBar = new HealthBar(level.getPlayer());
     this.manaBar = new ManaBar(this);
     this.setSize(width, height);
     player = level.getPlayer();
@@ -101,27 +101,6 @@ public class LevelRenderer {
 
   private void drawBars() {
     spriteBatch.setProjectionMatrix(this.camera.projection);
-
-    float health = healthBar.getHealth();
-    float progress = manaBar.getProgress();
-
-    if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-      if (health > 0.01f) {
-        healthBar.setHealth((health - 0.1f));
-      }
-    }
-
-    if (Gdx.input.isKeyPressed(Input.Keys.X)) {
-      if (progress > 0.01f) {
-        manaBar.setProgress((progress - 0.01f));
-      }
-    }
-
-    if (Gdx.input.isKeyPressed(Input.Keys.Y)) {
-      if (progress < 1f) {
-        manaBar.setProgress((progress + 0.01f));
-      }
-    }
 
     healthBar.draw(spriteBatch);
     manaBar.draw(spriteBatch);

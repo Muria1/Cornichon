@@ -20,10 +20,16 @@ public class Level {
   private World world;
   private Array<Entity> entities;
   private Map map;
+
   private int difficulty;
+  private int lastScore;
+  private float lastHealth;
 
   public Level(int difficulty, int lastScore, float lastHealth) {
     this.difficulty = difficulty;
+    this.lastScore = lastScore;
+    this.lastHealth = lastHealth;
+
     this.map = new Map(difficulty);
     this.createWorld();
   }
@@ -58,6 +64,7 @@ public class Level {
 
   public void setPlayer(Player player) {
     this.player = player;
+    this.player.setHealth(lastHealth);
   }
 
   public Array<Entity> getEntities() {
