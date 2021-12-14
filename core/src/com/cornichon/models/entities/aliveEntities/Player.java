@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.cornichon.models.entities.MovingEntity;
 import com.cornichon.models.entities.helpers.State;
+import com.cornichon.views.components.HealthBar;
 
 public class Player extends MovingEntity {
 
@@ -17,6 +18,8 @@ public class Player extends MovingEntity {
   public static final int sphereBound = 300; // Boundries of the sphere /value will be adjusted later
   public static final Rectangle BOUNDS = new Rectangle().setWidth(SIZE_HEIGTH).setHeight(SIZE_WIDTH);
 
+  private float health;
+  private HealthBar healthBar;
   private State state;
   private boolean facingLeft;
 
@@ -33,8 +36,10 @@ public class Player extends MovingEntity {
     );
     this.state = State.IDLE;
     this.facingLeft = false;
+    this.setTexture(new Texture(Gdx.files.internal("images/idle.png")));
     this.type = "player";
-    this.setTexture(new Texture(Gdx.files.internal("images/player01.png")));
+    this.health = 100;
+    this.healthBar = new HealthBar(this);
   }
 
   public void update(float delta) {
@@ -58,6 +63,7 @@ public class Player extends MovingEntity {
     this.facingLeft = facingLeft;
   }
 
+
   @Override
   public void draw(SpriteBatch batch) {
     batch.draw(
@@ -66,5 +72,21 @@ public class Player extends MovingEntity {
         this.getBody().getPosition().y - 0.4f,
         this.getSizeWidth(),
         this.getSizeHeight());
+
+  public float getHealth() {
+    return health;
+  }
+
+  public void setHealth(float health) {
+    this.health = health;
+  }
+
+  public void decreaseHealth(int amount) {
+    this.health -= amount;
+  }
+
+  public void increaseHealth(int amount) {
+    this.health += amount;
+
   }
 }

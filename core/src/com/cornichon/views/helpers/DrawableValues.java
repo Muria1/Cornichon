@@ -12,4 +12,7 @@ public final class DrawableValues {
   public static final int AIR = 0;
   public static final int BRICK = 1;
   public static final int BRICK_PLATFORM = 2;
+
+  public static final int POTION_HEALTH = 60;
+  public static final int CHEST = 61;
 }

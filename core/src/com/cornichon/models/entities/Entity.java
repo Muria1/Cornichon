@@ -80,7 +80,7 @@ public abstract class Entity implements ScreenDrawable {
   public void setTexture(Texture t) {
     this.texture = t;
   }
-
+  
   @Override
   public void draw(SpriteBatch batch) {
     batch.draw(

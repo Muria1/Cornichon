@@ -9,6 +9,8 @@ import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.models.entities.helpers.State;
 import com.cornichon.utils.CornichonListener;
 import com.cornichon.views.LevelRenderer;
+import com.cornichon.views.textures.Textures;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,8 +53,11 @@ public class PlayerController extends GeneralController {
   /** Change playerplayer's state and parameters based on input controls **/
 
   private void processInput() {
+
     if (Gdx.input.isKeyJustPressed(Keys.SPACE) && listener.getGroundContacts() > 0) {
       player.getBody().applyForceToCenter(0, 600f, true);
+       player.setTexture(Textures.PLAYER_JUMPING);
+      player.setState(State.JUMPING);
     }
 
     if (keys.get(Actions.LEFT)) {
