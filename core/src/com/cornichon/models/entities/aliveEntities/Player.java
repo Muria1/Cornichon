@@ -22,6 +22,7 @@ public class Player extends MovingEntity {
   private HealthBar healthBar;
   private State state;
   private boolean facingLeft;
+  protected Sphere sphere;
 
   public Player(Vector2 position) {
     super(
@@ -40,6 +41,7 @@ public class Player extends MovingEntity {
     this.type = "player";
     this.health = 100;
     this.healthBar = new HealthBar(this);
+    this.sphere = new Sphere(this.position);
   }
 
   public void update(float delta) {
@@ -63,6 +65,10 @@ public class Player extends MovingEntity {
     this.facingLeft = facingLeft;
   }
 
+  public Sphere getSphere(){
+    return sphere;
+  }
+
 
   @Override
   public void draw(SpriteBatch batch) {
@@ -72,6 +78,7 @@ public class Player extends MovingEntity {
         this.getBody().getPosition().y - 0.4f,
         this.getSizeWidth(),
         this.getSizeHeight());
+  }      
 
   public float getHealth() {
     return health;

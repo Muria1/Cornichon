@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.cornichon.models.entities.MovingEntity;
 import com.cornichon.models.entities.helpers.State;
 
@@ -12,7 +13,7 @@ public class Sphere extends MovingEntity {
 
     public static final float SIZE_HEIGTH = 0.3f; // half a uni
     public static final float SIZE_WIDTH = 0.3f; // half a uni
-    public static final float SPEED = 6f; // unit per second
+    public static final float SPEED = 5f; // unit per second
     public static final float JUMP_VELOCITY = 1f;
     public static final Rectangle BOUNDS = new Rectangle()
             .setWidth(SIZE_HEIGTH)
@@ -36,7 +37,7 @@ public class Sphere extends MovingEntity {
         this.state = State.IDLE;
         this.facingLeft = false;
         this.setTexture(new Texture(Gdx.files.internal("images/purpleSphere.png")));
-        b2bBody.setType(BodyDef.BodyType.KinematicBody); 
+        b2bBodyDef.type = BodyType.KinematicBody;
     }
 
     public void update(float delta) {
