@@ -100,8 +100,7 @@ public class PlayerController extends GeneralController {
       // horizontal speed is 0
       player.getBody().setLinearVelocity(new Vector2(0, player.getBody().getLinearVelocity().y));
     }
-
-
+    
 
     //Sphere's actions
 
@@ -121,25 +120,32 @@ public class PlayerController extends GeneralController {
     if (sKeys.get(SphereActions.SUP)) {
       sphere.setFacingLeft(false);
       sphere.setState(State.JUMPING);
-      sphere.getBody().setLinearVelocity(new Vector2(Sphere.SPEED, sphere.getBody().getLinearVelocity().y));
+      sphere.getBody().setLinearVelocity(new Vector2(sphere.getBody().getLinearVelocity().x, Sphere.SPEED));
       }
     
     if (sKeys.get(SphereActions.SDOWN)) {
       sphere.setFacingLeft(false);
       sphere.setState(State.FALLING);
-      sphere.getBody().setLinearVelocity(new Vector2(Sphere.SPEED, sphere.getBody().getLinearVelocity().y));
+      sphere.getBody().setLinearVelocity(new Vector2(sphere.getBody().getLinearVelocity().y, -Sphere.SPEED));
       }
      
     if ((sKeys.get(SphereActions.SLEFT) && sKeys.get(SphereActions.SRIGHT))
     || (!sKeys.get(SphereActions.SLEFT) && !(sKeys.get(SphereActions.SRIGHT)))) 
     {
-       sphere.setState(State.IDLE);
-       sphere.getBody().setLinearVelocity(new Vector2(0, sphere.getBody().getLinearVelocity().y));
+        sphere.setState(State.IDLE);
+        sphere.getBody().setLinearVelocity(new Vector2(0, sphere.getBody().getLinearVelocity().y));
     }  
 
-    }
+    if ((sKeys.get(SphereActions.SUP) && sKeys.get(SphereActions.SDOWN))
+    || ( (!sKeys.get(SphereActions.SUP)) && (!sKeys.get(SphereActions.SDOWN)))) 
+    {
+        sphere.setState(State.IDLE);
+        sphere.getBody().setLinearVelocity(new Vector2(sphere.getBody().getLinearVelocity().x, 0));
 
+    }  
     
+  }
+
 
   @Override
   public boolean keyDown(int keycode) {
@@ -152,8 +158,8 @@ public class PlayerController extends GeneralController {
 
     if (keycode == Keys.LEFT) sKeys.put(SphereActions.SLEFT, true);
     if (keycode == Keys.RIGHT) sKeys.put(SphereActions.SRIGHT, true);
-    if (keycode == Keys.L) sKeys.put(SphereActions.SUP, true);
-    if (keycode == Keys.M) sKeys.put(SphereActions.SDOWN, true);
+    if (keycode == Keys.UP) sKeys.put(SphereActions.SUP, true);
+    if (keycode == Keys.DOWN) sKeys.put(SphereActions.SDOWN, true);
 
     return true;
   }

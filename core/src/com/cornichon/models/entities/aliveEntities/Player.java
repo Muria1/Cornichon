@@ -41,7 +41,7 @@ public class Player extends MovingEntity {
     this.type = "player";
     this.health = 100;
     this.healthBar = new HealthBar(this);
-    this.sphere = new Sphere(this.position);
+    this.sphere = new Sphere(new Vector2(1, 68));
   }
 
   public void update(float delta) {

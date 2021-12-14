@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.cornichon.Cornichon;
 import com.cornichon.PauseRenderer;
 import com.cornichon.controllers.PlayerController;
-import com.cornichon.controllers.SphereController;
 import com.cornichon.models.construction.Level;
 import com.cornichon.utils.Constants;
 import com.cornichon.views.LevelRenderer;
@@ -23,7 +22,6 @@ public class GameScreen implements Screen {
 
   /** controllers */
   private PlayerController playerController;
-  private SphereController sphereController;
 
   public GameScreen(Cornichon game) {
     this.game = game;
@@ -73,7 +71,6 @@ public class GameScreen implements Screen {
   public void resume() {
     game.setPaused(false);
     Gdx.input.setInputProcessor(playerController);
-    Gdx.input.setInputProcessor(sphereController);
   }
 
   @Override

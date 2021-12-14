@@ -21,6 +21,7 @@ public class Sphere extends MovingEntity {
 
     private State state;
     private boolean facingLeft;
+    private int progress;
 
     public Sphere(Vector2 position) {
         super(
@@ -59,5 +60,14 @@ public class Sphere extends MovingEntity {
     public void setFacingLeft(boolean facingLeft) {
         this.facingLeft = facingLeft;
     }
+
+    // public void decreaseProgress(int amount) {
+    //     this.progress -= amount;
+    //   }
+    
+    //   public void increaseProgress(int amount) {
+    //     this.progress += amount;
+    
+    //   }
 
 }
