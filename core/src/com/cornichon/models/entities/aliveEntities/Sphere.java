@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.cornichon.models.entities.MovingEntity;
 import com.cornichon.models.entities.helpers.State;
 
@@ -34,7 +35,8 @@ public class Sphere extends MovingEntity {
 
         this.state = State.IDLE;
         this.facingLeft = false;
-        this.setTexture(new Texture(Gdx.files.internal("images/sphere.png")));
+        this.setTexture(new Texture(Gdx.files.internal("images/purpleSphere.png")));
+        b2bBody.setType(BodyDef.BodyType.KinematicBody); 
     }
 
     public void update(float delta) {
