@@ -47,7 +47,7 @@ public class Skeleton extends Mob {
     );
     // this.projectile = new Fireball(5, position);
 
-    this.setTexture(new Texture(Gdx.files.internal("images/skeleton.png")));
+    this.setTexture(new Texture(Gdx.files.internal("images/skeleton_idle.png")));
   }
 
   //Will be added later
