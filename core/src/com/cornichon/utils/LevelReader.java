@@ -7,6 +7,8 @@ import com.cornichon.models.construction.components.Brick;
 import com.cornichon.models.entities.Entity;
 import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.models.entities.aliveEntities.Skeleton;
+import com.cornichon.models.entities.collectibles.Chest;
+import com.cornichon.models.entities.collectibles.HealthPotion;
 import com.cornichon.views.helpers.DrawableValues;
 
 public final class LevelReader {
@@ -35,6 +37,14 @@ public final class LevelReader {
             case DrawableValues.SKELETON:
               entities.add(new Skeleton(new Vector2(x, map.length - y - 1)));
               // Maybe add to the mob array in level to use later?
+              break;
+            case DrawableValues.POTION_HEALTH:
+              entities.add(new HealthPotion(new Vector2(x, map.length - y - 1)));
+              break;
+            case DrawableValues.CHEST:
+              entities.add(
+                new Chest(new Vector2(x, map.length - y - 1), new HealthPotion(new Vector2(x, map.length - y - 1)))
+              );
               break;
           }
         }

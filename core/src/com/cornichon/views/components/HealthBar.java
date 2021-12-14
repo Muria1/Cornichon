@@ -3,6 +3,7 @@ package com.cornichon.views.components;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.views.LevelRenderer;
 
 public class HealthBar extends Bar {
@@ -10,24 +11,18 @@ public class HealthBar extends Bar {
   private Texture heart;
   private Texture bar;
   private float health;
+  private Player player;
 
-  public HealthBar(LevelRenderer levelRenderer) {
+  public HealthBar(Player player) {
     this.heart = new Texture(Gdx.files.internal("images/heart.png"));
     this.bar = new Texture(Gdx.files.internal("images/bar.png"));
-    this.health = 1;
-  }
-
-  public void setHealth(float health) {
-    this.health = health;
-  }
-
-  public float getHealth() {
-    return health;
+    this.player = player;
+    this.health = player.getHealth();
   }
 
   @Override
   public void draw(SpriteBatch batch) {
-    batch.draw(bar, 2.6f, 2.6f, 1.5f * getHealth(), 0.3f);
-    batch.draw(heart, 2.3f, 2.5f, 0.5f, 0.5f);
+    batch.draw(bar, 5.1f, 4.6f, 1.5f * this.player.getHealth() / 100, 0.3f);
+    batch.draw(heart, 4.8f, 4.5f, 0.5f, 0.5f);
   }
 }

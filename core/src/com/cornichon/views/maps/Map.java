@@ -16,6 +16,7 @@ public class Map {
 
   public void processMap() {
     levelWriter.initMap(map);
+    levelWriter.placeMobsAndCollectibles(map);
     levelWriter.placePlayer(map);
   }
 
