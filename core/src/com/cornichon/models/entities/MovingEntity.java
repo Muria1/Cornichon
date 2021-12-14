@@ -30,6 +30,8 @@ public class MovingEntity extends Entity implements Moveable {
     this.velocity = velocity;
 
     this.setBodytype(BodyType.DynamicBody);
+
+    type = "movingEntity";
   }
 
   @Override

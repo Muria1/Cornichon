@@ -1,5 +1,8 @@
 package com.cornichon.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.cornichon.models.construction.Level;
@@ -11,14 +14,15 @@ import com.cornichon.views.helpers.DrawableValues;
 
 public final class LevelReader {
 
-  public static Array<Entity> readLevel(Level level) {
+  public static List<Array<Entity>> readLevel(Level level) {
     final Array<Entity> entities = new Array<Entity>();
     final LevelWriter levelWriter = new LevelWriter(level.getDifficulty());
+    final Array<Entity> background = new Array<Entity>();
 
     try {
       int[][] map = level.getMap().getMapIntArr();
 
-      levelWriter.fillBackground(map, entities);
+      levelWriter.fillBackground(map, background);
 
       for (int y = 0; y < map.length; y += 1) {
         for (int x = 0; x < map[0].length; x += 1) {
@@ -29,7 +33,6 @@ public final class LevelReader {
               break;
             case DrawableValues.PLAYER:
               Player player = new Player(new Vector2(x, map.length - y - 1));
-              entities.add(player);
               level.setPlayer(player);
               break;
             case DrawableValues.SKELETON:
@@ -43,6 +46,10 @@ public final class LevelReader {
       e.printStackTrace();
     }
 
-    return entities;
+    List<Array<Entity>> levelList = new ArrayList<Array<Entity>>();
+    levelList.add(entities);
+    levelList.add(background);
+    return levelList;
   }
+
 }
