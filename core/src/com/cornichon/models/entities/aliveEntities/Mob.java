@@ -39,6 +39,7 @@ public class Mob extends MovingEntity {
     this.state = State.IDLE;
     this.facingLeft = false;
     this.health = health;
+    this.type = "mob";
   }
 
   public void update(float delta) {
