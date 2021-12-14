@@ -15,18 +15,19 @@ public abstract class Entity implements ScreenDrawable {
   protected float sizeHeight;
   protected float sizeWidth;
   protected Shape2D bounds;
-  
+
   protected BodyDef b2bBodyDef;
   protected Body b2bBody;
+
+  protected String type;
 
   protected Texture texture;
 
   public Entity(
-    Vector2 position,
-    float sizeHeight,
-    float sizeWidth,
-    Shape2D bounds
-  ) {
+      Vector2 position,
+      float sizeHeight,
+      float sizeWidth,
+      Shape2D bounds) {
     this.position = position;
     this.sizeHeight = sizeHeight;
     this.sizeWidth = sizeWidth;
@@ -34,6 +35,8 @@ public abstract class Entity implements ScreenDrawable {
 
     b2bBodyDef = new BodyDef();
     b2bBodyDef.position.set(position);
+
+    type = "";
   }
 
   public Vector2 getPosition() {
@@ -81,12 +84,11 @@ public abstract class Entity implements ScreenDrawable {
   @Override
   public void draw(SpriteBatch batch) {
     batch.draw(
-      this.getTexture(),
-      this.getPosition().x,
-      this.getPosition().y,
-      this.getSizeWidth(),
-      this.getSizeHeight()
-    );
+        this.getTexture(),
+        this.getBody().getPosition().x - 0.5f,
+        this.getBody().getPosition().y  - 0.5f,
+        this.getSizeWidth(),
+        this.getSizeHeight());
   }
 
   public void setBodytype(BodyType bodyType) {
@@ -101,8 +103,12 @@ public abstract class Entity implements ScreenDrawable {
     return b2bBody;
   }
 
-  public void setBody( Body body) {
+  public void setBody(Body body) {
     b2bBody = body;
+  }
+
+  public String getType() {
+    return type;
   }
 
 }

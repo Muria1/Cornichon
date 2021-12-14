@@ -2,6 +2,7 @@ package com.cornichon.models.entities.aliveEntities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.cornichon.models.entities.MovingEntity;
@@ -24,19 +25,19 @@ public class Player extends MovingEntity {
 
   public Player(Vector2 position) {
     super(
-      position,
-      SIZE_HEIGTH,
-      SIZE_WIDTH,
-      BOUNDS,
-      SPEED,
-      JUMP_VELOCITY,
-      new Vector2(), // Acceleration
-      new Vector2() // Velocity
+        position,
+        SIZE_HEIGTH,
+        SIZE_WIDTH,
+        BOUNDS,
+        SPEED,
+        JUMP_VELOCITY,
+        new Vector2(), // Acceleration
+        new Vector2() // Velocity
     );
     this.state = State.IDLE;
     this.facingLeft = false;
     this.setTexture(new Texture(Gdx.files.internal("images/idle.png")));
-
+    this.type = "player";
     this.health = 100;
     this.healthBar = new HealthBar(this);
   }
@@ -62,6 +63,16 @@ public class Player extends MovingEntity {
     this.facingLeft = facingLeft;
   }
 
+
+  @Override
+  public void draw(SpriteBatch batch) {
+    batch.draw(
+        this.getTexture(),
+        this.getBody().getPosition().x - 0.2f,
+        this.getBody().getPosition().y - 0.4f,
+        this.getSizeWidth(),
+        this.getSizeHeight());
+
   public float getHealth() {
     return health;
   }
@@ -76,5 +87,6 @@ public class Player extends MovingEntity {
 
   public void increaseHealth(int amount) {
     this.health += amount;
+
   }
 }

@@ -7,4 +7,5 @@ public enum State {
     ATTACKING,
     DYING,
     DAMAGED,
+    FALLING,
 }

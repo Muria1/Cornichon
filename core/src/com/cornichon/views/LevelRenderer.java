@@ -12,11 +12,17 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.cornichon.models.construction.Level;
 import com.cornichon.models.entities.Entity;
+
+import com.cornichon.utils.LevelReader;
+import com.cornichon.utils.LevelWriter;
+
 import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.models.entities.helpers.State;
 import com.cornichon.utils.Constants;
+
 import com.cornichon.views.components.HealthBar;
 import com.cornichon.views.components.ManaBar;
 import com.cornichon.views.helpers.ScreenDrawable;
@@ -31,6 +37,7 @@ public class LevelRenderer {
   private Level level;
   private OrthographicCamera camera;
   private ShapeRenderer debugRenderer = new ShapeRenderer();
+  private Box2DDebugRenderer box2dDebugRenderer = new Box2DDebugRenderer();
 
   /* TEXTURES */
   private boolean debug = false;
@@ -79,16 +86,22 @@ public class LevelRenderer {
 
     spriteBatch.end();
 
-    this.toggleDebug();
-    if (debug) this.drawDebug();
+    box2dDebugRenderer.render(level.getWorld(), camera.combined);
   }
 
   private void drawEverything() {
     spriteBatch.setProjectionMatrix(this.camera.combined);
 
+    for (Entity entity : level.getBackground()) {
+      ((ScreenDrawable) entity).draw(spriteBatch);
+    }
+
     for (Entity entity : level.getEntities()) {
       ((ScreenDrawable) entity).draw(spriteBatch);
     }
+
+    level.getPlayer().draw(spriteBatch);
+
   }
 
   private void drawHudTexts() {
@@ -106,26 +119,8 @@ public class LevelRenderer {
     manaBar.draw(spriteBatch);
   }
 
-  private void drawDebug() {
-    debugRenderer.setProjectionMatrix(camera.combined);
-    debugRenderer.begin(ShapeType.Line);
-    debugRenderer.setColor(new Color(1, 0, 0, 1));
 
-    for (Entity entity : level.getEntities()) {
-      Rectangle rect = (Rectangle) entity.getBounds();
-      float x1 = entity.getPosition().x + rect.x;
-      float y1 = entity.getPosition().y + rect.y;
-      debugRenderer.rect(x1, y1, rect.height, rect.width);
-    }
 
-    debugRenderer.end();
-  }
-
-  public void toggleDebug() {
-    if (Gdx.input.isKeyJustPressed(Keys.NUM_0)) {
-      this.debug = !this.debug;
-    }
-  }
 
   //It does not have other states such as ATTACKING, DYING and DAMAGED.
   //They will be added the moment these states are in action.
@@ -163,4 +158,5 @@ public class LevelRenderer {
       }
     }
   }
+
 }

@@ -16,5 +16,7 @@ public class Block extends Entity {
   public Block(Vector2 position) {
     super(position, SIZE, SIZE, BOUNDS);
     this.setBodytype(BodyType.StaticBody);
+    this.type = "block";
   }
+
 }

@@ -35,11 +35,8 @@ public class GameScreen implements Screen {
     this.renderer = new LevelRenderer(level, true);
     this.pauseRenderer = new PauseRenderer(game.batch);
 
-    this.playerController = new PlayerController(level.getPlayer());
-    this.sphereController = new SphereController(level.getSphere());
-
+    this.playerController = new PlayerController(this.level);
     Gdx.input.setInputProcessor(playerController);
-    Gdx.input.setInputProcessor(sphereController);
   }
 
   @Override
@@ -49,7 +46,6 @@ public class GameScreen implements Screen {
 
     if (!game.getPaused()) {
       playerController.update(delta);
-      sphereController.update(delta);
       level.getWorld().step(1f / 60f, 6, 2);
       renderer.render();
     } else {
