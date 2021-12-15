@@ -19,6 +19,7 @@ public class HealthPotion extends Entity implements Collectible {
   public HealthPotion(Vector2 position) {
     super(position, SIZE_HEIGTH, SIZE_WIDTH, BOUNDS);
     this.setTexture(Textures.POTIONS_HEALTH);
+    this.type = "pot";
   }
 
   @Override

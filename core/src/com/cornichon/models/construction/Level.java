@@ -23,6 +23,7 @@ public class Level {
   private Sphere sphere;
   private World world;
   private Array<Entity> entities;
+  private Array<Entity> deadEntities;
   private Array<Entity> background;
   private Map map;
 
@@ -44,6 +45,7 @@ public class Level {
     this.map.processMap();
     this.entities = LevelReader.readLevel(this).get(0);
     this.background = LevelReader.readLevel(this).get(1);
+    this.deadEntities = new Array<Entity>();
     listener = new CornichonListener(this);
 
     this.world = new World(new Vector2(0, -10f), true);
@@ -59,11 +61,11 @@ public class Level {
 
     FixtureDef fixtureDef = new FixtureDef();
     fixtureDef.shape = shape;
-    player.getBody().createFixture(fixtureDef).setUserData("player");
-    
+    player.getBody().createFixture(fixtureDef);
+    player.getBody().setUserData("player");
 
     PolygonShape sShape = new PolygonShape();
-    sShape.setAsBox(sphere.getSizeWidth() / 2, sphere.getSizeHeight()/2);
+    sShape.setAsBox(sphere.getSizeWidth() / 2, sphere.getSizeHeight() / 2);
     FixtureDef sFDef = new FixtureDef();
     sFDef.shape = sShape;
     sphere.getBody().createFixture(sFDef).setUserData("top");
@@ -88,13 +90,23 @@ public class Level {
         // Working or not ?
         // Add mobs to mob as user data to use in contactListener
         if (e.getType().equals("block")) {
-          e.getBody().createFixture(eFDef).setUserData("block");
+          e.getBody().createFixture(eFDef).setUserData(e);
+          e.getBody().setUserData("block");
         } else if (e.getType().equals("mob")) {
-          e.getBody().createFixture(eFDef).setUserData("mob");
+          e.getBody().createFixture(eFDef).setUserData(e);
+          e.getBody().setUserData("mob");
+        } else if (e.getType().equals("col")) {
+          e.getBody().createFixture(eFDef).setUserData(e);
+          e.getBody().setUserData("col");
+        } else if (e.getType().equals("pot")) {
+          e.getBody().createFixture(eFDef).setUserData(e);
+          e.getBody().setUserData("pot");
         } else {
-          e.getBody().createFixture(eFDef).setUserData("other");
-
+          e.getBody().createFixture(eFDef).setUserData(e);
+          e.getBody().setUserData("other");
         }
+
+      
 
       }
     }
@@ -153,5 +165,14 @@ public class Level {
 
   public void setListener(CornichonListener listener) {
     this.listener = listener;
+  }
+
+  public void addDeadEntity(Entity e) {
+    e.setDead(true);
+    deadEntities.add(e);
+  }
+
+  public Array<Entity> getDeadEntities() {
+    return deadEntities;
   }
 }

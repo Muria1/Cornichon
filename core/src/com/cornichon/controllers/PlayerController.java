@@ -107,15 +107,20 @@ public class PlayerController extends GeneralController {
     if (sKeys.get(SphereActions.SLEFT)) {
       sphere.setFacingLeft(true);
       sphere.setState(State.WALKING);
-      sphere.getBody().setLinearVelocity(new Vector2(-Sphere.SPEED, sphere.getBody().getLinearVelocity().y));
+      // sphere.getBody().setLinearVelocity(new Vector2(-Sphere.SPEED, sphere.getBody().getLinearVelocity().y));
+      if( Math.abs(sphere.getBody().getLinearVelocity().x) <= sphere.getMaxSpeed() )
+      sphere.getBody().applyLinearImpulse(new Vector2( -5f,0), sphere.getBody().getPosition(), true);
     }
 
     if (sKeys.get(SphereActions.SRIGHT)) {
       // right is pressed
       sphere.setFacingLeft(false);
       sphere.setState(State.WALKING);
-      sphere.getBody().setLinearVelocity(new Vector2(Sphere.SPEED, sphere.getBody().getLinearVelocity().y));
+      // sphere.getBody().setLinearVelocity(new Vector2(Sphere.SPEED, sphere.getBody().getLinearVelocity().y));
+      if( Math.abs(sphere.getBody().getLinearVelocity().x) <= sphere.getMaxSpeed() )
+      sphere.getBody().applyLinearImpulse(new Vector2( 5f,0), sphere.getBody().getPosition(), true);
     }
+
 
     if (sKeys.get(SphereActions.SUP)) {
       sphere.setFacingLeft(false);

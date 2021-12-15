@@ -15,6 +15,8 @@ public class Sphere extends MovingEntity {
     public static final float SIZE_HEIGTH = 0.3f; // half a uni
     public static final float SIZE_WIDTH = 0.3f; // half a uni
     public static final float SPEED = 5f; // unit per second
+    public static final float MAX_SPEED = 7f; 
+
     public static final float JUMP_VELOCITY = 1f;
     public static final Rectangle BOUNDS = new Rectangle()
             .setWidth(SIZE_HEIGTH)
@@ -39,7 +41,9 @@ public class Sphere extends MovingEntity {
         this.state = State.IDLE;
         this.facingLeft = false;
         this.setTexture(Textures.PICKLE_SPHERE);
-        b2bBodyDef.type = BodyType.KinematicBody;
+        b2bBodyDef.type = BodyType.DynamicBody;
+
+        b2bBodyDef.gravityScale = 0f;
     }
 
     public void update(float delta) {
@@ -70,5 +74,9 @@ public class Sphere extends MovingEntity {
     //     this.progress += amount;
     
     //   }
+
+    public float getMaxSpeed() {
+        return MAX_SPEED;
+    }
 
 }
