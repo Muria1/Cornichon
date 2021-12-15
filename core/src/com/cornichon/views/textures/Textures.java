@@ -17,6 +17,7 @@ public class Textures {
   public static final Texture SLIME = new Texture(Gdx.files.internal("images/slime.png"));
   public static final Texture DOOR_CLOSED = new Texture(Gdx.files.internal("images/doorclosed.png"));
   public static final Texture DOOR_OPENED = new Texture(Gdx.files.internal("images/dooropened.png"));
+  public static final Texture PICKLE_SPHERE = new Texture(Gdx.files.internal("images/pickle.png"));
 
   public static final Texture POTIONS_HEALTH = new Texture(Gdx.files.internal("images/health_potion.png"));
   public static final Texture CHEST = new Texture(Gdx.files.internal("images/chest.png"));
