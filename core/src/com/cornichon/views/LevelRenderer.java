@@ -102,6 +102,8 @@ public class LevelRenderer {
 
     level.getPlayer().draw(spriteBatch);
 
+    level.getSphere().draw(spriteBatch);
+
   }
 
   private void drawHudTexts() {

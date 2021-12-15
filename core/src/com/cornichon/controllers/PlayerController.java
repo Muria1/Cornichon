@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Vector2;
 import com.cornichon.models.construction.Level;
 import com.cornichon.models.entities.aliveEntities.Player;
+import com.cornichon.models.entities.aliveEntities.Sphere;
 import com.cornichon.models.entities.helpers.State;
 import com.cornichon.utils.CornichonListener;
 import com.cornichon.views.LevelRenderer;
@@ -22,13 +23,22 @@ public class PlayerController extends GeneralController {
     JUMP,
     SPELL,
     ATTACK,
+    
     /** MORE */
+  }
+  enum SphereActions{
+    SLEFT,
+    SRIGHT,
+    SDOWN,
+    SUP
   }
 
   private Player player;
+  private Sphere sphere;
   private CornichonListener listener;
 
   static Map<Actions, Boolean> keys = new HashMap<PlayerController.Actions, Boolean>();
+  static Map<SphereActions, Boolean> sKeys = new HashMap<PlayerController.SphereActions, Boolean>();
 
   static {
     keys.put(Actions.LEFT, false);
@@ -37,9 +47,16 @@ public class PlayerController extends GeneralController {
     keys.put(Actions.SPELL, false);
     keys.put(Actions.ATTACK, false);
   }
+  static {
+    sKeys.put(SphereActions.SLEFT, false);
+    sKeys.put(SphereActions.SRIGHT, false);
+    sKeys.put(SphereActions.SUP, false);
+    sKeys.put(SphereActions.SDOWN, false);
+  }
 
   public PlayerController(Level level) {
     this.player = level.getPlayer();
+    this.sphere = player.getSphere();
     listener = level.getListener();
   }
 
@@ -83,19 +100,67 @@ public class PlayerController extends GeneralController {
       // horizontal speed is 0
       player.getBody().setLinearVelocity(new Vector2(0, player.getBody().getLinearVelocity().y));
     }
+    
+
+    //Sphere's actions
+
+    if (sKeys.get(SphereActions.SLEFT)) {
+      sphere.setFacingLeft(true);
+      sphere.setState(State.WALKING);
+      sphere.getBody().setLinearVelocity(new Vector2(-Sphere.SPEED, sphere.getBody().getLinearVelocity().y));
+    }
+
+    if (sKeys.get(SphereActions.SRIGHT)) {
+      // right is pressed
+      sphere.setFacingLeft(false);
+      sphere.setState(State.WALKING);
+      sphere.getBody().setLinearVelocity(new Vector2(Sphere.SPEED, sphere.getBody().getLinearVelocity().y));
+    }
+
+    if (sKeys.get(SphereActions.SUP)) {
+      sphere.setFacingLeft(false);
+      sphere.setState(State.JUMPING);
+      sphere.getBody().setLinearVelocity(new Vector2(sphere.getBody().getLinearVelocity().x, Sphere.SPEED));
+      }
+    
+    if (sKeys.get(SphereActions.SDOWN)) {
+      sphere.setFacingLeft(false);
+      sphere.setState(State.FALLING);
+      sphere.getBody().setLinearVelocity(new Vector2(sphere.getBody().getLinearVelocity().y, -Sphere.SPEED));
+      }
+     
+    if ((sKeys.get(SphereActions.SLEFT) && sKeys.get(SphereActions.SRIGHT))
+    || (!sKeys.get(SphereActions.SLEFT) && !(sKeys.get(SphereActions.SRIGHT)))) 
+    {
+        sphere.setState(State.IDLE);
+        sphere.getBody().setLinearVelocity(new Vector2(0, sphere.getBody().getLinearVelocity().y));
+    }  
+
+    if ((sKeys.get(SphereActions.SUP) && sKeys.get(SphereActions.SDOWN))
+    || ( (!sKeys.get(SphereActions.SUP)) && (!sKeys.get(SphereActions.SDOWN)))) 
+    {
+        sphere.setState(State.IDLE);
+        sphere.getBody().setLinearVelocity(new Vector2(sphere.getBody().getLinearVelocity().x, 0));
+
+    }  
+    
   }
+
 
   @Override
   public boolean keyDown(int keycode) {
-    if (keycode == Keys.A)
-      keys.put(Actions.LEFT, true);
-    if (keycode == Keys.D)
-      keys.put(Actions.RIGHT, true);
 
-    if (keycode == Keys.Z)
-      keys.put(Actions.SPELL, true);
-    if (keycode == Keys.X)
-      keys.put(Actions.ATTACK, true);
+    if (keycode == Keys.A) keys.put(Actions.LEFT, true);
+    if (keycode == Keys.D) keys.put(Actions.RIGHT, true);
+
+    if (keycode == Keys.Z) keys.put(Actions.SPELL, true);
+    if (keycode == Keys.X) keys.put(Actions.ATTACK, true);
+
+    if (keycode == Keys.LEFT) sKeys.put(SphereActions.SLEFT, true);
+    if (keycode == Keys.RIGHT) sKeys.put(SphereActions.SRIGHT, true);
+    if (keycode == Keys.UP) sKeys.put(SphereActions.SUP, true);
+    if (keycode == Keys.DOWN) sKeys.put(SphereActions.SDOWN, true);
+
     return true;
   }
 
@@ -109,6 +174,12 @@ public class PlayerController extends GeneralController {
       keys.put(Actions.SPELL, false);
     if (keycode == Keys.X)
       keys.put(Actions.ATTACK, false);
+
+    if (keycode == Keys.LEFT) sKeys.put(SphereActions.SLEFT, false);
+    if (keycode == Keys.RIGHT) sKeys.put(SphereActions.SRIGHT, false);
+    if (keycode == Keys.UP) sKeys.put(SphereActions.SUP, false);
+    if (keycode == Keys.DOWN) sKeys.put(SphereActions.SDOWN, false);
+
 
     return true;
   }

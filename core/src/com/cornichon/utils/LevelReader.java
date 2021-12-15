@@ -37,6 +37,7 @@ public final class LevelReader {
             case DrawableValues.PLAYER:
               Player player = new Player(new Vector2(x, map.length - y - 1));
               level.setPlayer(player);
+              level.setSphere(player.getSphere());
               break;
             case DrawableValues.SKELETON:
               entities.add(new Skeleton(new Vector2(x, map.length - y - 1)));

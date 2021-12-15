@@ -1,6 +1,7 @@
 package com.cornichon.models.construction;
 
 import com.badlogic.gdx.math.Vector2;
+import com.cornichon.models.entities.aliveEntities.Sphere;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -19,6 +20,7 @@ public class Level {
   // This class will be extented this is just for testing
 
   private Player player;
+  private Sphere sphere;
   private World world;
   private Array<Entity> entities;
   private Array<Entity> background;
@@ -30,6 +32,7 @@ public class Level {
   private CornichonListener listener;
 
   public Level(int difficulty, int lastScore, float lastHealth) {
+    // this.sphere = player.getSphere();
     this.difficulty = difficulty;
     this.lastScore = lastScore;
     this.lastHealth = lastHealth;
@@ -48,6 +51,7 @@ public class Level {
 
     // creating player body and fixtures
     this.player.setBody(world.createBody(player.getBodyDef()));
+    this.sphere.setBody(world.createBody(sphere.getBodyDef()));
 
     PolygonShape shape = new PolygonShape();
 
@@ -56,7 +60,13 @@ public class Level {
     FixtureDef fixtureDef = new FixtureDef();
     fixtureDef.shape = shape;
     player.getBody().createFixture(fixtureDef).setUserData("player");
-    ;
+    
+
+    PolygonShape sShape = new PolygonShape();
+    sShape.setAsBox(sphere.getSizeWidth() / 2, sphere.getSizeHeight()/2);
+    FixtureDef sFDef = new FixtureDef();
+    sFDef.shape = sShape;
+    sphere.getBody().createFixture(sFDef).setUserData("top");
     // end
 
     Body eBody;
@@ -103,6 +113,14 @@ public class Level {
   public void setPlayer(Player player) {
     this.player = player;
     this.player.setHealth(lastHealth);
+  }
+
+  public Sphere getSphere() {
+    return this.sphere;
+  }
+
+  public void setSphere(Sphere sphere) {
+    this.sphere = sphere;
   }
 
   public Array<Entity> getEntities() {

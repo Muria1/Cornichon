@@ -34,11 +34,6 @@ public class GameScreen implements Screen {
     this.pauseRenderer = new PauseRenderer(game.batch);
 
     this.playerController = new PlayerController(this.level);
-
-
-    
-
-
     Gdx.input.setInputProcessor(playerController);
   }
 
