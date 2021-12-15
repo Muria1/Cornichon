@@ -94,6 +94,5 @@ public class Player extends MovingEntity {
 
   public void increaseHealth(int amount) {
     this.health += amount;
-
   }
 }

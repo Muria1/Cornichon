@@ -10,6 +10,7 @@ import com.cornichon.Cornichon;
 import com.cornichon.PauseRenderer;
 import com.cornichon.controllers.PlayerController;
 import com.cornichon.models.construction.Level;
+import com.cornichon.models.entities.Entity;
 import com.cornichon.utils.Constants;
 import com.cornichon.views.LevelRenderer;
 
@@ -45,6 +46,12 @@ public class GameScreen implements Screen {
     if (!game.getPaused()) {
       playerController.update(delta);
       level.getWorld().step(1f / 60f, 6, 2);
+
+      if (level.getDeadEntities().size != 0) {
+        for (Entity e : level.getDeadEntities()) {
+          level.getWorld().destroyBody(e.getBody());
+        }
+      }
       renderer.render();
     } else {
       pauseRenderer.render();

@@ -54,10 +54,30 @@
      collection.insertOne(doc);
    }
 
+<<<<<<< HEAD
+//   private static MongoClient connectDatabase() {
+//     final MongoClientURI connectionString = new MongoClientURI(
+//       "mongodb+srv://cornichon:muriamuria@cluster0.w9imv.mongodb.net/cornichon?retryWrites=true&w=majority"
+//     );
+//     final MongoClient mongoClient = new MongoClient(connectionString);
+//     return mongoClient;
+//   }
+
+//   private static void insertDocument(final String name, final int score) {
+//     Document doc = new Document("name", name).append("score", score);
+//     collection.insertOne(doc);
+//   }
+
+  // private static Array<String> readDocument() {
+  //   FindIterable<Document> findIterable = collection.find().sort(descending("score"));
+    
+  //   final Array<String> result = new Array<String>();
+=======
   private static Array<String> readDocument() {
     FindIterable<Document> findIterable = collection.find().sort(descending("score"));
     
     final Array<String> result = new Array<String>();
+>>>>>>> d5a0ecee40035b1b7ea44031bf8dcafc2935dd6d
 
 
      Consumer<Document> printConsumer = new Consumer<Document>() {

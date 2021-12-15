@@ -22,6 +22,7 @@ public class Chest extends Entity implements Collectible {
     super(position, SIZE_HEIGTH, SIZE_WIDTH, BOUNDS);
     this.entity = entity;
     this.setTexture(Textures.CHEST);
+    this.type = "col";
   }
 
   public Entity getEntity() {

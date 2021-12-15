@@ -50,10 +50,15 @@ public class LevelRenderer {
 
   Player player;
 
-  /** IN CASE SPRITES WILL BE USED INSTEAD OF TEXTURES
-  private Sprite idleSprite = new Sprite(new Texture(Gdx.files.internal("images/idle.png")));
-  private Sprite walkingSprite = new Sprite(new Texture(Gdx.files.internal("images/walking.png")));
-  private Sprite jumpingSprite = new Sprite(new Texture(Gdx.files.internal("images/jumping.png"))); */
+  /**
+   * IN CASE SPRITES WILL BE USED INSTEAD OF TEXTURES
+   * private Sprite idleSprite = new Sprite(new
+   * Texture(Gdx.files.internal("images/idle.png")));
+   * private Sprite walkingSprite = new Sprite(new
+   * Texture(Gdx.files.internal("images/walking.png")));
+   * private Sprite jumpingSprite = new Sprite(new
+   * Texture(Gdx.files.internal("images/jumping.png")));
+   */
 
   public void setSize(int width, int height) {
     this.width = width;
@@ -97,7 +102,9 @@ public class LevelRenderer {
     }
 
     for (Entity entity : level.getEntities()) {
-      ((ScreenDrawable) entity).draw(spriteBatch);
+      if (!level.getDeadEntities().contains(entity, false)) {
+        ((ScreenDrawable) entity).draw(spriteBatch);
+      }
     }
 
     level.getPlayer().draw(spriteBatch);
@@ -121,11 +128,8 @@ public class LevelRenderer {
     manaBar.draw(spriteBatch);
   }
 
-
-
-
-  //It does not have other states such as ATTACKING, DYING and DAMAGED.
-  //They will be added the moment these states are in action.
+  // It does not have other states such as ATTACKING, DYING and DAMAGED.
+  // They will be added the moment these states are in action.
 
   private void drawSprite() {
     long currentTime = System.currentTimeMillis() / 100;
@@ -142,7 +146,7 @@ public class LevelRenderer {
       } else if (level.getPlayer().getState() == State.JUMPING) {
         player.setTexture(Textures.PLAYER_JUMPING);
       } else {
-        //OTHER STATES WILL BE ADDED..
+        // OTHER STATES WILL BE ADDED..
       }
     } else {
       if (level.getPlayer().getState() == State.IDLE) {
@@ -156,9 +160,8 @@ public class LevelRenderer {
       } else if (level.getPlayer().getState() == State.JUMPING) {
         player.setTexture(Textures.PLAYER_JUMPING);
       } else {
-        //OTHER STATES WILL BE ADDED..
+        // OTHER STATES WILL BE ADDED..
       }
     }
   }
-
 }

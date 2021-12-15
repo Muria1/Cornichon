@@ -23,6 +23,8 @@ public abstract class Entity implements ScreenDrawable {
 
   protected Texture texture;
 
+  protected boolean isDead = false;
+
   public Entity(
       Vector2 position,
       float sizeHeight,
@@ -80,13 +82,13 @@ public abstract class Entity implements ScreenDrawable {
   public void setTexture(Texture t) {
     this.texture = t;
   }
-  
+
   @Override
   public void draw(SpriteBatch batch) {
     batch.draw(
         this.getTexture(),
         this.getBody().getPosition().x - 0.5f,
-        this.getBody().getPosition().y  - 0.5f,
+        this.getBody().getPosition().y - 0.5f,
         this.getSizeWidth(),
         this.getSizeHeight());
   }
@@ -109,6 +111,14 @@ public abstract class Entity implements ScreenDrawable {
 
   public String getType() {
     return type;
+  }
+
+  public boolean isDead() {
+    return isDead;
+  }
+
+  public void setDead(boolean isDead) {
+    this.isDead = isDead;
   }
 
 }
