@@ -1,7 +1,11 @@
 package com.cornichon.views.screens;
 
+import javax.swing.plaf.FontUIResource;
+import javax.swing.text.AttributeSet.FontAttribute;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -39,18 +43,12 @@ public class GameSelectionScreen implements Screen {
     firstTable.setDebug(true);
     stage.addActor(firstTable);
 
-    secondTable.setDebug(true);
-    stage.addActor(secondTable);
 
     Skin skin = new Skin(Gdx.files.internal("images/uiskin.json"));
 
-    TextButton storyMode = new TextButton("Story Mode", skin);
-    TextButton speedRun = new TextButton("Speed Run", skin);
-
-    firstTable.setBounds(0, 0, 650, 800);
-    secondTable.setBounds(650, 0, 650, 800);
+    TextButton storyMode = new TextButton("Start the journey", skin);
+    firstTable.setBounds(550, 50, 150, 50);
     firstTable.add(storyMode).fillX().uniformX();
-    secondTable.add(speedRun).fillX().uniformX();
 
     storyMode.addListener(
       new ChangeListener() {
@@ -60,16 +58,8 @@ public class GameSelectionScreen implements Screen {
         }
       }
     );
-
-    speedRun.addListener(
-      new ChangeListener() {
-        @Override
-        public void changed(ChangeEvent event, Actor actor) {
-          game.setScreen(new GameScreen(game));
-        }
-      }
-    );
-  }
+    
+  } 
 
   @Override
   public void render(float delta) {
@@ -81,6 +71,11 @@ public class GameSelectionScreen implements Screen {
     game.batch.setProjectionMatrix(camera.combined);
 
     game.batch.begin();
+
+    game.font.draw(game.batch, "There once was a medieval village in which a boy was born: Cornichon.", 180, 300);
+    game.font.draw(game.batch, "His father gave this unique name to his son because there were not any pickles in the village, believing", 90, 280);
+    game.font.draw(game.batch, "his son will also be this important like pickles", 270, 260);
+    game.font.draw(game.batch, "However, his son was born a freak. Being kicked out from the village, he started a new journey...", 100, 200);
 
     game.batch.end();
 

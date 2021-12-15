@@ -126,7 +126,7 @@ public class PlayerController extends GeneralController {
     if (sKeys.get(SphereActions.SDOWN)) {
       sphere.setFacingLeft(false);
       sphere.setState(State.FALLING);
-      sphere.getBody().setLinearVelocity(new Vector2(sphere.getBody().getLinearVelocity().y, -Sphere.SPEED));
+      sphere.getBody().setLinearVelocity(new Vector2(sphere.getBody().getLinearVelocity().x, -Sphere.SPEED));
       }
      
     if ((sKeys.get(SphereActions.SLEFT) && sKeys.get(SphereActions.SRIGHT))
@@ -141,7 +141,7 @@ public class PlayerController extends GeneralController {
     {
         sphere.setState(State.IDLE);
         sphere.getBody().setLinearVelocity(new Vector2(sphere.getBody().getLinearVelocity().x, 0));
-
+          
     }  
     
   }
