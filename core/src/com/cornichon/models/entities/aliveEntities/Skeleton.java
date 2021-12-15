@@ -13,8 +13,8 @@ import com.cornichon.models.entities.projectiles.Projectile;
  */
 public class Skeleton extends Mob {
 
-  public static final float SIZE_HEIGTH = 0.75f; // half a uni
-  public static final float SIZE_WIDTH = 0.5f; // half a uni
+  public static final float SIZE_HEIGTH = 1f; // half a uni
+  public static final float SIZE_WIDTH = 0.6f; // half a uni
   public static final float SPEED = 4f; // unit per second
   public static final float JUMP_VELOCITY = 1f;
   public static final Rectangle BOUNDS = new Rectangle()

@@ -10,12 +10,16 @@ import com.cornichon.models.construction.Level;
 public class CornichonListener implements ContactListener {
 
     World world;
+    Level level;
     private static final String PLAYER_IDENTIFIER = "player";
     private static final String GROUND_IDENTIFIER = "block";
+    private static final String MOB_IDENTIFIER = "mob";
+
     private int groundContacts;
 
     public CornichonListener(Level level) {
         world = level.getWorld();
+        this.level = level;
     }
 
     @Override
@@ -27,6 +31,16 @@ public class CornichonListener implements ContactListener {
             groundContacts++;
             System.out.println("groundContacts" + groundContacts);
         }
+
+        if (PLAYER_IDENTIFIER.equals(contact.getFixtureA().getUserData()) ||
+                PLAYER_IDENTIFIER.equals(contact.getFixtureB().getUserData()) &&
+                        (MOB_IDENTIFIER.equals(contact.getFixtureA().getUserData()) ||
+                                MOB_IDENTIFIER.equals(contact.getFixtureB().getUserData()))) {
+
+            level.getPlayer().setHealth(level.getPlayer().getHealth() - 5);
+            System.out.println("MOB");
+        }
+
     }
 
     @Override
@@ -38,6 +52,15 @@ public class CornichonListener implements ContactListener {
             groundContacts--;
             System.out.println("groundContacts" + groundContacts);
 
+        }
+
+        if (PLAYER_IDENTIFIER.equals(contact.getFixtureA().getUserData()) ||
+                PLAYER_IDENTIFIER.equals(contact.getFixtureB().getUserData()) &&
+                        (MOB_IDENTIFIER.equals(contact.getFixtureA().getUserData()) ||
+                                MOB_IDENTIFIER.equals(contact.getFixtureB().getUserData()))) {
+
+            level.getPlayer().setHealth(level.getPlayer().getHealth());
+            System.out.println("NO MORE MOB");
         }
     }
 
