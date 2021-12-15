@@ -46,7 +46,7 @@ public final class LevelWriter {
 
   public void placeMobsAndCollectibles(int[][] map) {
     int[] collectibles = { DrawableValues.POTION_HEALTH, DrawableValues.CHEST };
-    int[] mobs = { DrawableValues.SKELETON };
+    int[] mobs = { DrawableValues.SKELETON, DrawableValues.SLIME };
 
     try {
       for (int r = 1; r < map.length; r += 1) {
