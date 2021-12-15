@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.cornichon.models.entities.MovingEntity;
 import com.cornichon.models.entities.helpers.State;
+import com.cornichon.views.textures.Textures;
 
 public class Sphere extends MovingEntity {
 
@@ -37,7 +38,7 @@ public class Sphere extends MovingEntity {
 
         this.state = State.IDLE;
         this.facingLeft = false;
-        this.setTexture(new Texture(Gdx.files.internal("images/purpleSphere.png")));
+        this.setTexture(Textures.PICKLE_SPHERE);
         b2bBodyDef.type = BodyType.KinematicBody;
     }
 
