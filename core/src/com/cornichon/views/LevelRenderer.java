@@ -15,11 +15,14 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.cornichon.models.construction.Level;
 import com.cornichon.models.entities.Entity;
+
 import com.cornichon.utils.LevelReader;
 import com.cornichon.utils.LevelWriter;
+
 import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.models.entities.helpers.State;
 import com.cornichon.utils.Constants;
+
 import com.cornichon.views.components.HealthBar;
 import com.cornichon.views.components.ManaBar;
 import com.cornichon.views.helpers.ScreenDrawable;
@@ -47,10 +50,15 @@ public class LevelRenderer {
 
   Player player;
 
-  /** IN CASE SPRITES WILL BE USED INSTEAD OF TEXTURES
-  private Sprite idleSprite = new Sprite(new Texture(Gdx.files.internal("images/idle.png")));
-  private Sprite walkingSprite = new Sprite(new Texture(Gdx.files.internal("images/walking.png")));
-  private Sprite jumpingSprite = new Sprite(new Texture(Gdx.files.internal("images/jumping.png"))); */
+  /**
+   * IN CASE SPRITES WILL BE USED INSTEAD OF TEXTURES
+   * private Sprite idleSprite = new Sprite(new
+   * Texture(Gdx.files.internal("images/idle.png")));
+   * private Sprite walkingSprite = new Sprite(new
+   * Texture(Gdx.files.internal("images/walking.png")));
+   * private Sprite jumpingSprite = new Sprite(new
+   * Texture(Gdx.files.internal("images/jumping.png")));
+   */
 
   public void setSize(int width, int height) {
     this.width = width;
@@ -99,6 +107,8 @@ public class LevelRenderer {
 
     level.getPlayer().draw(spriteBatch);
 
+    level.getSphere().draw(spriteBatch);
+
   }
 
   private void drawHudTexts() {
@@ -116,10 +126,8 @@ public class LevelRenderer {
     manaBar.draw(spriteBatch);
   }
 
-
-
-  //It does not have other states such as ATTACKING, DYING and DAMAGED.
-  //They will be added the moment these states are in action.
+  // It does not have other states such as ATTACKING, DYING and DAMAGED.
+  // They will be added the moment these states are in action.
 
   private void drawSprite() {
     long currentTime = System.currentTimeMillis() / 100;
@@ -136,7 +144,7 @@ public class LevelRenderer {
       } else if (level.getPlayer().getState() == State.JUMPING) {
         player.setTexture(Textures.PLAYER_JUMPING);
       } else {
-        //OTHER STATES WILL BE ADDED..
+        // OTHER STATES WILL BE ADDED..
       }
     } else {
       if (level.getPlayer().getState() == State.IDLE) {
@@ -150,7 +158,7 @@ public class LevelRenderer {
       } else if (level.getPlayer().getState() == State.JUMPING) {
         player.setTexture(Textures.PLAYER_JUMPING);
       } else {
-        //OTHER STATES WILL BE ADDED..
+        // OTHER STATES WILL BE ADDED..
       }
     }
   }

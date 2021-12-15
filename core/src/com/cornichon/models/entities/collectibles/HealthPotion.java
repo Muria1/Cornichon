@@ -1,5 +1,7 @@
 package com.cornichon.models.entities.collectibles;
 
+import java.util.Random;
+
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.cornichon.models.construction.Level;
@@ -23,5 +25,10 @@ public class HealthPotion extends Entity implements Collectible {
   public void collected(Player player, Level level) {
     player.increaseHealth(10);
     level.getEntities().removeIndex(level.getEntities().indexOf(this, true));
+  }
+
+  @Override
+  public void applyEffect(Player player, Level level) {
+    collected(player, level);
   }
 }
