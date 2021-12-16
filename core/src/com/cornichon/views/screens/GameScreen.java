@@ -47,11 +47,13 @@ public class GameScreen implements Screen {
       playerController.update(delta);
       level.getWorld().step(1f / 60f, 6, 2);
 
-      if (level.getDeadEntities().size != 0) {
-        for (Entity e : level.getDeadEntities()) {
-          level.getWorld().destroyBody(e.getBody());
+        if (level.getDyingEntities().size != 0) {
+          for (Entity e : level.getDyingEntities()) {
+            level.getWorld().destroyBody(e.getBody());
+          }
+          level.getDyingEntities().clear();
         }
-      }
+
       renderer.render();
     } else {
       pauseRenderer.render();
