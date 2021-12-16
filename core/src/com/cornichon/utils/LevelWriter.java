@@ -15,7 +15,7 @@ public final class LevelWriter {
   private Random random = new Random();
 
   public LevelWriter(int difficulty) {
-    int d = difficulty + 4;
+    int d = difficulty + 10;
     this.difficulty = difficulty;
     this.maze = new Maze(d, d * 7 / 10);
   }
@@ -71,6 +71,11 @@ public final class LevelWriter {
     } catch (ArrayIndexOutOfBoundsException e) {
       Gdx.app.log("placeMobs", e.getMessage());
     }
+  }
+
+  public void placeExitDoor(int[][] map) {
+    final char[][] mazeArr = maze.getGridArr();
+    map[mazeArr[0].length * 2 - 3][mazeArr.length - 2] = DrawableValues.DOOR_CLOSED;
   }
 
   public void fillBackground(int[][] map, Array<Entity> entities) {

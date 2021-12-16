@@ -17,14 +17,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.cornichon.models.construction.Level;
 import com.cornichon.models.entities.Entity;
-
-import com.cornichon.utils.LevelReader;
-import com.cornichon.utils.LevelWriter;
-
 import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.models.entities.helpers.State;
 import com.cornichon.utils.Constants;
-
+import com.cornichon.utils.LevelReader;
+import com.cornichon.utils.LevelWriter;
 import com.cornichon.views.components.HealthBar;
 import com.cornichon.views.components.ManaBar;
 import com.cornichon.views.helpers.ScreenDrawable;
@@ -81,11 +78,9 @@ public class LevelRenderer {
     this.setSize(width, height);
     player = level.getPlayer();
     this.startTime = TimeUtils.nanoTime();
-    
   }
 
   public void render() {
-
     spriteBatch.begin();
 
     this.camera.position.set(level.getPlayer().getPosition().x, level.getPlayer().getPosition().y, 2);
@@ -109,18 +104,16 @@ public class LevelRenderer {
     }
 
     for (Entity entity : level.getEntities()) {
-      if(level.getDeadEntities().size == 0) {
+      if (level.getDeadEntities().size == 0) {
         ((ScreenDrawable) entity).draw(spriteBatch);
-      }
-      else if (!level.getDeadEntities().contains(entity, false)) {
+      } else if (!level.getDeadEntities().contains(entity, false)) {
         ((ScreenDrawable) entity).draw(spriteBatch);
       }
     }
 
     level.getPlayer().draw(spriteBatch);
-
+    level.getDoor().draw(spriteBatch);
     level.getSphere().draw(spriteBatch);
-
   }
 
   private void drawHudTexts() {
@@ -132,19 +125,15 @@ public class LevelRenderer {
   }
 
   private void drawBars() {
-
     currentTime = TimeUtils.nanoTime();
 
     if (currentTime - startTime > TimeUtils.millisToNanos(200)) {
-      
-      if(manaBar.getProgress() < 1){
-
+      if (manaBar.getProgress() < 1) {
         startTime = currentTime;
         manaBar.setProgress(manaBar.getProgress() + 0.01f);
       }
-     
-    }  
-    
+    }
+
     spriteBatch.setProjectionMatrix(this.camera.projection);
 
     healthBar.draw(spriteBatch);

@@ -17,7 +17,6 @@ public class HealthBar extends Bar {
     this.heart = new Texture(Gdx.files.internal("images/heart.png"));
     this.bar = new Texture(Gdx.files.internal("images/bar.png"));
     this.player = player;
-    this.health = player.getHealth();
   }
 
   @Override
