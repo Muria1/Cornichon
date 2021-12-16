@@ -12,24 +12,26 @@ import com.cornichon.models.entities.Entity;
 import com.cornichon.models.entities.aliveEntities.Mob;
 import com.cornichon.models.entities.collectibles.HealthPotion;
 import com.cornichon.models.entities.helpers.Collectible;
-import com.cornichon.views.textures.Textures;
+
+import com.cornichon.models.entities.projectiles.Projectile;
 
 public class CornichonListener implements ContactListener {
 
-  World world;
-  Level level;
-  private static final String PLAYER_IDENTIFIER = "player";
-  private static final String GROUND_IDENTIFIER = "block";
-  private static final String MOB_IDENTIFIER = "mob";
-  private static final String COL_IDENTIFIER = "col";
-  private static final String SPHERE_IDENTIFIER = "top";
+    World world;
+    Level level;
+    private static final String PLAYER_IDENTIFIER = "player";
+    private static final String GROUND_IDENTIFIER = "block";
+    private static final String MOB_IDENTIFIER = "mob";
+    private static final String COL_IDENTIFIER = "col";
+    private static final String SPHERE_IDENTIFIER = "top";
+    private static final String PROJECTILE_IDENTIFIER = "projectile";
 
-  private int groundContacts;
+    private int groundContacts;
 
-  public CornichonListener(Level level) {
-    world = level.getWorld();
-    this.level = level;
-  }
+    public CornichonListener(Level level) {
+        world = level.getWorld();
+        this.level = level;
+
 
   @Override
   public void beginContact(Contact contact) {
@@ -57,6 +59,7 @@ public class CornichonListener implements ContactListener {
         d.setTexture(Textures.DOOR_OPENED);
         d.switchToNewLevel();
       }
+
     }
 
     if (
@@ -73,21 +76,25 @@ public class CornichonListener implements ContactListener {
       System.out.println("MOB");
     }
 
-    if (
-      (
-        SPHERE_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-        SPHERE_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
-      ) &&
-      (
-        MOB_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-        MOB_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
-      )
-    ) {
-      if (contact.getFixtureA().getUserData() instanceof Mob) {
-        Mob m = (Mob) contact.getFixtureA().getUserData();
-        m.applyDamage();
-        if (m.isDead()) {
-          level.addDyingEntity(m);
+
+        if ((SPHERE_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+                SPHERE_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())) &&
+                (MOB_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+                        MOB_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))) {
+            if (contact.getFixtureA().getUserData() instanceof Mob) {
+                Mob m = (Mob) contact.getFixtureA().getUserData();
+                m.applyDamage(level.getSphere().getDamage());
+                if (m.isDead()) {
+                    level.addDyingEntity(m);
+                }
+            } else if (contact.getFixtureB().getUserData() instanceof Mob) {
+                Mob m = (Mob) contact.getFixtureB().getUserData();
+                m.applyDamage(level.getSphere().getDamage());
+                if (m.checkDeath()) {
+                    level.addDyingEntity(m);
+                }
+            }
+
         }
       } else if (contact.getFixtureB().getUserData() instanceof Mob) {
         Mob m = (Mob) contact.getFixtureB().getUserData();
@@ -95,7 +102,66 @@ public class CornichonListener implements ContactListener {
         if (m.checkDeath()) {
           level.addDyingEntity(m);
         }
-      }
+
+
+        if ((PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+                PLAYER_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())) &&
+                (PROJECTILE_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+                        PROJECTILE_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))) {
+
+            if (contact.getFixtureA().getUserData() instanceof Projectile) {
+                Projectile e = (Projectile) contact.getFixtureA().getUserData();
+                level.getPlayer().setHealth(level.getPlayer().getHealth() - e.getDamage());
+                level.addDyingProjectile(e);
+
+            }
+
+            else if (contact.getFixtureB().getUserData() instanceof Projectile) {
+                Projectile e = (Projectile) contact.getFixtureB().getUserData();
+                level.getPlayer().setHealth(level.getPlayer().getHealth() - e.getDamage());
+                level.addDyingProjectile(e);
+
+            }
+
+        }
+
+        if ((PROJECTILE_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+                PROJECTILE_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())) &&
+                (GROUND_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+                        GROUND_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))) {
+
+            if (contact.getFixtureA().getUserData() instanceof Projectile) {
+                Projectile e = (Projectile) contact.getFixtureA().getUserData();
+                level.addDyingProjectile(e);
+            }
+
+            else if (contact.getFixtureB().getUserData() instanceof Projectile) {
+                Projectile e = (Projectile) contact.getFixtureB().getUserData();
+                level.addDyingProjectile(e);
+            }
+
+        }
+
+        if ((PROJECTILE_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+                PROJECTILE_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))
+                && (MOB_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+                        MOB_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))) {
+            if (contact.getFixtureA().getUserData() instanceof Mob) {
+                Mob m = (Mob) contact.getFixtureA().getUserData();
+                m.applyDamage(25);
+                if (m.isDead()) {
+                    level.addDyingEntity(m);
+                }
+            } else if (contact.getFixtureB().getUserData() instanceof Mob) {
+                Mob m = (Mob) contact.getFixtureB().getUserData();
+                m.applyDamage(25);
+                if (m.checkDeath()) {
+                    level.addDyingEntity(m);
+                }
+            }
+        }
+
+
     }
 
     if (

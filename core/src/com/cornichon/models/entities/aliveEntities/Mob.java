@@ -38,6 +38,7 @@ public class Mob extends MovingEntity {
     this.facingLeft = false;
     this.health = health;
     this.type = "mob";
+    this.b2bBodyDef.gravityScale = 10f;
   }
 
   public void update(float delta) {
@@ -68,8 +69,8 @@ public class Mob extends MovingEntity {
     return damage;
   }
 
-  public void applyDamage() {
-    health = health - 20;
+  public void applyDamage(int damage) {
+    health = health - damage;
   }
 
   public boolean checkDeath() {

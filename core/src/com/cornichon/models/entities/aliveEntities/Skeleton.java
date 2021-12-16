@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.cornichon.models.entities.Entity;
+import com.cornichon.models.entities.projectiles.Fireball;
 import com.cornichon.models.entities.projectiles.Projectile;
 
 /**
@@ -50,14 +52,6 @@ public class Skeleton extends Mob {
 
     this.setTexture(new Texture(Gdx.files.internal("images/skeleton_idle.png")));
   }
-
-  //Will be added later
-  public void fireProjectile() {
-    
-  }
-
-  
-  
 
   //
   public void closeRangeAttack() {}

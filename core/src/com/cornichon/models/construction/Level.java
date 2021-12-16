@@ -1,5 +1,12 @@
 package com.cornichon.models.construction;
 
+
+import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Vector2;
+import com.cornichon.models.entities.aliveEntities.Sphere;
+import com.cornichon.models.entities.projectiles.Fireball;
+import com.cornichon.models.entities.projectiles.Projectile;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -13,7 +20,12 @@ import com.cornichon.models.construction.components.Block;
 import com.cornichon.models.construction.components.Door;
 import com.cornichon.models.entities.Entity;
 import com.cornichon.models.entities.aliveEntities.Player;
+
+import com.cornichon.models.entities.aliveEntities.Skeleton;
+import com.cornichon.models.entities.aliveEntities.Slime;
+
 import com.cornichon.models.entities.aliveEntities.Sphere;
+
 import com.cornichon.utils.CornichonListener;
 import com.cornichon.utils.LevelReader;
 import com.cornichon.views.maps.Map;
@@ -33,6 +45,7 @@ public class Level {
   private Array<Entity> entities;
   private Array<Entity> dyingEntities;
   private Array<Entity> deadEntities;
+  private Array<Projectile> projectiles;
 
   private Array<Entity> background;
   private Map map;
@@ -60,6 +73,7 @@ public class Level {
     this.background = LevelReader.readLevel(this).get(1);
     this.dyingEntities = new Array<Entity>();
     this.deadEntities = new Array<Entity>();
+    this.projectiles = new Array<Projectile>();
     listener = new CornichonListener(this);
 
     this.world = new World(new Vector2(0, -10f), true);
@@ -129,6 +143,7 @@ public class Level {
       eBody = world.createBody(e.getBodyDef());
       e.setBody(eBody);
     }
+
   }
 
   public Player getPlayer() {
@@ -192,6 +207,20 @@ public class Level {
     e.setDead(true);
     dyingEntities.add(e);
     deadEntities.add(e);
+
+    if (entities.contains(e, false)) {
+      entities.removeValue(e, false);
+    }
+  }
+
+  public void addDyingProjectile(Projectile p) {
+    p.setDead(true);
+    dyingEntities.add(p);
+    deadEntities.add(p);
+
+    if (projectiles.contains(p, false)) {
+      projectiles.removeValue(p, false);
+    }
   }
 
   public Array<Entity> getDeadEntities() {
@@ -202,6 +231,81 @@ public class Level {
     return dyingEntities;
   }
 
+
+  public Array<Projectile> getProjectiles() {
+    return projectiles;
+  }
+
+  // under construction
+  // Projectile velocity and direction is true
+  // However, projectiles are created from first location of the mobs, not current
+  // locations
+  public void fire() {
+
+    for (Entity e : entities) {
+
+      double distance = Math.sqrt(Math.pow(e.getBody().getPosition().x - player.getBody().getPosition().x, 2)
+          + Math.pow(e.getBody().getPosition().y - player.getBody().getPosition().y, 2));
+      if (e instanceof Skeleton && distance <= 20) {
+
+        Fireball fireball;
+
+        if (player.getBody().getPosition().x <= e.getBody().getPosition().x) {
+          fireball = new Fireball(20, new Vector2(e.getPosition().x - player.getPosition().x / 70,
+              e.getPosition().y));
+          fireball.getBodyDef().position.set(new Vector2(e.getPosition().x - player.getPosition().x / 70,
+              e.getPosition().y));
+
+        } else {
+          fireball = new Fireball(20, new Vector2(e.getPosition().x + player.getPosition().x / 70,
+              e.getPosition().y));
+          fireball.getBodyDef().position.set(new Vector2(e.getPosition().x + player.getPosition().x / 70,
+              e.getPosition().y));
+        }
+
+        FixtureDef fireballFixDef = new FixtureDef();
+        PolygonShape fireballShape = new PolygonShape();
+
+        fireballShape.setAsBox(fireball.getSizeWidth() / 2, fireball.getSizeHeight() / 2);
+        fireballFixDef.shape = fireballShape;
+
+        fireball.setBody(world.createBody(fireball.getBodyDef()));
+        fireball.getBody().setUserData("projectile");
+        fireball.getBody().createFixture(fireballFixDef).setUserData(fireball);
+
+        projectiles.add(fireball);
+
+        if ((player.getBody().getPosition().x <= e.getBody().getPosition().x)) {
+          fireball.getBody()
+              .setLinearVelocity(new Vector2(-5f, 0));
+        }
+        if ((player.getBody().getPosition().x > e.getBody().getPosition().x)) {
+          fireball.getBody()
+              .setLinearVelocity(new Vector2(5f, 0));
+        }
+      }
+
+    }
+  }
+
+  // Under construction
+  public void moveMobs() {
+
+    for (Entity e : entities) {
+      double distanceX = Math.abs(e.getBody().getPosition().x - player.getBody().getPosition().x);
+      double distanceY = Math.abs(e.getBody().getPosition().y - player.getBody().getPosition().y);
+      if (e instanceof Slime && distanceX <= 20 && distanceY <= 3) {
+        if (player.getBody().getPosition().x <= e.getBody().getPosition().x) {
+          e.getBody().setLinearVelocity(new Vector2(-2.5f, e.getBody().getLinearVelocity().y));
+        } else {
+          e.getBody().setLinearVelocity(new Vector2(2.5f, e.getBody().getLinearVelocity().y));
+
+        }
+      }
+    }
+  }
+
+
   public void nextLevel() {
     if (difficulty + 1 >= 11) {
       game.setScreen(new GameEndingScreen(game, lastScore));
@@ -209,4 +313,5 @@ public class Level {
       game.setScreen(new GameScreen(game, difficulty + 1, lastScore, lastHealth));
     }
   }
+
 }
