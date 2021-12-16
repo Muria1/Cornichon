@@ -14,7 +14,7 @@ public class ManaBar extends Bar {
   public ManaBar(LevelRenderer levelRenderer) {
     this.mana = new Texture(Gdx.files.internal("images/mana.png"));
     this.bar = new Texture(Gdx.files.internal("images/manabar.png"));
-    this.progress = 1;
+    this.progress = 0;
   }
 
   public void setProgress(float progress) {

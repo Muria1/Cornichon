@@ -13,6 +13,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.cornichon.models.construction.Level;
 import com.cornichon.models.entities.Entity;
 
@@ -44,6 +46,8 @@ public class LevelRenderer {
   private SpriteBatch spriteBatch;
   private HealthBar healthBar;
   private ManaBar manaBar;
+  private long startTime;
+  private long currentTime;
 
   private int width;
   private int height;
@@ -76,9 +80,12 @@ public class LevelRenderer {
     this.manaBar = new ManaBar(this);
     this.setSize(width, height);
     player = level.getPlayer();
+    this.startTime = TimeUtils.nanoTime();
+    
   }
 
   public void render() {
+
     spriteBatch.begin();
 
     this.camera.position.set(level.getPlayer().getPosition().x, level.getPlayer().getPosition().y, 2);
@@ -125,9 +132,23 @@ public class LevelRenderer {
   }
 
   private void drawBars() {
+
+    currentTime = TimeUtils.nanoTime();
+
+    if (currentTime - startTime > TimeUtils.millisToNanos(200)) {
+      
+      if(manaBar.getProgress() < 1){
+
+        startTime = currentTime;
+        manaBar.setProgress(manaBar.getProgress() + 0.01f);
+      }
+     
+    }  
+    
     spriteBatch.setProjectionMatrix(this.camera.projection);
 
     healthBar.draw(spriteBatch);
+
     manaBar.draw(spriteBatch);
   }
 
