@@ -48,22 +48,6 @@ public class GameScreen implements Screen {
     this.level = new Level(this.difficulty, this.lastScore, this.lastHealth, game);
     this.renderer = new LevelRenderer(level, true);
     this.pauseRenderer = new PauseRenderer(game.batch);
-
-  //   Texture soundOn = new Texture("images/soundOn.png");
-  //   TextureRegion region = new TextureRegion(soundOn);
-  //   TextureRegionDrawable drawable = new TextureRegionDrawable(region);
-
-  //   this.soundButton = new ImageButton(drawable);
-  //   soundButton.addListener(new ChangeListener() {
-  //     @Override
-
-  //     public void changed(ChangeEvent event, Actor actor) {
-  //       Cornichon.backgroundMusic.pause();
-  //     }
-
-  //   }
-  // );
-
     this.playerController = new PlayerController(this.level);
     Gdx.input.setInputProcessor(playerController);
   }
