@@ -60,12 +60,12 @@ public class CornichonListener implements ContactListener {
 
             if (contact.getFixtureA().getUserData() instanceof Collectible) {
                 Entity e = (Entity)contact.getFixtureA().getUserData();
-                level.addDeadEntity(e);
+                level.addDyingEntity(e);
             }
 
             else if (contact.getFixtureB().getUserData() instanceof Collectible) {
                 Entity e = (Entity)contact.getFixtureB().getUserData();
-                level.addDeadEntity(e);
+                level.addDyingEntity(e);
 
             }
         }

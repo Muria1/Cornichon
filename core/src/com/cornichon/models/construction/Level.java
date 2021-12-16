@@ -23,7 +23,9 @@ public class Level {
   private Sphere sphere;
   private World world;
   private Array<Entity> entities;
+  private Array<Entity> dyingEntities;
   private Array<Entity> deadEntities;
+
   private Array<Entity> background;
   private Map map;
 
@@ -45,6 +47,7 @@ public class Level {
     this.map.processMap();
     this.entities = LevelReader.readLevel(this).get(0);
     this.background = LevelReader.readLevel(this).get(1);
+    this.dyingEntities = new Array<Entity>();
     this.deadEntities = new Array<Entity>();
     listener = new CornichonListener(this);
 
@@ -87,8 +90,7 @@ public class Level {
 
         // Adjusting Fixtures
 
-        // Working or not ?
-        // Add mobs to mob as user data to use in contactListener
+        // add every entity data to b2body and fixture
         if (e.getType().equals("block")) {
           e.getBody().createFixture(eFDef).setUserData(e);
           e.getBody().setUserData("block");
@@ -105,8 +107,6 @@ public class Level {
           e.getBody().createFixture(eFDef).setUserData(e);
           e.getBody().setUserData("other");
         }
-
-      
 
       }
     }
@@ -167,12 +167,17 @@ public class Level {
     this.listener = listener;
   }
 
-  public void addDeadEntity(Entity e) {
+  public void addDyingEntity(Entity e) {
     e.setDead(true);
+    dyingEntities.add(e);
     deadEntities.add(e);
   }
 
   public Array<Entity> getDeadEntities() {
     return deadEntities;
+  }
+
+  public Array<Entity> getDyingEntities() {
+    return dyingEntities;
   }
 }
