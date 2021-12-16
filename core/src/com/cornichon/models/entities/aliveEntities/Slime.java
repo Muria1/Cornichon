@@ -1,5 +1,7 @@
 package com.cornichon.models.entities.aliveEntities;
 
+import java.util.Random;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -11,7 +13,7 @@ import com.cornichon.models.entities.projectiles.Projectile;
 
 public class Slime extends Mob {
 
-  public static final float SIZE_HEIGTH = 0.25f; // half a uni
+  public static final float SIZE_HEIGTH = 0.75f; // half a uni
   public static final float SIZE_WIDTH = 0.5f; // half a uni
   public static final float SPEED = 4f; // unit per second
   public static final float JUMP_VELOCITY = 1f;
@@ -28,6 +30,8 @@ public class Slime extends Mob {
   private int range;
   private int closeCombatRange;
   private boolean canFireProjectile;
+  private Random ran;
+  private int slimeDecisionMaker;
 
   public Slime(Vector2 position) {
     super(
@@ -42,8 +46,18 @@ public class Slime extends Mob {
       HEALTH,
       DAMAGE
     );
+    ran = new Random();
+    int slimeDecisionMaker = ran.nextInt(3)+1;
 
-    this.setTexture(new Texture(Gdx.files.internal("images/slime.png")));
+    if(slimeDecisionMaker == 1){
+      this.setTexture(new Texture(Gdx.files.internal("images/blueSlime.png")));
+    }else if(slimeDecisionMaker == 2){
+      this.setTexture(new Texture(Gdx.files.internal("images/greenSlime.png")));
+    }
+    else{
+      this.setTexture(new Texture(Gdx.files.internal("images/yellowSlime.png")));
+    }
+    
   }
 
     public void fireProjectile() {}
@@ -62,8 +76,8 @@ public class Slime extends Mob {
   public void draw(SpriteBatch batch) {
     batch.draw(
         this.getTexture(),
-        this.getBody().getPosition().x - 0.2f,
-        this.getBody().getPosition().y - 0.1f,
+        this.getBody().getPosition().x - 0.25f,
+        this.getBody().getPosition().y - 0.4f,
         this.getSizeWidth(),
         this.getSizeHeight());
   }

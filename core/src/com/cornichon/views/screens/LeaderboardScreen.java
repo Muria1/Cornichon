@@ -21,13 +21,15 @@ public class LeaderboardScreen implements Screen {
   public Stage stage;
   public Database database;
   Skin skin = new Skin(Gdx.files.internal("images/uiskin.json"));
+  int score;
 
   TextField scoreTextField = new TextField("", skin);
 
-  public LeaderboardScreen(Cornichon game) {
+  public LeaderboardScreen(Cornichon game, int score) {
     this.game = game;
     this.camera = new OrthographicCamera();
     this.camera.setToOrtho(false, 800, 400);
+    this.score = score;
     Database.initDatabase();
   }
 
@@ -42,9 +44,7 @@ public class LeaderboardScreen implements Screen {
 
     game.batch.begin();
 
-    int score = 1324; //score example, will be updated after the implementation of the game
-
-    game.font.draw(game.batch, "Score:" + score, 350, 300);
+    game.font.draw(game.batch, "SCORE: " + score, 350, 300);
     game.font.draw(game.batch, "Enter your name to see your place in the leaderboard:", 220, 200);
     game.font.draw(game.batch, "You will see your name if you are in top 10 (Nobody remembers losers)", 180, 240);
 
