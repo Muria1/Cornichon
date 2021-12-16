@@ -1,7 +1,5 @@
 package com.cornichon.models.entities.collectibles;
 
-import java.util.Random;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -10,7 +8,9 @@ import com.cornichon.models.construction.Level;
 import com.cornichon.models.entities.Entity;
 import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.models.entities.helpers.Collectible;
+import com.cornichon.utils.Scores;
 import com.cornichon.views.textures.Textures;
+import java.util.Random;
 
 public class HealthPotion extends Entity implements Collectible {
 
@@ -29,6 +29,7 @@ public class HealthPotion extends Entity implements Collectible {
   public void collected(Player player, Level level) {
     player.increaseHealth(10);
     level.getEntities().removeIndex(level.getEntities().indexOf(this, true));
+    level.increaseLastScore(Scores.POTION_COLLECTED);
   }
 
   @Override
@@ -39,10 +40,11 @@ public class HealthPotion extends Entity implements Collectible {
   @Override
   public void draw(SpriteBatch batch) {
     batch.draw(
-        this.getTexture(),
-        this.getBody().getPosition().x - 0.2f,
-        this.getBody().getPosition().y - 0.3f,
-        this.getSizeWidth(),
-        this.getSizeHeight());
+      this.getTexture(),
+      this.getBody().getPosition().x - 0.2f,
+      this.getBody().getPosition().y - 0.3f,
+      this.getSizeWidth(),
+      this.getSizeHeight()
+    );
   }
 }

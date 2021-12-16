@@ -1,13 +1,8 @@
 package com.cornichon.models.construction;
 
-
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
-import com.cornichon.models.entities.aliveEntities.Sphere;
-import com.cornichon.models.entities.projectiles.Fireball;
-import com.cornichon.models.entities.projectiles.Projectile;
-
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -20,12 +15,12 @@ import com.cornichon.models.construction.components.Block;
 import com.cornichon.models.construction.components.Door;
 import com.cornichon.models.entities.Entity;
 import com.cornichon.models.entities.aliveEntities.Player;
-
 import com.cornichon.models.entities.aliveEntities.Skeleton;
 import com.cornichon.models.entities.aliveEntities.Slime;
-
 import com.cornichon.models.entities.aliveEntities.Sphere;
-
+import com.cornichon.models.entities.aliveEntities.Sphere;
+import com.cornichon.models.entities.projectiles.Fireball;
+import com.cornichon.models.entities.projectiles.Projectile;
 import com.cornichon.utils.CornichonListener;
 import com.cornichon.utils.LevelReader;
 import com.cornichon.views.maps.Map;
@@ -143,7 +138,6 @@ public class Level {
       eBody = world.createBody(e.getBodyDef());
       e.setBody(eBody);
     }
-
   }
 
   public Player getPlayer() {
@@ -231,7 +225,6 @@ public class Level {
     return dyingEntities;
   }
 
-
   public Array<Projectile> getProjectiles() {
     return projectiles;
   }
@@ -241,26 +234,24 @@ public class Level {
   // However, projectiles are created from first location of the mobs, not current
   // locations
   public void fire() {
-
     for (Entity e : entities) {
-
-      double distance = Math.sqrt(Math.pow(e.getBody().getPosition().x - player.getBody().getPosition().x, 2)
-          + Math.pow(e.getBody().getPosition().y - player.getBody().getPosition().y, 2));
+      double distance = Math.sqrt(
+        Math.pow(e.getBody().getPosition().x - player.getBody().getPosition().x, 2) +
+        Math.pow(e.getBody().getPosition().y - player.getBody().getPosition().y, 2)
+      );
       if (e instanceof Skeleton && distance <= 20) {
-
         Fireball fireball;
 
         if (player.getBody().getPosition().x <= e.getBody().getPosition().x) {
-          fireball = new Fireball(20, new Vector2(e.getPosition().x - player.getPosition().x / 70,
-              e.getPosition().y));
-          fireball.getBodyDef().position.set(new Vector2(e.getPosition().x - player.getPosition().x / 70,
-              e.getPosition().y));
-
+          fireball = new Fireball(20, new Vector2(e.getPosition().x - player.getPosition().x / 70, e.getPosition().y));
+          fireball
+            .getBodyDef()
+            .position.set(new Vector2(e.getPosition().x - player.getPosition().x / 70, e.getPosition().y));
         } else {
-          fireball = new Fireball(20, new Vector2(e.getPosition().x + player.getPosition().x / 70,
-              e.getPosition().y));
-          fireball.getBodyDef().position.set(new Vector2(e.getPosition().x + player.getPosition().x / 70,
-              e.getPosition().y));
+          fireball = new Fireball(20, new Vector2(e.getPosition().x + player.getPosition().x / 70, e.getPosition().y));
+          fireball
+            .getBodyDef()
+            .position.set(new Vector2(e.getPosition().x + player.getPosition().x / 70, e.getPosition().y));
         }
 
         FixtureDef fireballFixDef = new FixtureDef();
@@ -276,21 +267,17 @@ public class Level {
         projectiles.add(fireball);
 
         if ((player.getBody().getPosition().x <= e.getBody().getPosition().x)) {
-          fireball.getBody()
-              .setLinearVelocity(new Vector2(-5f, 0));
+          fireball.getBody().setLinearVelocity(new Vector2(-5f, 0));
         }
         if ((player.getBody().getPosition().x > e.getBody().getPosition().x)) {
-          fireball.getBody()
-              .setLinearVelocity(new Vector2(5f, 0));
+          fireball.getBody().setLinearVelocity(new Vector2(5f, 0));
         }
       }
-
     }
   }
 
   // Under construction
   public void moveMobs() {
-
     for (Entity e : entities) {
       double distanceX = Math.abs(e.getBody().getPosition().x - player.getBody().getPosition().x);
       double distanceY = Math.abs(e.getBody().getPosition().y - player.getBody().getPosition().y);
@@ -299,12 +286,10 @@ public class Level {
           e.getBody().setLinearVelocity(new Vector2(-2.5f, e.getBody().getLinearVelocity().y));
         } else {
           e.getBody().setLinearVelocity(new Vector2(2.5f, e.getBody().getLinearVelocity().y));
-
         }
       }
     }
   }
-
 
   public void nextLevel() {
     if (difficulty + 1 >= 11) {
@@ -314,4 +299,7 @@ public class Level {
     }
   }
 
+  public void increaseLastScore(int amount) {
+    this.lastScore += amount;
+  }
 }

@@ -2,7 +2,6 @@ package com.cornichon.views.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -14,8 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.cornichon.Cornichon;
-import javax.swing.plaf.FontUIResource;
-import javax.swing.text.AttributeSet.FontAttribute;
 
 public class GameSelectionScreen implements Screen {
 
@@ -35,24 +32,22 @@ public class GameSelectionScreen implements Screen {
 
   @Override
   public void show() {
-    Table firstTable = new Table();
-    Table secondTable = new Table();
+    Table table = new Table();
 
-    //firstTable.setFillParent(true);
-    firstTable.setDebug(true);
-    stage.addActor(firstTable);
+    table.setDebug(true);
+    stage.addActor(table);
 
     Skin skin = new Skin(Gdx.files.internal("images/uiskin.json"));
 
     TextButton storyMode = new TextButton("Start the journey", skin);
-    firstTable.setBounds(550, 50, 150, 50);
-    firstTable.add(storyMode).fillX().uniformX();
+    table.setBounds(550, 50, 150, 50);
+    table.add(storyMode).fillX().uniformX();
 
     storyMode.addListener(
       new ChangeListener() {
         @Override
         public void changed(ChangeEvent event, Actor actor) {
-          game.setScreen(new GameScreen(game, 1, 0, 100));
+          game.setScreen(new GameScreen(game, 10, 0, 100));
         }
       }
     );
