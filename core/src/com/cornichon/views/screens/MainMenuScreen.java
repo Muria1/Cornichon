@@ -77,7 +77,7 @@ public class MainMenuScreen implements Screen {
     TextButton leaderBoard = new TextButton("Leaderboard", skin);
     TextButton exit = new TextButton("Exit", skin);
     TextButton tutorial = new TextButton("Tutorial", skin);
-    setImage("images/soundOn.png");
+    setImage("images/SOUND_ON.png");
 
     table.setBounds(590, 80, 100, 150);
     table.add(newGame).fillX().uniformX();
@@ -134,7 +134,7 @@ public class MainMenuScreen implements Screen {
     Drawable drawable = new TextureRegionDrawable(new TextureRegion(new Texture(getImage())));
     ImageButton soundButton = new ImageButton(drawable);
 
-    soundTable.setBounds(100, 650, 30, 30);
+    soundTable.setBounds(100, 650, 40, 40);
     soundTable.add(soundButton);
 
     soundButton.addListener(new ChangeListener() {
@@ -143,13 +143,14 @@ public class MainMenuScreen implements Screen {
         Cornichon.setSound(false);
         
         if(!pressedOnce){
-          setImage("images/soundOF.png");
+          setImage("images/SOUND_OFF.png");
+          //setImage("images/soundOF.png");
           Cornichon.backgroundMusic.pause();
           pressedOnce = true;
 
         }
         else{
-          setImage("images/soundOn.png");
+          setImage("images/SOUND_ON.png");
           Cornichon.backgroundMusic.play();
           pressedOnce = false;
         }
