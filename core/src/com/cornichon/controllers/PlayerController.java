@@ -109,7 +109,7 @@ public class PlayerController extends GeneralController {
       sphere.setState(State.WALKING);
       // sphere.getBody().setLinearVelocity(new Vector2(-Sphere.SPEED, sphere.getBody().getLinearVelocity().y));
       if( Math.abs(sphere.getBody().getLinearVelocity().x) <= sphere.getMaxSpeed() )
-      sphere.getBody().applyLinearImpulse(new Vector2( -5f,0), sphere.getBody().getPosition(), true);
+      sphere.getBody().applyLinearImpulse(new Vector2( -3f,0), sphere.getBody().getPosition(), true);
     }
 
     if (sKeys.get(SphereActions.SRIGHT)) {
@@ -118,7 +118,7 @@ public class PlayerController extends GeneralController {
       sphere.setState(State.WALKING);
       // sphere.getBody().setLinearVelocity(new Vector2(Sphere.SPEED, sphere.getBody().getLinearVelocity().y));
       if( Math.abs(sphere.getBody().getLinearVelocity().x) <= sphere.getMaxSpeed() )
-      sphere.getBody().applyLinearImpulse(new Vector2( 5f,0), sphere.getBody().getPosition(), true);
+      sphere.getBody().applyLinearImpulse(new Vector2( 3f,0), sphere.getBody().getPosition(), true);
     }
 
 

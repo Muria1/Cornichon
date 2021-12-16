@@ -100,9 +100,6 @@ public class Level {
         } else if (e.getType().equals("col")) {
           e.getBody().createFixture(eFDef).setUserData(e);
           e.getBody().setUserData("col");
-        } else if (e.getType().equals("pot")) {
-          e.getBody().createFixture(eFDef).setUserData(e);
-          e.getBody().setUserData("pot");
         } else {
           e.getBody().createFixture(eFDef).setUserData(e);
           e.getBody().setUserData("other");
