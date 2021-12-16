@@ -38,6 +38,7 @@ public class PauseRenderer {
     mainMenu.setColor(1.0f, 1.0f, 1.0f, 1.0f);
     mainMenu.getData().setScale(1, 1);
     mainMenu.draw(spriteBatch, "press M to go to main menu", 315, 180);
+    mainMenu.draw(spriteBatch, "press f10 to mute and unmute the game", 290, 160);
   }
 
 }
