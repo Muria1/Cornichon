@@ -11,10 +11,13 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.cornichon.Cornichon;
 import com.cornichon.models.construction.Level;
 import com.cornichon.models.entities.Entity;
 import com.cornichon.models.entities.aliveEntities.Player;
@@ -90,6 +93,8 @@ public class LevelRenderer {
     this.drawEverything();
     this.drawBars();
     this.drawHudTexts();
+    
+
 
     spriteBatch.end();
 
@@ -123,6 +128,7 @@ public class LevelRenderer {
 
     font.draw(spriteBatch, (level.getDifficulty() <= 9 ? level.getDifficulty() + "" : "X"), -6.5f, 4.03f);
   }
+
 
   private void drawBars() {
     currentTime = TimeUtils.nanoTime();

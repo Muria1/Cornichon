@@ -15,7 +15,7 @@ public final class LevelWriter {
   private Random random = new Random();
 
   public LevelWriter(int difficulty) {
-    int d = difficulty + 10;
+    int d = difficulty + 7;
     this.difficulty = difficulty;
     this.maze = new Maze(d, d * 7 / 10);
   }
@@ -54,8 +54,8 @@ public final class LevelWriter {
           if (map[r][c] == DrawableValues.BRICK && map[r - 1][c] != DrawableValues.BRICK) {
             if (map[r][c - 1] == DrawableValues.BRICK && map[r][c + 1] == DrawableValues.BRICK) {
               if (map[r - 1][c] == DrawableValues.AIR) {
-                boolean testCollectible = random.nextInt(difficulty + 10) == 0; // the chance of placing decreases with the difficulty
-                boolean testMob = random.nextInt(12 - difficulty) == 0; // the chance of placing increases with the difficulty
+                boolean testCollectible = random.nextInt(difficulty / 2 + 12) == 0; // the chance of placing decreases with the difficulty
+                boolean testMob = random.nextInt(12 - difficulty / 2) == 0; // the chance of placing increases with the difficulty
 
                 if (testCollectible) {
                   map[r - 1][c] = collectibles[(int) (Math.random() * collectibles.length)];

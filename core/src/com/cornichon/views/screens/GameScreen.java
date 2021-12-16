@@ -4,6 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.cornichon.Cornichon;
 import com.cornichon.PauseRenderer;
 import com.cornichon.controllers.PlayerController;
@@ -19,6 +27,8 @@ public class GameScreen implements Screen {
   private PauseRenderer pauseRenderer;
   private Cornichon game;
   private int fireTrigger = 0;
+  public ImageButton soundButton;
+
 
   /** controllers */
   private PlayerController playerController;
@@ -38,6 +48,21 @@ public class GameScreen implements Screen {
     this.level = new Level(this.difficulty, this.lastScore, this.lastHealth, game);
     this.renderer = new LevelRenderer(level, true);
     this.pauseRenderer = new PauseRenderer(game.batch);
+
+  //   Texture soundOn = new Texture("images/soundOn.png");
+  //   TextureRegion region = new TextureRegion(soundOn);
+  //   TextureRegionDrawable drawable = new TextureRegionDrawable(region);
+
+  //   this.soundButton = new ImageButton(drawable);
+  //   soundButton.addListener(new ChangeListener() {
+  //     @Override
+
+  //     public void changed(ChangeEvent event, Actor actor) {
+  //       Cornichon.backgroundMusic.pause();
+  //     }
+
+  //   }
+  // );
 
     this.playerController = new PlayerController(this.level);
     Gdx.input.setInputProcessor(playerController);

@@ -47,7 +47,7 @@ public class GameSelectionScreen implements Screen {
       new ChangeListener() {
         @Override
         public void changed(ChangeEvent event, Actor actor) {
-          game.setScreen(new GameScreen(game, 1, 0, 100));
+          game.setScreen(new GameScreen(game, 10, 0, 100));
         }
       }
     );
