@@ -27,13 +27,13 @@ public class GameEndingScreen implements Screen {
 
     camera = new OrthographicCamera();
     camera.setToOrtho(false, 800, 400);
-
-    stage = new Stage(new ScreenViewport());
-    Gdx.input.setInputProcessor(stage);
   }
 
   @Override
   public void show() {
+    
+    stage = new Stage(new ScreenViewport());
+    Gdx.input.setInputProcessor(stage);
     Table table = new Table();
 
     table.setDebug(true);
@@ -57,7 +57,7 @@ public class GameEndingScreen implements Screen {
         }
       }
     );
-
+    
     leaderboard.addListener(
       new ChangeListener() {
         @Override
@@ -65,7 +65,7 @@ public class GameEndingScreen implements Screen {
           game.setScreen(new LeaderboardScreen(game, finishingScore));
         }
       }
-    );
+    ); 
   }
 
   @Override
