@@ -109,7 +109,10 @@ public class LevelRenderer {
     }
 
     for (Entity entity : level.getEntities()) {
-      if (!level.getDeadEntities().contains(entity, false)) {
+      if(level.getDeadEntities().size == 0) {
+        ((ScreenDrawable) entity).draw(spriteBatch);
+      }
+      else if (!level.getDeadEntities().contains(entity, false)) {
         ((ScreenDrawable) entity).draw(spriteBatch);
       }
     }
