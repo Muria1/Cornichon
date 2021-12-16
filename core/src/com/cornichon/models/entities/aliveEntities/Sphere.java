@@ -2,6 +2,7 @@ package com.cornichon.models.entities.aliveEntities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -15,7 +16,7 @@ public class Sphere extends MovingEntity {
     public static final float SIZE_HEIGTH = 0.3f; // half a uni
     public static final float SIZE_WIDTH = 0.3f; // half a uni
     public static final float SPEED = 5f; // unit per second
-    public static final float MAX_SPEED = 7f; 
+    public static final float MAX_SPEED = 6f; 
 
     public static final float JUMP_VELOCITY = 1f;
     public static final Rectangle BOUNDS = new Rectangle()
@@ -78,5 +79,15 @@ public class Sphere extends MovingEntity {
     public float getMaxSpeed() {
         return MAX_SPEED;
     }
+
+    @Override
+  public void draw(SpriteBatch batch) {
+    batch.draw(
+        this.getTexture(),
+        this.getBody().getPosition().x - 0.2f,
+        this.getBody().getPosition().y - 0.2f,
+        this.getSizeWidth(),
+        this.getSizeHeight());
+  }
 
 }

@@ -25,5 +25,7 @@ public class Fireball extends Projectile {
       new Vector2(),
       new Vector2()
     );
+
+    this.type = "projectile";
   }
 }

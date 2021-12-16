@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.cornichon.models.construction.Level;
 import com.cornichon.models.entities.Entity;
+import com.cornichon.models.entities.aliveEntities.Mob;
 import com.cornichon.models.entities.collectibles.HealthPotion;
 import com.cornichon.models.entities.helpers.Collectible;
 
@@ -18,7 +19,7 @@ public class CornichonListener implements ContactListener {
     private static final String PLAYER_IDENTIFIER = "player";
     private static final String GROUND_IDENTIFIER = "block";
     private static final String MOB_IDENTIFIER = "mob";
-    private static final String POT_IDENTIFIER = "pot";
+    private static final String COL_IDENTIFIER = "col";
     private static final String SPHERE_IDENTIFIER = "top";
 
     private int groundContacts;
@@ -51,21 +52,41 @@ public class CornichonListener implements ContactListener {
             System.out.println("MOB");
         }
 
+        if ((SPHERE_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+                SPHERE_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())) &&
+                (MOB_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+                        MOB_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))) {
+            if (contact.getFixtureA().getUserData() instanceof Mob) {
+                Mob m = (Mob) contact.getFixtureA().getUserData();
+                m.applyDamage();
+                if (m.isDead()) {
+                    level.addDyingEntity(m);
+                }
+            } else if (contact.getFixtureB().getUserData() instanceof Mob) {
+                Mob m = (Mob) contact.getFixtureB().getUserData();
+                m.applyDamage();
+                if (m.checkDeath()) {
+                    level.addDyingEntity(m);
+                }
+            }
+        }
+
         if ((PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
                 PLAYER_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())) &&
-                (POT_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-                        POT_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))) {
-            System.out.println("POTT");
-            level.getPlayer().increaseHealth(20);
+                (COL_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+                        COL_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))) {
+            System.out.println("COLL");
 
             if (contact.getFixtureA().getUserData() instanceof Collectible) {
-                Entity e = (Entity)contact.getFixtureA().getUserData();
-                level.addDyingEntity(e);
+                Collectible e = (Collectible) contact.getFixtureA().getUserData();
+                e.applyEffect(level.getPlayer(), level);
+                level.addDyingEntity((Entity) e);
             }
 
             else if (contact.getFixtureB().getUserData() instanceof Collectible) {
-                Entity e = (Entity)contact.getFixtureB().getUserData();
-                level.addDyingEntity(e);
+                Collectible e = (Collectible) contact.getFixtureB().getUserData();
+                e.applyEffect(level.getPlayer(), level);
+                level.addDyingEntity((Entity) e);
 
             }
         }
@@ -83,20 +104,6 @@ public class CornichonListener implements ContactListener {
 
         }
 
-        if ((PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-                PLAYER_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())) &&
-                (MOB_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-                        MOB_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))) {
-
-            System.out.println("NO MORE MOB");
-        }
-
-        if ((PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-                PLAYER_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())) &&
-                (POT_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-                        POT_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))) {
-            System.out.println("POTT");
-        }
     }
 
     @Override

@@ -13,27 +13,25 @@ public class Mob extends MovingEntity {
   private int damage;
 
   public Mob(
-    Vector2 position,
-    float sizeHeight,
-    float sizeWidth,
-    Shape2D bounds,
-    float speed,
-    float jumpVelocity,
-    Vector2 acceleration,
-    Vector2 velocity,
-    int health,
-    int damage
-  ) {
+      Vector2 position,
+      float sizeHeight,
+      float sizeWidth,
+      Shape2D bounds,
+      float speed,
+      float jumpVelocity,
+      Vector2 acceleration,
+      Vector2 velocity,
+      int health,
+      int damage) {
     super(
-      position,
-      sizeHeight,
-      sizeWidth,
-      bounds,
-      speed,
-      jumpVelocity,
-      acceleration,
-      velocity
-    );
+        position,
+        sizeHeight,
+        sizeWidth,
+        bounds,
+        speed,
+        jumpVelocity,
+        acceleration,
+        velocity);
 
     this.damage = damage;
     this.state = State.IDLE;
@@ -70,5 +68,16 @@ public class Mob extends MovingEntity {
     return damage;
   }
 
-  
+  public void applyDamage() {
+    health = health - 20;
+  }
+
+  public boolean checkDeath() {
+    if (this.health <= 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 }

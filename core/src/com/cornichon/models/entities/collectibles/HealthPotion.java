@@ -2,8 +2,10 @@ package com.cornichon.models.entities.collectibles;
 
 import java.util.Random;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.cornichon.models.construction.Level;
 import com.cornichon.models.entities.Entity;
 import com.cornichon.models.entities.aliveEntities.Player;
@@ -19,7 +21,8 @@ public class HealthPotion extends Entity implements Collectible {
   public HealthPotion(Vector2 position) {
     super(position, SIZE_HEIGTH, SIZE_WIDTH, BOUNDS);
     this.setTexture(Textures.POTIONS_HEALTH);
-    this.type = "pot";
+    this.type = "col";
+    b2bBodyDef.type = BodyType.DynamicBody;
   }
 
   @Override
@@ -31,5 +34,15 @@ public class HealthPotion extends Entity implements Collectible {
   @Override
   public void applyEffect(Player player, Level level) {
     collected(player, level);
+  }
+
+  @Override
+  public void draw(SpriteBatch batch) {
+    batch.draw(
+        this.getTexture(),
+        this.getBody().getPosition().x - 0.2f,
+        this.getBody().getPosition().y - 0.3f,
+        this.getSizeWidth(),
+        this.getSizeHeight());
   }
 }

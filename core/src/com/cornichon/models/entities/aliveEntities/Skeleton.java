@@ -2,6 +2,7 @@ package com.cornichon.models.entities.aliveEntities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -55,15 +56,19 @@ public class Skeleton extends Mob {
     
   }
 
-  //
-  public boolean checkDeath() {
-    if (this.getHealth() <= 0) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  
+  
 
   //
   public void closeRangeAttack() {}
+
+  @Override
+  public void draw(SpriteBatch batch) {
+    batch.draw(
+        this.getTexture(),
+        this.getBody().getPosition().x -0.35f,
+        this.getBody().getPosition().y -0.45f,
+        this.getSizeWidth(),
+        this.getSizeHeight());
+  }
 }

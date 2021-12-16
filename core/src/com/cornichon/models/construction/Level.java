@@ -71,7 +71,8 @@ public class Level {
     sShape.setAsBox(sphere.getSizeWidth() / 2, sphere.getSizeHeight() / 2);
     FixtureDef sFDef = new FixtureDef();
     sFDef.shape = sShape;
-    sphere.getBody().createFixture(sFDef).setUserData("top");
+    sphere.getBody().createFixture(sFDef).setUserData(sphere);
+    sphere.getBody().setUserData("top");
     // end
 
     Body eBody;
@@ -100,9 +101,6 @@ public class Level {
         } else if (e.getType().equals("col")) {
           e.getBody().createFixture(eFDef).setUserData(e);
           e.getBody().setUserData("col");
-        } else if (e.getType().equals("pot")) {
-          e.getBody().createFixture(eFDef).setUserData(e);
-          e.getBody().setUserData("pot");
         } else {
           e.getBody().createFixture(eFDef).setUserData(e);
           e.getBody().setUserData("other");
@@ -116,6 +114,8 @@ public class Level {
       e.setBody(eBody);
 
     }
+
+
   }
 
   public Player getPlayer() {

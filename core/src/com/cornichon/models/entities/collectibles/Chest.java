@@ -1,6 +1,8 @@
 package com.cornichon.models.entities.collectibles;
 
 import java.util.Random;
+
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
@@ -48,5 +50,15 @@ public class Chest extends Entity implements Collectible {
     else{
       player.increaseHealth(10);
     }
+  }
+
+  @Override
+  public void draw(SpriteBatch batch) {
+    batch.draw(
+        this.getTexture(),
+        this.getBody().getPosition().x - 0.3f,
+        this.getBody().getPosition().y -0.3f,
+        this.getSizeWidth(),
+        this.getSizeHeight());
   }
 }
