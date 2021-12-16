@@ -1,24 +1,36 @@
 package com.cornichon.models.construction;
 
+
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.cornichon.models.entities.aliveEntities.Sphere;
 import com.cornichon.models.entities.projectiles.Fireball;
 import com.cornichon.models.entities.projectiles.Projectile;
+
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.cornichon.Cornichon;
 import com.cornichon.models.construction.components.Block;
+import com.cornichon.models.construction.components.Door;
 import com.cornichon.models.entities.Entity;
 import com.cornichon.models.entities.aliveEntities.Player;
+
 import com.cornichon.models.entities.aliveEntities.Skeleton;
 import com.cornichon.models.entities.aliveEntities.Slime;
+
+import com.cornichon.models.entities.aliveEntities.Sphere;
+
 import com.cornichon.utils.CornichonListener;
 import com.cornichon.utils.LevelReader;
 import com.cornichon.views.maps.Map;
+import com.cornichon.views.screens.GameEndingScreen;
+import com.cornichon.views.screens.GameScreen;
 
 public class Level {
 
@@ -27,6 +39,9 @@ public class Level {
   private Player player;
   private Sphere sphere;
   private World world;
+
+  private Door door;
+
   private Array<Entity> entities;
   private Array<Entity> dyingEntities;
   private Array<Entity> deadEntities;
@@ -40,8 +55,11 @@ public class Level {
   private float lastHealth;
   private CornichonListener listener;
 
-  public Level(int difficulty, int lastScore, float lastHealth) {
+  private Cornichon game;
+
+  public Level(int difficulty, int lastScore, float lastHealth, Cornichon game) {
     // this.sphere = player.getSphere();
+    this.game = game;
     this.difficulty = difficulty;
     this.lastScore = lastScore;
     this.lastHealth = lastHealth;
@@ -64,11 +82,10 @@ public class Level {
     // creating player body and fixtures
     this.player.setBody(world.createBody(player.getBodyDef()));
     this.sphere.setBody(world.createBody(sphere.getBodyDef()));
+    this.door.setBody(world.createBody(door.getBodyDef()));
 
     PolygonShape shape = new PolygonShape();
-
     shape.setAsBox(player.getSizeWidth() / 2, player.getSizeHeight() / 2);
-
     FixtureDef fixtureDef = new FixtureDef();
     fixtureDef.shape = shape;
     player.getBody().createFixture(fixtureDef);
@@ -80,6 +97,14 @@ public class Level {
     sFDef.shape = sShape;
     sphere.getBody().createFixture(sFDef).setUserData(sphere);
     sphere.getBody().setUserData("top");
+
+    PolygonShape dShape = new PolygonShape();
+    dShape.setAsBox(0.02f, 0.01f);
+    FixtureDef dFDef = new FixtureDef();
+    dFDef.shape = dShape;
+    door.getBody().createFixture(dFDef).setUserData(door);
+    door.getBody().setUserData("block");
+
     // end
 
     Body eBody;
@@ -88,8 +113,7 @@ public class Level {
     PolygonShape eShape = new PolygonShape();
 
     for (Entity e : entities) {
-      if (!e.equals(player)) {
-
+      if (!e.equals(player) && !e.equals(door)) {
         eBody = world.createBody(e.getBodyDef());
         e.setBody(eBody);
 
@@ -112,14 +136,12 @@ public class Level {
           e.getBody().createFixture(eFDef).setUserData(e);
           e.getBody().setUserData("other");
         }
-
       }
     }
 
     for (Entity e : background) {
       eBody = world.createBody(e.getBodyDef());
       e.setBody(eBody);
-
     }
 
   }
@@ -130,7 +152,7 @@ public class Level {
 
   public void setPlayer(Player player) {
     this.player = player;
-    this.player.setHealth(lastHealth);
+    this.player.setHealth(this.lastHealth);
   }
 
   public Sphere getSphere() {
@@ -139,6 +161,14 @@ public class Level {
 
   public void setSphere(Sphere sphere) {
     this.sphere = sphere;
+  }
+
+  public Door getDoor() {
+    return this.door;
+  }
+
+  public void setDoor(Door door) {
+    this.door = door;
   }
 
   public Array<Entity> getEntities() {
@@ -200,6 +230,7 @@ public class Level {
   public Array<Entity> getDyingEntities() {
     return dyingEntities;
   }
+
 
   public Array<Projectile> getProjectiles() {
     return projectiles;
@@ -271,6 +302,15 @@ public class Level {
 
         }
       }
+    }
+  }
+
+
+  public void nextLevel() {
+    if (difficulty + 1 >= 11) {
+      game.setScreen(new GameEndingScreen(game, lastScore));
+    } else { // game finished
+      game.setScreen(new GameScreen(game, difficulty + 1, lastScore, lastHealth));
     }
   }
 

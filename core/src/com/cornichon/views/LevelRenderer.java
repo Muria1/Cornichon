@@ -13,16 +13,15 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.cornichon.models.construction.Level;
 import com.cornichon.models.entities.Entity;
-
-import com.cornichon.utils.LevelReader;
-import com.cornichon.utils.LevelWriter;
-
 import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.models.entities.helpers.State;
 import com.cornichon.utils.Constants;
-
+import com.cornichon.utils.LevelReader;
+import com.cornichon.utils.LevelWriter;
 import com.cornichon.views.components.HealthBar;
 import com.cornichon.views.components.ManaBar;
 import com.cornichon.views.helpers.ScreenDrawable;
@@ -44,6 +43,8 @@ public class LevelRenderer {
   private SpriteBatch spriteBatch;
   private HealthBar healthBar;
   private ManaBar manaBar;
+  private long startTime;
+  private long currentTime;
 
   private int width;
   private int height;
@@ -76,6 +77,7 @@ public class LevelRenderer {
     this.manaBar = new ManaBar(this);
     this.setSize(width, height);
     player = level.getPlayer();
+    this.startTime = TimeUtils.nanoTime();
   }
 
   public void render() {
@@ -102,18 +104,16 @@ public class LevelRenderer {
     }
 
     for (Entity entity : level.getEntities()) {
-      if(level.getDeadEntities().size == 0) {
+      if (level.getDeadEntities().size == 0) {
         ((ScreenDrawable) entity).draw(spriteBatch);
-      }
-      else if (!level.getDeadEntities().contains(entity, false)) {
+      } else if (!level.getDeadEntities().contains(entity, false)) {
         ((ScreenDrawable) entity).draw(spriteBatch);
       }
     }
 
     level.getPlayer().draw(spriteBatch);
-
+    level.getDoor().draw(spriteBatch);
     level.getSphere().draw(spriteBatch);
-
   }
 
   private void drawHudTexts() {
@@ -125,9 +125,19 @@ public class LevelRenderer {
   }
 
   private void drawBars() {
+    currentTime = TimeUtils.nanoTime();
+
+    if (currentTime - startTime > TimeUtils.millisToNanos(200)) {
+      if (manaBar.getProgress() < 1) {
+        startTime = currentTime;
+        manaBar.setProgress(manaBar.getProgress() + 0.01f);
+      }
+    }
+
     spriteBatch.setProjectionMatrix(this.camera.projection);
 
     healthBar.draw(spriteBatch);
+
     manaBar.draw(spriteBatch);
   }
 

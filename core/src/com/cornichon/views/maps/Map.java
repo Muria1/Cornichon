@@ -18,6 +18,7 @@ public class Map {
     levelWriter.initMap(map);
     levelWriter.placeMobsAndCollectibles(map);
     levelWriter.placePlayer(map);
+    levelWriter.placeExitDoor(map);
   }
 
   public int[][] getMapIntArr() {

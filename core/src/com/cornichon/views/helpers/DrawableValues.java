@@ -16,4 +16,7 @@ public final class DrawableValues {
 
   public static final int POTION_HEALTH = 60;
   public static final int CHEST = 61;
+
+  public static final int DOOR_CLOSED = 70;
+  public static final int DOOR_OPENED = 71;
 }

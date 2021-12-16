@@ -6,6 +6,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.cornichon.Cornichon;
 import com.cornichon.PauseRenderer;
 import com.cornichon.controllers.PlayerController;
@@ -25,14 +27,20 @@ public class GameScreen implements Screen {
 
   /** controllers */
   private PlayerController playerController;
+  private int difficulty;
+  private int lastScore;
+  private float lastHealth;
 
-  public GameScreen(Cornichon game) {
+  public GameScreen(Cornichon game, int difficulty, int lastScore, float lastHealth) {
     this.game = game;
+    this.difficulty = difficulty;
+    this.lastScore = lastScore;
+    this.lastHealth = lastHealth;
   }
 
   @Override
   public void show() {
-    this.level = new Level(5, 0, 50);
+    this.level = new Level(this.difficulty, this.lastScore, this.lastHealth, game);
     this.renderer = new LevelRenderer(level, true);
     this.pauseRenderer = new PauseRenderer(game.batch);
 
@@ -52,6 +60,7 @@ public class GameScreen implements Screen {
       if (level.getDyingEntities().size != 0) {
         for (Entity e : level.getDyingEntities()) {
           level.getWorld().destroyBody(e.getBody());
+
         }
         level.getDyingEntities().clear();
       }
@@ -59,7 +68,10 @@ public class GameScreen implements Screen {
       if (fireTrigger == 175) {
         for (Projectile p : level.getProjectiles()) {
           level.getWorld().destroyBody(p.getBody());
+
         }
+        level.getDyingEntities().clear();
+      }
 
         level.getProjectiles().clear();
       }

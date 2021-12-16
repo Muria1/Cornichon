@@ -17,14 +17,16 @@ import com.cornichon.Cornichon;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.text.AttributeSet.FontAttribute;
 
-public class GameSelectionScreen implements Screen {
+public class GameEndingScreen implements Screen {
 
   private Cornichon game;
   private OrthographicCamera camera;
   public Stage stage;
+  private int finishingScore;
 
-  public GameSelectionScreen(Cornichon game) {
+  public GameEndingScreen(Cornichon game, int finishingScore) {
     this.game = game;
+    this.finishingScore = finishingScore;
 
     camera = new OrthographicCamera();
     camera.setToOrtho(false, 800, 400);
@@ -44,15 +46,18 @@ public class GameSelectionScreen implements Screen {
 
     Skin skin = new Skin(Gdx.files.internal("images/uiskin.json"));
 
-    TextButton storyMode = new TextButton("Start the journey", skin);
+    TextButton leaderboard = new TextButton("Go to leaderboard", skin);
     firstTable.setBounds(550, 50, 150, 50);
-    firstTable.add(storyMode).fillX().uniformX();
+    firstTable.add(leaderboard).fillX().uniformX();
 
-    storyMode.addListener(
+    /** Buraya da leaderboardda isim girme yeri gelsin
+     *  İsim girdikten sonra normal liste gözüksün sen ayarlarsın bu kısmı
+     */
+    leaderboard.addListener(
       new ChangeListener() {
         @Override
         public void changed(ChangeEvent event, Actor actor) {
-          game.setScreen(new GameScreen(game, 1, 0, 100));
+          // game.setScreen(new LeaderboardScreen(game));
         }
       }
     );
@@ -69,21 +74,10 @@ public class GameSelectionScreen implements Screen {
 
     game.batch.begin();
 
-    game.font.draw(game.batch, "There once was a medieval village in which a boy was born: Cornichon.", 180, 300);
-    game.font.draw(
-      game.batch,
-      "His father gave this unique name to his son because there were not any pickles in the village, believing",
-      90,
-      280
-    );
-    game.font.draw(game.batch, "his son will also be this important like pickles", 270, 260);
-    game.font.draw(
-      game.batch,
-      "However, his son was born a freak. Being kicked out from the village, he started a new journey...",
-      100,
-      200
-    );
-
+    /** Erdem buraya hikaye yazarsın */
+    game.font.draw(game.batch, "You have completed the game without dying once!", 180, 300);
+    game.font.draw(game.batch, "Score: " + this.finishingScore, 180, 400);
+    /** Skorla beraber */
     game.batch.end();
 
     stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
