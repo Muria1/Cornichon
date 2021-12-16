@@ -11,6 +11,7 @@ import com.cornichon.PauseRenderer;
 import com.cornichon.controllers.PlayerController;
 import com.cornichon.models.construction.Level;
 import com.cornichon.models.entities.Entity;
+import com.cornichon.models.entities.projectiles.Projectile;
 import com.cornichon.utils.Constants;
 import com.cornichon.views.LevelRenderer;
 
@@ -20,6 +21,7 @@ public class GameScreen implements Screen {
   private LevelRenderer renderer;
   private PauseRenderer pauseRenderer;
   private Cornichon game;
+  private int fireTrigger = 0;
 
   /** controllers */
   private PlayerController playerController;
@@ -47,14 +49,27 @@ public class GameScreen implements Screen {
       playerController.update(delta);
       level.getWorld().step(1f / 60f, 6, 2);
 
-        if (level.getDyingEntities().size != 0) {
-          for (Entity e : level.getDyingEntities()) {
-            level.getWorld().destroyBody(e.getBody());
-          }
-          level.getDyingEntities().clear();
+      if (level.getDyingEntities().size != 0) {
+        for (Entity e : level.getDyingEntities()) {
+          level.getWorld().destroyBody(e.getBody());
+        }
+        level.getDyingEntities().clear();
+      }
+
+      if (fireTrigger == 175) {
+        for (Projectile p : level.getProjectiles()) {
+          level.getWorld().destroyBody(p.getBody());
         }
 
+        level.getProjectiles().clear();
+      }
+      if (fireTrigger == 180) {
+        level.fire();
+        fireTrigger = 0;
+      }
+      level.moveMobs();
       renderer.render();
+      fireTrigger++;
     } else {
       pauseRenderer.render();
 

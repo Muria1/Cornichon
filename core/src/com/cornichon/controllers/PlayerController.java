@@ -8,6 +8,7 @@ import com.cornichon.models.construction.Level;
 import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.models.entities.aliveEntities.Sphere;
 import com.cornichon.models.entities.helpers.State;
+import com.cornichon.models.entities.projectiles.Projectile;
 import com.cornichon.utils.CornichonListener;
 import com.cornichon.views.LevelRenderer;
 import com.cornichon.views.textures.Textures;
@@ -36,6 +37,7 @@ public class PlayerController extends GeneralController {
 
   private Player player;
   private Sphere sphere;
+  private Level level;
   private CornichonListener listener;
 
   static Map<Actions, Boolean> keys = new HashMap<PlayerController.Actions, Boolean>();
@@ -58,6 +60,7 @@ public class PlayerController extends GeneralController {
   public PlayerController(Level level) {
     this.player = level.getPlayer();
     this.sphere = player.getSphere();
+    this.level = level;
     listener = level.getListener();
   }
 

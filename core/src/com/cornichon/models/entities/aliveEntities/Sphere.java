@@ -13,8 +13,8 @@ import com.cornichon.views.textures.Textures;
 
 public class Sphere extends MovingEntity {
 
-    public static final float SIZE_HEIGTH = 0.3f; // half a uni
-    public static final float SIZE_WIDTH = 0.3f; // half a uni
+    public static final float SIZE_HEIGTH = 0.4f; // half a uni
+    public static final float SIZE_WIDTH = 0.4f; // half a uni
     public static final float SPEED = 5f; // unit per second
     public static final float MAX_SPEED = 6f; 
 
@@ -26,6 +26,7 @@ public class Sphere extends MovingEntity {
     private State state;
     private boolean facingLeft;
     private int progress;
+    private int damage;
 
     public Sphere(Vector2 position) {
         super(
@@ -45,6 +46,7 @@ public class Sphere extends MovingEntity {
         b2bBodyDef.type = BodyType.DynamicBody;
 
         b2bBodyDef.gravityScale = 0f;
+        damage = 25;
     }
 
     public void update(float delta) {
@@ -88,6 +90,10 @@ public class Sphere extends MovingEntity {
         this.getBody().getPosition().y - 0.2f,
         this.getSizeWidth(),
         this.getSizeHeight());
+  }
+
+  public int getDamage() {
+      return damage;
   }
 
 }
