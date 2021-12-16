@@ -5,6 +5,7 @@ import java.util.Random;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.cornichon.models.construction.Level;
 import com.cornichon.models.entities.Entity;
 import com.cornichon.models.entities.aliveEntities.Player;
@@ -21,6 +22,7 @@ public class HealthPotion extends Entity implements Collectible {
     super(position, SIZE_HEIGTH, SIZE_WIDTH, BOUNDS);
     this.setTexture(Textures.POTIONS_HEALTH);
     this.type = "col";
+    b2bBodyDef.type = BodyType.DynamicBody;
   }
 
   @Override

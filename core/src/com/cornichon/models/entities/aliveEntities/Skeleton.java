@@ -56,14 +56,8 @@ public class Skeleton extends Mob {
     
   }
 
-  //
-  public boolean checkDeath() {
-    if (this.getHealth() <= 0) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  
+  
 
   //
   public void closeRangeAttack() {}

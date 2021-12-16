@@ -32,6 +32,7 @@ public class Projectile extends MovingEntity {
     );
     this.b2bBody.setGravityScale(0);
     this.damage = damage;
+    this.type = "projectile";
   }
 
   public void update(float delta) {

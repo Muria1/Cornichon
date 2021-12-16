@@ -16,7 +16,7 @@ public class Sphere extends MovingEntity {
     public static final float SIZE_HEIGTH = 0.3f; // half a uni
     public static final float SIZE_WIDTH = 0.3f; // half a uni
     public static final float SPEED = 5f; // unit per second
-    public static final float MAX_SPEED = 7f; 
+    public static final float MAX_SPEED = 6f; 
 
     public static final float JUMP_VELOCITY = 1f;
     public static final Rectangle BOUNDS = new Rectangle()
@@ -85,7 +85,7 @@ public class Sphere extends MovingEntity {
     batch.draw(
         this.getTexture(),
         this.getBody().getPosition().x - 0.2f,
-        this.getBody().getPosition().y - 0.4f,
+        this.getBody().getPosition().y - 0.2f,
         this.getSizeWidth(),
         this.getSizeHeight());
   }

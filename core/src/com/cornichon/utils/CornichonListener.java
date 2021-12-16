@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.cornichon.models.construction.Level;
 import com.cornichon.models.entities.Entity;
+import com.cornichon.models.entities.aliveEntities.Mob;
 import com.cornichon.models.entities.collectibles.HealthPotion;
 import com.cornichon.models.entities.helpers.Collectible;
 
@@ -51,23 +52,41 @@ public class CornichonListener implements ContactListener {
             System.out.println("MOB");
         }
 
+        if ((SPHERE_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+                SPHERE_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())) &&
+                (MOB_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+                        MOB_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))) {
+            if (contact.getFixtureA().getUserData() instanceof Mob) {
+                Mob m = (Mob) contact.getFixtureA().getUserData();
+                m.applyDamage();
+                if (m.isDead()) {
+                    level.addDyingEntity(m);
+                }
+            } else if (contact.getFixtureB().getUserData() instanceof Mob) {
+                Mob m = (Mob) contact.getFixtureB().getUserData();
+                m.applyDamage();
+                if (m.checkDeath()) {
+                    level.addDyingEntity(m);
+                }
+            }
+        }
+
         if ((PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
                 PLAYER_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())) &&
                 (COL_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
                         COL_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))) {
             System.out.println("COLL");
 
-
             if (contact.getFixtureA().getUserData() instanceof Collectible) {
-                Collectible e = (Collectible)contact.getFixtureA().getUserData();
+                Collectible e = (Collectible) contact.getFixtureA().getUserData();
                 e.applyEffect(level.getPlayer(), level);
-                level.addDyingEntity((Entity)e);
+                level.addDyingEntity((Entity) e);
             }
 
             else if (contact.getFixtureB().getUserData() instanceof Collectible) {
-                Collectible e = (Collectible)contact.getFixtureB().getUserData();
+                Collectible e = (Collectible) contact.getFixtureB().getUserData();
                 e.applyEffect(level.getPlayer(), level);
-                level.addDyingEntity((Entity)e);
+                level.addDyingEntity((Entity) e);
 
             }
         }
@@ -85,20 +104,6 @@ public class CornichonListener implements ContactListener {
 
         }
 
-        if ((PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-                PLAYER_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())) &&
-                (MOB_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-                        MOB_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))) {
-
-            System.out.println("NO MORE MOB");
-        }
-
-        if ((PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-                PLAYER_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())) &&
-                (COL_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-                        COL_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))) {
-            System.out.println("POTT");
-        }
     }
 
     @Override
