@@ -71,7 +71,7 @@ public class GameScreen implements Screen {
 
         }
         level.getDyingEntities().clear();
-      }
+      
 
         level.getProjectiles().clear();
       }
