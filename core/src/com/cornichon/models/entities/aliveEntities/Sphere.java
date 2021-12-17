@@ -11,7 +11,6 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.cornichon.models.entities.MovingEntity;
 import com.cornichon.models.entities.helpers.State;
 import com.cornichon.views.textures.Textures;
-import javafx.scene.text.Text;
 
 public class Sphere extends MovingEntity {
 
