@@ -35,7 +35,7 @@ public class GameOverScreen implements Screen {
     Gdx.input.setInputProcessor(stage);
     Table table = new Table();
 
-    table.setDebug(true);
+    table.setDebug(false);
     stage.addActor(table);
 
     Skin skin = new Skin(Gdx.files.internal("images/uiskin.json"));

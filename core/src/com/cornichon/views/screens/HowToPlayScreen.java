@@ -39,7 +39,7 @@ public class HowToPlayScreen implements Screen{
         this.stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
-        table.setDebug(true);
+        table.setDebug(false);
         stage.addActor(table);
 
         Skin skin = new Skin(Gdx.files.internal("images/uiskin.json"));
