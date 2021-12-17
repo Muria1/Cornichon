@@ -78,12 +78,11 @@ public class GameOverScreen implements Screen {
 
     game.batch.begin();
 
-    /**
-     * Erdem buraya da bir şeyler yazarsın
-     */
-    game.font.draw(game.batch, "You suck ", 150, 250);
-    game.font.draw(game.batch, "You are the freak", 70, 230);
-    game.font.draw(game.batch, "Score: " + this.finishingScore, 70, 300);
+    game.font.draw(game.batch, "SCORE: " + this.finishingScore, 360, 300);
+    game.font.draw(game.batch, "Unfortunately our brave and big-hearted boy departed this cruel life :(", 170, 250);
+    game.font.draw(game.batch, "This world with all this evilness was never enough for him, he was not meant for this world", 100, 230);
+    game.font.draw(game.batch, "Yet don't you ever give up! He would have wanted you to keep going..." , 180, 210);
+    game.font.draw(game.batch, "Everytime you eat a pickle, just be sure that he is smilingly watching you from somewhere else" , 100, 190);
 
     game.batch.end();
     stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
