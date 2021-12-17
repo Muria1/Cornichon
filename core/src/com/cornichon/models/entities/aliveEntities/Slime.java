@@ -49,11 +49,11 @@ public class Slime extends Mob {
     int slimeDecisionMaker = ran.nextInt(3) + 1;
 
     if (slimeDecisionMaker == 1) {
-      this.setTexture(new Texture(Gdx.files.internal("images/blueSlime.png")));
+      this.setTexture(new Texture(Gdx.files.internal("images/blueSlime2.png")));
     } else if (slimeDecisionMaker == 2) {
-      this.setTexture(new Texture(Gdx.files.internal("images/greenSlime.png")));
+      this.setTexture(new Texture(Gdx.files.internal("images/greenSlime2.png")));
     } else {
-      this.setTexture(new Texture(Gdx.files.internal("images/yellowSlime.png")));
+      this.setTexture(new Texture(Gdx.files.internal("images/yellowSlime2.png")));
     }
   }
 
