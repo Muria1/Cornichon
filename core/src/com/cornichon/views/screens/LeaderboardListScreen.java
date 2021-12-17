@@ -34,6 +34,13 @@ public class LeaderboardListScreen implements Screen {
     this.score = score;
   }
 
+  public LeaderboardListScreen(Cornichon game) {
+    this.game = game;
+    this.camera = new OrthographicCamera();
+    this.camera.setToOrtho(false, 800, 400);
+    Database.initDatabase();
+  }
+
   @Override
   public void render(float delta) {
     ScreenUtils.clear(0, 0, 0.2f, 1);
