@@ -109,7 +109,7 @@ public class MainMenuScreen implements Screen {
     leaderBoard.addListener(new ChangeListener() {
     	@Override
     	public void changed(ChangeEvent event, Actor actor) {
-    		game.setScreen(new LeaderboardScreen(game, 0));
+    		game.setScreen(new LeaderboardListScreen(game));
     	}
     });
 
