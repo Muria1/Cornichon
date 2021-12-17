@@ -309,4 +309,8 @@ public class Level {
   public void increaseLastScore(int amount) {
     this.lastScore += amount;
   }
+
+  public int getLatestScore() {
+    return this.lastScore;
+  }
 }

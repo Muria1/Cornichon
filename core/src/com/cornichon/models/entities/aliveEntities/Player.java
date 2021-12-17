@@ -19,28 +19,27 @@ public class Player extends MovingEntity {
   public static final Rectangle BOUNDS = new Rectangle().setWidth(SIZE_HEIGTH).setHeight(SIZE_WIDTH);
 
   private float health;
-  private HealthBar healthBar;
   private State state;
   private boolean facingLeft;
   protected Sphere sphere;
 
   public Player(Vector2 position) {
     super(
-        position,
-        SIZE_HEIGTH,
-        SIZE_WIDTH,
-        BOUNDS,
-        SPEED,
-        JUMP_VELOCITY,
-        new Vector2(), // Acceleration
-        new Vector2() // Velocity
+      position,
+      SIZE_HEIGTH,
+      SIZE_WIDTH,
+      BOUNDS,
+      SPEED,
+      JUMP_VELOCITY,
+      new Vector2(), // Acceleration
+      new Vector2() // Velocity
     );
     this.state = State.IDLE;
     this.facingLeft = false;
     this.setTexture(new Texture(Gdx.files.internal("images/idle.png")));
     this.type = "player";
     this.health = 100;
-    this.healthBar = new HealthBar(this);
+
     this.sphere = new Sphere(new Vector2(1, 68));
   }
 
@@ -72,11 +71,12 @@ public class Player extends MovingEntity {
   @Override
   public void draw(SpriteBatch batch) {
     batch.draw(
-        this.getTexture(),
-        this.getBody().getPosition().x - 0.2f,
-        this.getBody().getPosition().y - 0.4f,
-        this.getSizeWidth(),
-        this.getSizeHeight());
+      this.getTexture(),
+      this.getBody().getPosition().x - 0.2f,
+      this.getBody().getPosition().y - 0.4f,
+      this.getSizeWidth(),
+      this.getSizeHeight()
+    );
   }
 
   public float getHealth() {
@@ -93,5 +93,14 @@ public class Player extends MovingEntity {
 
   public void increaseHealth(int amount) {
     this.health += amount;
+  }
+
+  @Override
+  public boolean isDead() {
+    if (this.getHealth() <= 0) {
+      this.setDead(true);
+    }
+
+    return this.isDead;
   }
 }

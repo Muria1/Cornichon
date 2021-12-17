@@ -38,11 +38,10 @@ public class LevelRenderer {
 
   private Level level;
   private OrthographicCamera camera;
-  private ShapeRenderer debugRenderer = new ShapeRenderer();
   private Box2DDebugRenderer box2dDebugRenderer = new Box2DDebugRenderer();
 
   /* TEXTURES */
-  private boolean debug = false;
+  private boolean debug = true;
   private SpriteBatch spriteBatch;
   private HealthBar healthBar;
   private ManaBar manaBar;
@@ -53,16 +52,6 @@ public class LevelRenderer {
   private int height;
 
   Player player;
-
-  /**
-   * IN CASE SPRITES WILL BE USED INSTEAD OF TEXTURES
-   * private Sprite idleSprite = new Sprite(new
-   * Texture(Gdx.files.internal("images/idle.png")));
-   * private Sprite walkingSprite = new Sprite(new
-   * Texture(Gdx.files.internal("images/walking.png")));
-   * private Sprite jumpingSprite = new Sprite(new
-   * Texture(Gdx.files.internal("images/jumping.png")));
-   */
 
   public void setSize(int width, int height) {
     this.width = width;
@@ -79,7 +68,7 @@ public class LevelRenderer {
     this.healthBar = new HealthBar(level.getPlayer());
     this.manaBar = new ManaBar(this);
     this.setSize(width, height);
-    player = level.getPlayer();
+    this.player = level.getPlayer();
     this.startTime = TimeUtils.nanoTime();
   }
 
@@ -93,10 +82,17 @@ public class LevelRenderer {
     this.drawEverything();
     this.drawBars();
     this.drawHudTexts();
+    this.toggleDebug();
 
     spriteBatch.end();
 
-    box2dDebugRenderer.render(level.getWorld(), camera.combined);
+    if (debug) {
+      box2dDebugRenderer.render(level.getWorld(), camera.combined);
+    }
+  }
+
+  private void toggleDebug() {
+    if (Gdx.input.isKeyJustPressed(Keys.NUM_0)) debug = !debug;
   }
 
   private void drawEverything() {
