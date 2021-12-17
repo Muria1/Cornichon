@@ -19,6 +19,7 @@ public class Player extends MovingEntity {
   public static final Rectangle BOUNDS = new Rectangle().setWidth(SIZE_HEIGTH).setHeight(SIZE_WIDTH);
 
   private float health;
+  private float mana;
   private State state;
   private boolean facingLeft;
   protected Sphere sphere;
@@ -39,6 +40,7 @@ public class Player extends MovingEntity {
     this.setTexture(new Texture(Gdx.files.internal("images/idle.png")));
     this.type = "player";
     this.health = 100;
+    this.mana = 0;
 
     this.sphere = new Sphere(new Vector2(1, 68));
   }
@@ -87,12 +89,30 @@ public class Player extends MovingEntity {
     this.health = health;
   }
 
+  public float getMana() {
+    return mana;
+  }
+
+  public void setMana(float mana) {
+    this.mana = mana;
+  }
+
+  public void decreaseMana(float amount) {
+    this.mana -= amount;
+  }
+
+  public void increaseMana(float amount) {
+    this.mana += amount;
+    if (this.mana > 100) this.mana = 100;
+  }
+
   public void decreaseHealth(int amount) {
     this.health -= amount;
   }
 
   public void increaseHealth(int amount) {
     this.health += amount;
+    if (this.health > 100) this.health = 100;
   }
 
   @Override

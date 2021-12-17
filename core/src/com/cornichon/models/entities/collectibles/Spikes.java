@@ -1,7 +1,5 @@
 package com.cornichon.models.entities.collectibles;
 
-import java.util.Random;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Shape2D;
@@ -12,27 +10,16 @@ import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.models.entities.helpers.Collectible;
 import com.cornichon.views.textures.Textures;
 
-public class Chest extends Entity implements Collectible {
+public class Spikes extends Entity implements Collectible {
 
   public static final float SIZE_HEIGTH = 0.75f; // half a uni
   public static final float SIZE_WIDTH = 0.65f; // half a uni
   public static final Rectangle BOUNDS = new Rectangle().setWidth(SIZE_HEIGTH).setHeight(SIZE_WIDTH);
 
-  private Entity entity;
-
-  public Chest(Vector2 position, Entity entity) {
+  public Spikes(Vector2 position) {
     super(position, SIZE_HEIGTH, SIZE_WIDTH, BOUNDS);
-    this.entity = entity;
-    this.setTexture(Textures.CHEST);
-    this.type = "col";
-  }
-
-  public Entity getEntity() {
-    return entity;
-  }
-
-  public void setEntity(Entity entity) {
-    this.entity = entity;
+    this.setTexture(Textures.SPIKES);
+    this.type = "block";
   }
 
   @Override
@@ -40,25 +27,17 @@ public class Chest extends Entity implements Collectible {
 
   @Override
   public void applyEffect(Player player, Level level) {
-
-    Random ran = new Random();
-    int no = ran.nextInt(1) + 1;
-    //CHEST HAS TWO OPTIONS (MAY INCREASE): +POTION or -POTION 
-    if(no == 1){
-      player.decreaseHealth(10);
-    }
-    else{
-      player.increaseHealth(10);
-    }
+    player.decreaseHealth(10);
   }
 
   @Override
   public void draw(SpriteBatch batch) {
     batch.draw(
-        this.getTexture(),
-        this.getBody().getPosition().x - 0.3f,
-        this.getBody().getPosition().y -0.3f,
-        this.getSizeWidth(),
-        this.getSizeHeight());
+      this.getTexture(),
+      this.getBody().getPosition().x - 0.3f,
+      this.getBody().getPosition().y - 0.6f,
+      this.getSizeWidth(),
+      this.getSizeHeight()
+    );
   }
 }

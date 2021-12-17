@@ -41,12 +41,11 @@ public class LevelRenderer {
   private Box2DDebugRenderer box2dDebugRenderer = new Box2DDebugRenderer();
 
   /* TEXTURES */
-  private boolean debug = true;
+  private boolean debug = false;
   private SpriteBatch spriteBatch;
   private HealthBar healthBar;
   private ManaBar manaBar;
   private long startTime;
-  private long currentTime;
 
   private int width;
   private int height;
@@ -66,10 +65,9 @@ public class LevelRenderer {
     this.camera.position.set(level.getPlayer().getPosition().x, level.getPlayer().getPosition().y, 0);
     this.camera.update();
     this.healthBar = new HealthBar(level.getPlayer());
-    this.manaBar = new ManaBar(this);
+    this.manaBar = new ManaBar(level.getPlayer());
     this.setSize(width, height);
     this.player = level.getPlayer();
-    this.startTime = TimeUtils.nanoTime();
   }
 
   public void render() {
@@ -124,19 +122,9 @@ public class LevelRenderer {
   }
 
   private void drawBars() {
-    currentTime = TimeUtils.nanoTime();
-
-    if (currentTime - startTime > TimeUtils.millisToNanos(200)) {
-      if (manaBar.getProgress() < 1) {
-        startTime = currentTime;
-        manaBar.setProgress(manaBar.getProgress() + 0.01f);
-      }
-    }
-
     spriteBatch.setProjectionMatrix(this.camera.projection);
 
     healthBar.draw(spriteBatch);
-
     manaBar.draw(spriteBatch);
   }
 

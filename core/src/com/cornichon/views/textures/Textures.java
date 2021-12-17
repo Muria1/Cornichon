@@ -22,5 +22,7 @@ public class Textures {
   public static final Texture YELLOW_SLIME = new Texture(Gdx.files.internal("images/yellowSlime.png"));
 
   public static final Texture POTIONS_HEALTH = new Texture(Gdx.files.internal("images/health_potion.png"));
-  public static final Texture CHEST = new Texture(Gdx.files.internal("images/chest.png"));
+  public static final Texture POTIONS_MANA = new Texture(Gdx.files.internal("images/mana_potion.png"));
+
+  public static final Texture SPIKES = new Texture(Gdx.files.internal("images/spikes.png"));
 }
