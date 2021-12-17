@@ -128,6 +128,10 @@ public class Level {
         if (e.getType().equals("block")) {
           e.getBody().createFixture(eFDef).setUserData(e);
           e.getBody().setUserData("block");
+        } else if (e.getType().equals("spike")) {
+          eShape.setAsBox(e.getSizeWidth()/2, e.getSizeHeight() / 3);
+          e.getBody().createFixture(eFDef).setUserData(e);
+          e.getBody().setUserData("spike");
         } else if (e.getType().equals("mob")) {
           e.getBody().createFixture(eFDef).setUserData(e);
           e.getBody().setUserData("mob");
@@ -243,22 +247,21 @@ public class Level {
   public void fire() {
     for (Entity e : entities) {
       double distance = Math.sqrt(
-        Math.pow(e.getBody().getPosition().x - player.getBody().getPosition().x, 2) +
-        Math.pow(e.getBody().getPosition().y - player.getBody().getPosition().y, 2)
-      );
+          Math.pow(e.getBody().getPosition().x - player.getBody().getPosition().x, 2) +
+              Math.pow(e.getBody().getPosition().y - player.getBody().getPosition().y, 2));
       if (e instanceof Skeleton && distance <= 20) {
         Fireball fireball;
 
         if (player.getBody().getPosition().x <= e.getBody().getPosition().x) {
           fireball = new Fireball(20, new Vector2(e.getPosition().x - player.getPosition().x / 70, e.getPosition().y));
           fireball
-            .getBodyDef()
-            .position.set(new Vector2(e.getPosition().x - player.getPosition().x / 70, e.getPosition().y));
+              .getBodyDef().position
+                  .set(new Vector2(e.getPosition().x - player.getPosition().x / 70, e.getPosition().y));
         } else {
           fireball = new Fireball(20, new Vector2(e.getPosition().x + player.getPosition().x / 70, e.getPosition().y));
           fireball
-            .getBodyDef()
-            .position.set(new Vector2(e.getPosition().x + player.getPosition().x / 70, e.getPosition().y));
+              .getBodyDef().position
+                  .set(new Vector2(e.getPosition().x + player.getPosition().x / 70, e.getPosition().y));
         }
 
         FixtureDef fireballFixDef = new FixtureDef();
