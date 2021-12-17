@@ -87,7 +87,14 @@ public class Level {
     player.getBody().setUserData("player");
 
     PolygonShape sShape = new PolygonShape();
-    sShape.setAsBox(sphere.getSizeWidth() / 2, sphere.getSizeHeight() / 2);
+    Vector2[] verts = new Vector2[6];
+    verts[5] = new Vector2((float) -(sphere.getSizeWidth() / 2), 0);
+    verts[4] = new Vector2((float) -(0.5 * sphere.getSizeWidth() / 2), (sphere.getSizeHeight() / 2));
+    verts[3] = new Vector2((float) (0.5 * sphere.getSizeWidth() / 2), (sphere.getSizeHeight() / 2));
+    verts[2] = new Vector2((float) (sphere.getSizeWidth() / 2), 0);
+    verts[1] = new Vector2((float) (0.5 * sphere.getSizeWidth() / 2), -(sphere.getSizeHeight() / 2));
+    verts[0] = new Vector2((float) -(0.5 * sphere.getSizeWidth() / 2), -(sphere.getSizeHeight() / 2));
+    sShape.set(verts);
     FixtureDef sFDef = new FixtureDef();
     sFDef.shape = sShape;
     sphere.getBody().createFixture(sFDef).setUserData(sphere);

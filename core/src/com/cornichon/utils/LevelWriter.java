@@ -15,7 +15,7 @@ public final class LevelWriter {
   private Random random = new Random();
 
   public LevelWriter(int difficulty) {
-    int d = difficulty + 7;
+    int d = difficulty + 6;
     this.difficulty = difficulty;
     this.maze = new Maze(d, d * 7 / 10);
   }
