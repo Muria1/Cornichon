@@ -45,8 +45,8 @@ public final class LevelWriter {
   }
 
   public void placeMobsAndCollectibles(int[][] map) {
-    int[] collectibles = { DrawableValues.POTION_HEALTH, DrawableValues.CHEST };
-    int[] mobs = { DrawableValues.SKELETON, DrawableValues.SLIME };
+    int[] collectibles = { DrawableValues.POTION_HEALTH, DrawableValues.POTION_MANA };
+    int[] mobs = { DrawableValues.SKELETON, DrawableValues.SLIME, DrawableValues.SPIKES };
 
     try {
       for (int r = 1; r < map.length; r += 1) {
@@ -55,7 +55,7 @@ public final class LevelWriter {
             if (map[r][c - 1] == DrawableValues.BRICK && map[r][c + 1] == DrawableValues.BRICK) {
               if (map[r - 1][c] == DrawableValues.AIR) {
                 boolean testCollectible = random.nextInt(difficulty / 2 + 12) == 0; // the chance of placing decreases with the difficulty
-                boolean testMob = random.nextInt(12 - difficulty / 2) == 0; // the chance of placing increases with the difficulty
+                boolean testMob = random.nextInt(10 - difficulty / 2) == 0; // the chance of placing increases with the difficulty
 
                 if (testCollectible) {
                   map[r - 1][c] = collectibles[(int) (Math.random() * collectibles.length)];

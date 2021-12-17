@@ -108,7 +108,7 @@ public class PlayerController extends GeneralController {
     if (sKeys.get(SphereActions.SLEFT)) {
       sphere.setFacingLeft(true);
       sphere.setState(State.WALKING);
-      sphere.rotate(10f);
+      sphere.rotate(30f);
       // sphere.getBody().setLinearVelocity(new Vector2(-Sphere.SPEED,
       // sphere.getBody().getLinearVelocity().y));
       if (Math.abs(sphere.getBody().getLinearVelocity().x) <= sphere.getMaxSpeed()) sphere
@@ -120,7 +120,7 @@ public class PlayerController extends GeneralController {
       // right is pressed
       sphere.setFacingLeft(false);
       sphere.setState(State.WALKING);
-      sphere.rotate(-10f);
+      sphere.rotate(-30f);
       // sphere.getBody().setLinearVelocity(new Vector2(Sphere.SPEED,
       // sphere.getBody().getLinearVelocity().y));
       if (Math.abs(sphere.getBody().getLinearVelocity().x) <= sphere.getMaxSpeed()) sphere

@@ -29,7 +29,6 @@ public class GameScreen implements Screen {
   private int fireTrigger = 0;
   public ImageButton soundButton;
 
-
   /** controllers */
   private PlayerController playerController;
   private int difficulty;
@@ -64,7 +63,6 @@ public class GameScreen implements Screen {
       if (level.getDyingEntities().size != 0) {
         for (Entity e : level.getDyingEntities()) {
           level.getWorld().destroyBody(e.getBody());
-
         }
         level.getDyingEntities().clear();
       }
@@ -72,10 +70,8 @@ public class GameScreen implements Screen {
       if (fireTrigger == 175) {
         for (Projectile p : level.getProjectiles()) {
           level.getWorld().destroyBody(p.getBody());
-
         }
         level.getDyingEntities().clear();
-      
 
         level.getProjectiles().clear();
       }
@@ -86,6 +82,10 @@ public class GameScreen implements Screen {
       level.moveMobs();
       renderer.render();
       fireTrigger++;
+
+      if (level.getPlayer().isDead()) {
+        game.setScreen(new GameOverScreen(game, level.getLatestScore()));
+      }
     } else {
       pauseRenderer.render();
 
