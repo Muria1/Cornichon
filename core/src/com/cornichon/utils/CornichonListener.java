@@ -1,5 +1,6 @@
 package com.cornichon.utils;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -67,6 +68,15 @@ public class CornichonListener implements ContactListener {
                 SPHERE_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())) &&
                 (MOB_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
                         MOB_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))) {
+
+            level.getSphere().getBody().applyLinearImpulse(
+                    new Vector2(
+                            4 * (level.getPlayer().getBody().getPosition().x
+                                    - level.getSphere().getBody().getPosition().x),
+                            4 * (level.getPlayer().getBody().getPosition().y
+                                    - level.getSphere().getBody().getPosition().y)),
+                    level.getSphere().getBody().getPosition(), true);
+
             if (contact.getFixtureA().getUserData() instanceof Mob) {
                 Mob m = (Mob) contact.getFixtureA().getUserData();
                 m.applyDamage(level.getSphere().getDamage());
@@ -82,6 +92,7 @@ public class CornichonListener implements ContactListener {
                     level.increaseLastScore(Scores.MOB_KILLED);
                 }
             }
+
         }
 
         if ((PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
@@ -112,21 +123,21 @@ public class CornichonListener implements ContactListener {
             }
         }
 
-        //NOT completely working + may be removed
+        // NOT completely working + may be removed
         if ((PROJECTILE_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
                 PROJECTILE_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())) &&
                 (MOB_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
                         MOB_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))) {
             if (contact.getFixtureA().getUserData() instanceof Mob) {
                 Mob m = (Mob) contact.getFixtureA().getUserData();
-                m.applyDamage(25);
+                // m.applyDamage(25);
                 if (m.isDead()) {
                     level.addDyingEntity(m);
                     level.increaseLastScore(Scores.MOB_KILLED);
                 }
             } else if (contact.getFixtureB().getUserData() instanceof Mob) {
                 Mob m = (Mob) contact.getFixtureB().getUserData();
-                m.applyDamage(Constants.FIREBALL_DAMAGE);
+                // m.applyDamage(Constants.FIREBALL_DAMAGE);
                 if (m.checkDeath()) {
                     level.addDyingEntity(m);
                     level.increaseLastScore(Scores.MOB_KILLED);
