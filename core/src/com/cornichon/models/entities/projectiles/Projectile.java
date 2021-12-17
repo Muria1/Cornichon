@@ -10,7 +10,6 @@ public class Projectile extends MovingEntity {
   protected int damage;
 
   public Projectile(
-    int damage,
     Vector2 position,
     float sizeHeight,
     float sizeWidth,
@@ -31,7 +30,6 @@ public class Projectile extends MovingEntity {
       velocity
     );
     this.b2bBodyDef.gravityScale = 0f;;
-    this.damage = damage;
     this.type = "projectile";
   }
 

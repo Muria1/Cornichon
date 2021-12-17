@@ -12,6 +12,7 @@ import com.cornichon.models.entities.Entity;
 import com.cornichon.models.entities.aliveEntities.Mob;
 import com.cornichon.models.entities.collectibles.HealthPotion;
 import com.cornichon.models.entities.helpers.Collectible;
+import com.cornichon.models.entities.projectiles.Fireball;
 import com.cornichon.models.entities.projectiles.Projectile;
 import com.cornichon.views.textures.Textures;
 
@@ -111,6 +112,7 @@ public class CornichonListener implements ContactListener {
             }
         }
 
+        //NOT completely working + may be removed
         if ((PROJECTILE_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
                 PROJECTILE_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())) &&
                 (MOB_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
@@ -124,7 +126,7 @@ public class CornichonListener implements ContactListener {
                 }
             } else if (contact.getFixtureB().getUserData() instanceof Mob) {
                 Mob m = (Mob) contact.getFixtureB().getUserData();
-                m.applyDamage(25);
+                m.applyDamage(Constants.FIREBALL_DAMAGE);
                 if (m.checkDeath()) {
                     level.addDyingEntity(m);
                     level.increaseLastScore(Scores.MOB_KILLED);

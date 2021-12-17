@@ -10,6 +10,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.cornichon.models.entities.projectiles.Projectile;
+import com.cornichon.utils.Constants;
+
 import java.util.Random;
 
 public class Slime extends Mob {
@@ -25,26 +27,22 @@ public class Slime extends Mob {
   public BodyDef b2bBody;
 
   private Projectile projectile;
-  private int health;
-  private int range;
-  private int closeCombatRange;
-  private boolean canFireProjectile;
   private Random ran;
   private int slimeDecisionMaker;
 
   public Slime(Vector2 position) {
     super(
-      position,
-      SIZE_HEIGTH,
-      SIZE_WIDTH,
-      BOUNDS,
-      SPEED,
-      JUMP_VELOCITY,
-      new Vector2(), // Acceleration
-      new Vector2(), // Velocity
-      HEALTH,
-      DAMAGE
-    );
+        position,
+        SIZE_HEIGTH,
+        SIZE_WIDTH,
+        BOUNDS,
+        SPEED,
+        JUMP_VELOCITY,
+        new Vector2(), // Acceleration
+        new Vector2());
+
+    this.damage = Constants.SLIME_DAMAGE;
+
     ran = new Random();
     int slimeDecisionMaker = ran.nextInt(3) + 1;
 
@@ -57,8 +55,6 @@ public class Slime extends Mob {
     }
   }
 
-  public void fireProjectile() {}
-
   public boolean checkDeath() {
     if (this.getHealth() <= 0) {
       return true;
@@ -67,16 +63,13 @@ public class Slime extends Mob {
     }
   }
 
-  public void closeRangeAttack() {}
-
   @Override
   public void draw(SpriteBatch batch) {
     batch.draw(
-      this.getTexture(),
-      this.getBody().getPosition().x - 0.25f,
-      this.getBody().getPosition().y - 0.30f,
-      this.getSizeWidth(),
-      this.getSizeHeight()
-    );
+        this.getTexture(),
+        this.getBody().getPosition().x - 0.25f,
+        this.getBody().getPosition().y - 0.30f,
+        this.getSizeWidth(),
+        this.getSizeHeight());
   }
 }
