@@ -34,7 +34,7 @@ public class Cornichon extends Game {
     this.img = new Texture("images/cornichon.png");
     this.mainMenuScreen = new MainMenuScreen(this);
     this.gameScreen = new GameScreen(this, 1, 0, 100);
-    this.backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("images/music/BACKGROUND_music.mp3"));
+    this.backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("images/background_RZGGhSSE.mp3"));
     
     
     backgroundMusic.setLooping(true);
@@ -51,7 +51,8 @@ public class Cornichon extends Game {
         backgroundMusic.pause();
         gameScreen.pause();
       }
-     }
+
+    }
 
     else if(!this.isPaused && soundOn){
       soundOn = true;

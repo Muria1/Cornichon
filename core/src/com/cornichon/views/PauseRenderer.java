@@ -1,13 +1,14 @@
-package com.cornichon;
+package com.cornichon.views;
+
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 public class PauseRenderer {
 
   private SpriteBatch spriteBatch;
+
   public PauseRenderer(SpriteBatch batch) {
-
     this.spriteBatch = batch;
-
   }
 
   public void render() {
@@ -27,7 +28,6 @@ public class PauseRenderer {
   }
 
   private void drawOptions() {
-
     BitmapFont resumeMap = new BitmapFont();
 
     resumeMap.setColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -40,5 +40,4 @@ public class PauseRenderer {
     mainMenu.draw(spriteBatch, "press M to go to main menu", 315, 180);
     mainMenu.draw(spriteBatch, "press f10 to mute and unmute the game", 290, 160);
   }
-
 }

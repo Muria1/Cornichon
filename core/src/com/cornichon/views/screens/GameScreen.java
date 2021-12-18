@@ -13,12 +13,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.cornichon.Cornichon;
-import com.cornichon.PauseRenderer;
 import com.cornichon.controllers.PlayerController;
 import com.cornichon.models.construction.Level;
 import com.cornichon.models.entities.Entity;
 import com.cornichon.models.entities.projectiles.Projectile;
 import com.cornichon.views.LevelRenderer;
+import com.cornichon.views.PauseRenderer;
 
 public class GameScreen implements Screen {
 
