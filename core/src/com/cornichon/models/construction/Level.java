@@ -23,6 +23,7 @@ import com.cornichon.models.entities.projectiles.Fireball;
 import com.cornichon.models.entities.projectiles.Projectile;
 import com.cornichon.utils.CornichonListener;
 import com.cornichon.utils.LevelReader;
+import com.cornichon.utils.Scores;
 import com.cornichon.views.maps.Map;
 import com.cornichon.views.screens.GameEndingScreen;
 import com.cornichon.views.screens.GameScreen;
@@ -129,7 +130,7 @@ public class Level {
           e.getBody().createFixture(eFDef).setUserData(e);
           e.getBody().setUserData("block");
         } else if (e.getType().equals("spike")) {
-          eShape.setAsBox(e.getSizeWidth()/2, e.getSizeHeight() / 3);
+          eShape.setAsBox(e.getSizeWidth() / 2, e.getSizeHeight() / 3);
           e.getBody().createFixture(eFDef).setUserData(e);
           e.getBody().setUserData("spike");
         } else if (e.getType().equals("mob")) {
@@ -247,21 +248,22 @@ public class Level {
   public void fire() {
     for (Entity e : entities) {
       double distance = Math.sqrt(
-          Math.pow(e.getBody().getPosition().x - player.getBody().getPosition().x, 2) +
-              Math.pow(e.getBody().getPosition().y - player.getBody().getPosition().y, 2));
+        Math.pow(e.getBody().getPosition().x - player.getBody().getPosition().x, 2) +
+        Math.pow(e.getBody().getPosition().y - player.getBody().getPosition().y, 2)
+      );
       if (e instanceof Skeleton && distance <= 20) {
         Fireball fireball;
 
         if (player.getBody().getPosition().x <= e.getBody().getPosition().x) {
           fireball = new Fireball(new Vector2(e.getPosition().x - player.getPosition().x / 70, e.getPosition().y));
           fireball
-              .getBodyDef().position
-                  .set(new Vector2(e.getPosition().x - player.getPosition().x / 70, e.getPosition().y));
+            .getBodyDef()
+            .position.set(new Vector2(e.getPosition().x - player.getPosition().x / 70, e.getPosition().y));
         } else {
           fireball = new Fireball(new Vector2(e.getPosition().x + player.getPosition().x / 70, e.getPosition().y));
           fireball
-              .getBodyDef().position
-                  .set(new Vector2(e.getPosition().x + player.getPosition().x / 70, e.getPosition().y));
+            .getBodyDef()
+            .position.set(new Vector2(e.getPosition().x + player.getPosition().x / 70, e.getPosition().y));
         }
 
         FixtureDef fireballFixDef = new FixtureDef();
@@ -304,7 +306,8 @@ public class Level {
   public void nextLevel() {
     if (difficulty + 1 >= 11) {
       game.setScreen(new GameEndingScreen(game, lastScore));
-    } else { // game finished
+    } else {
+      this.increaseLastScore(Scores.LEVEL_PASSED);
       game.setScreen(new GameScreen(game, difficulty + 1, lastScore, lastHealth));
     }
   }

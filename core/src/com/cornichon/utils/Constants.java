@@ -17,5 +17,4 @@ public final class Constants {
   public static final int FIREBALL_DAMAGE = 25;
 
   public static final int SLIME_DAMAGE = 15;
-
 }
