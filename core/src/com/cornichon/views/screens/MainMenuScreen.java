@@ -77,7 +77,7 @@ public class MainMenuScreen implements Screen {
     TextButton leaderBoard = new TextButton("Leaderboard", skin);
     TextButton exit = new TextButton("Exit", skin);
     TextButton tutorial = new TextButton("Tutorial", skin);
-    setImage("images/SOUND_ON.png");
+    setImage("images/ON.png");
 
     table.setBounds(590, 80, 100, 150);
     table.add(newGame).fillX().uniformX();
@@ -150,7 +150,7 @@ public class MainMenuScreen implements Screen {
 
         }
         else{
-          setImage("images/SOUND_ON.png");
+          setImage("images/ON.png");
           Cornichon.backgroundMusic.play();
           pressedOnce = false;
         }
