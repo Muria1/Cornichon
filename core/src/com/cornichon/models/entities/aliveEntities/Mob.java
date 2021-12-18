@@ -4,13 +4,14 @@ import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
 import com.cornichon.models.entities.MovingEntity;
 import com.cornichon.models.entities.helpers.State;
+import com.cornichon.utils.Constants;
 
 public class Mob extends MovingEntity {
 
   private State state;
   private boolean facingLeft;
-  private int health;
-  private int damage;
+  protected int health;
+  protected int damage;
 
   public Mob(
       Vector2 position,
@@ -20,9 +21,7 @@ public class Mob extends MovingEntity {
       float speed,
       float jumpVelocity,
       Vector2 acceleration,
-      Vector2 velocity,
-      int health,
-      int damage) {
+      Vector2 velocity) {
     super(
         position,
         sizeHeight,
@@ -33,12 +32,12 @@ public class Mob extends MovingEntity {
         acceleration,
         velocity);
 
-    this.damage = damage;
     this.state = State.IDLE;
     this.facingLeft = false;
-    this.health = health;
+    this.health = Constants.MOB_HEALTH_GENERAL;
     this.type = "mob";
-    this.b2bBodyDef.gravityScale = 10f;
+    this.damage = 0;
+    this.b2bBodyDef.gravityScale = 6f;
   }
 
   public void update(float delta) {

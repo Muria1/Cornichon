@@ -13,12 +13,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.cornichon.Cornichon;
-import com.cornichon.PauseRenderer;
 import com.cornichon.controllers.PlayerController;
 import com.cornichon.models.construction.Level;
 import com.cornichon.models.entities.Entity;
 import com.cornichon.models.entities.projectiles.Projectile;
 import com.cornichon.views.LevelRenderer;
+import com.cornichon.views.PauseRenderer;
 
 public class GameScreen implements Screen {
 
@@ -28,7 +28,6 @@ public class GameScreen implements Screen {
   private Cornichon game;
   private int fireTrigger = 0;
   public ImageButton soundButton;
-
 
   /** controllers */
   private PlayerController playerController;
@@ -64,7 +63,6 @@ public class GameScreen implements Screen {
       if (level.getDyingEntities().size != 0) {
         for (Entity e : level.getDyingEntities()) {
           level.getWorld().destroyBody(e.getBody());
-
         }
         level.getDyingEntities().clear();
       }
@@ -72,10 +70,8 @@ public class GameScreen implements Screen {
       if (fireTrigger == 175) {
         for (Projectile p : level.getProjectiles()) {
           level.getWorld().destroyBody(p.getBody());
-
         }
         level.getDyingEntities().clear();
-      
 
         level.getProjectiles().clear();
       }
@@ -86,6 +82,10 @@ public class GameScreen implements Screen {
       level.moveMobs();
       renderer.render();
       fireTrigger++;
+
+      if (level.getPlayer().isDead()) {
+        game.setScreen(new GameOverScreen(game, level.getLatestScore()));
+      }
     } else {
       pauseRenderer.render();
 

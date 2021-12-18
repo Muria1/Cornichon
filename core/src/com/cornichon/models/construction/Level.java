@@ -23,6 +23,7 @@ import com.cornichon.models.entities.projectiles.Fireball;
 import com.cornichon.models.entities.projectiles.Projectile;
 import com.cornichon.utils.CornichonListener;
 import com.cornichon.utils.LevelReader;
+import com.cornichon.utils.Scores;
 import com.cornichon.views.maps.Map;
 import com.cornichon.views.screens.GameEndingScreen;
 import com.cornichon.views.screens.GameScreen;
@@ -87,7 +88,14 @@ public class Level {
     player.getBody().setUserData("player");
 
     PolygonShape sShape = new PolygonShape();
-    sShape.setAsBox(sphere.getSizeWidth() / 2, sphere.getSizeHeight() / 2);
+    Vector2[] verts = new Vector2[6];
+    verts[5] = new Vector2((float) -(sphere.getSizeWidth() / 2), 0);
+    verts[4] = new Vector2((float) -(0.5 * sphere.getSizeWidth() / 2), (sphere.getSizeHeight() / 2));
+    verts[3] = new Vector2((float) (0.5 * sphere.getSizeWidth() / 2), (sphere.getSizeHeight() / 2));
+    verts[2] = new Vector2((float) (sphere.getSizeWidth() / 2), 0);
+    verts[1] = new Vector2((float) (0.5 * sphere.getSizeWidth() / 2), -(sphere.getSizeHeight() / 2));
+    verts[0] = new Vector2((float) -(0.5 * sphere.getSizeWidth() / 2), -(sphere.getSizeHeight() / 2));
+    sShape.set(verts);
     FixtureDef sFDef = new FixtureDef();
     sFDef.shape = sShape;
     sphere.getBody().createFixture(sFDef).setUserData(sphere);
@@ -121,6 +129,10 @@ public class Level {
         if (e.getType().equals("block")) {
           e.getBody().createFixture(eFDef).setUserData(e);
           e.getBody().setUserData("block");
+        } else if (e.getType().equals("spike")) {
+          eShape.setAsBox(e.getSizeWidth() / 2, e.getSizeHeight() / 3);
+          e.getBody().createFixture(eFDef).setUserData(e);
+          e.getBody().setUserData("spike");
         } else if (e.getType().equals("mob")) {
           e.getBody().createFixture(eFDef).setUserData(e);
           e.getBody().setUserData("mob");
@@ -243,12 +255,12 @@ public class Level {
         Fireball fireball;
 
         if (player.getBody().getPosition().x <= e.getBody().getPosition().x) {
-          fireball = new Fireball(20, new Vector2(e.getPosition().x - player.getPosition().x / 70, e.getPosition().y));
+          fireball = new Fireball(new Vector2(e.getPosition().x - player.getPosition().x / 70, e.getPosition().y));
           fireball
             .getBodyDef()
             .position.set(new Vector2(e.getPosition().x - player.getPosition().x / 70, e.getPosition().y));
         } else {
-          fireball = new Fireball(20, new Vector2(e.getPosition().x + player.getPosition().x / 70, e.getPosition().y));
+          fireball = new Fireball(new Vector2(e.getPosition().x + player.getPosition().x / 70, e.getPosition().y));
           fireball
             .getBodyDef()
             .position.set(new Vector2(e.getPosition().x + player.getPosition().x / 70, e.getPosition().y));
@@ -294,12 +306,17 @@ public class Level {
   public void nextLevel() {
     if (difficulty + 1 >= 11) {
       game.setScreen(new GameEndingScreen(game, lastScore));
-    } else { // game finished
+    } else {
+      this.increaseLastScore(Scores.LEVEL_PASSED);
       game.setScreen(new GameScreen(game, difficulty + 1, lastScore, lastHealth));
     }
   }
 
   public void increaseLastScore(int amount) {
     this.lastScore += amount;
+  }
+
+  public int getLatestScore() {
+    return this.lastScore;
   }
 }

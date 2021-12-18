@@ -2,6 +2,7 @@ package com.cornichon.models.entities.projectiles;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.cornichon.utils.Constants;
 
 public class Fireball extends Projectile {
 
@@ -13,9 +14,8 @@ public class Fireball extends Projectile {
     .setWidth(SIZE_HEIGTH)
     .setHeight(SIZE_WIDTH);
 
-  public Fireball(int damage, Vector2 position) {
+  public Fireball(Vector2 position) {
     super(
-      damage,
       position,
       SIZE_HEIGTH,
       SIZE_WIDTH,
@@ -25,6 +25,8 @@ public class Fireball extends Projectile {
       new Vector2(),
       new Vector2()
     );
+
+    this.damage = Constants.FIREBALL_DAMAGE;
 
     this.type = "projectile";
   }

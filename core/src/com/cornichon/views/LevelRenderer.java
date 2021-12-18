@@ -38,7 +38,6 @@ public class LevelRenderer {
 
   private Level level;
   private OrthographicCamera camera;
-  private ShapeRenderer debugRenderer = new ShapeRenderer();
   private Box2DDebugRenderer box2dDebugRenderer = new Box2DDebugRenderer();
 
   /* TEXTURES */
@@ -47,22 +46,11 @@ public class LevelRenderer {
   private HealthBar healthBar;
   private ManaBar manaBar;
   private long startTime;
-  private long currentTime;
 
   private int width;
   private int height;
 
   Player player;
-
-  /**
-   * IN CASE SPRITES WILL BE USED INSTEAD OF TEXTURES
-   * private Sprite idleSprite = new Sprite(new
-   * Texture(Gdx.files.internal("images/idle.png")));
-   * private Sprite walkingSprite = new Sprite(new
-   * Texture(Gdx.files.internal("images/walking.png")));
-   * private Sprite jumpingSprite = new Sprite(new
-   * Texture(Gdx.files.internal("images/jumping.png")));
-   */
 
   public void setSize(int width, int height) {
     this.width = width;
@@ -77,10 +65,9 @@ public class LevelRenderer {
     this.camera.position.set(level.getPlayer().getPosition().x, level.getPlayer().getPosition().y, 0);
     this.camera.update();
     this.healthBar = new HealthBar(level.getPlayer());
-    this.manaBar = new ManaBar(this);
+    this.manaBar = new ManaBar(level.getPlayer());
     this.setSize(width, height);
-    player = level.getPlayer();
-    this.startTime = TimeUtils.nanoTime();
+    this.player = level.getPlayer();
   }
 
   public void render() {
@@ -93,12 +80,17 @@ public class LevelRenderer {
     this.drawEverything();
     this.drawBars();
     this.drawHudTexts();
-    
-
+    this.toggleDebug();
 
     spriteBatch.end();
 
-    box2dDebugRenderer.render(level.getWorld(), camera.combined);
+    if (debug) {
+      box2dDebugRenderer.render(level.getWorld(), camera.combined);
+    }
+  }
+
+  private void toggleDebug() {
+    if (Gdx.input.isKeyJustPressed(Keys.NUM_0)) debug = !debug;
   }
 
   private void drawEverything() {
@@ -129,21 +121,10 @@ public class LevelRenderer {
     font.draw(spriteBatch, (level.getDifficulty() <= 9 ? level.getDifficulty() + "" : "X"), -6.5f, 4.03f);
   }
 
-
   private void drawBars() {
-    currentTime = TimeUtils.nanoTime();
-
-    if (currentTime - startTime > TimeUtils.millisToNanos(200)) {
-      if (manaBar.getProgress() < 1) {
-        startTime = currentTime;
-        manaBar.setProgress(manaBar.getProgress() + 0.01f);
-      }
-    }
-
     spriteBatch.setProjectionMatrix(this.camera.projection);
 
     healthBar.draw(spriteBatch);
-
     manaBar.draw(spriteBatch);
   }
 

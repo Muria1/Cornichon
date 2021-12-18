@@ -14,14 +14,14 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.cornichon.Cornichon;
 
-public class GameEndingScreen implements Screen {
+public class GameOverScreen implements Screen {
 
   private Cornichon game;
   private OrthographicCamera camera;
   public Stage stage;
   private int finishingScore;
 
-  public GameEndingScreen(Cornichon game, int finishingScore) {
+  public GameOverScreen(Cornichon game, int finishingScore) {
     this.game = game;
     this.finishingScore = finishingScore;
 
@@ -31,7 +31,6 @@ public class GameEndingScreen implements Screen {
 
   @Override
   public void show() {
-
     stage = new Stage(new ScreenViewport());
     Gdx.input.setInputProcessor(stage);
     Table table = new Table();
@@ -57,7 +56,7 @@ public class GameEndingScreen implements Screen {
         }
       }
     );
-    
+
     leaderboard.addListener(
       new ChangeListener() {
         @Override
@@ -65,7 +64,7 @@ public class GameEndingScreen implements Screen {
           game.setScreen(new LeaderboardScreen(game, finishingScore));
         }
       }
-    ); 
+    );
   }
 
   @Override
@@ -79,20 +78,15 @@ public class GameEndingScreen implements Screen {
 
     game.batch.begin();
 
-    game.font.draw(game.batch, "Well done, you have successfully completed this full of adventure journey! ", 150, 250);
-    game.font.draw(game.batch, "With your help, he could get away from the enemies trying to get him since they thought he was a freak.", 70, 230);
-    game.font.draw(game.batch, "Now he can live his life as he wants. None of these would have been possible without you!", 120, 210);
-    game.font.draw(game.batch, "SPECIAL THANKS TO: ", 60, 140);
-    game.font.draw(game.batch, "Ziya Erkoc", 60, 120);
-    game.font.draw(game.batch, "CREATORS: ", 500, 140);
-    game.font.draw(game.batch, "Ahmet Berke Gokmen", 500, 120);
-    game.font.draw(game.batch, "Erdem Eren Çaglar", 500, 100);
-    game.font.draw(game.batch, "Idil Atmaca", 500, 80);
-    game.font.draw(game.batch, "Mahmut Mert Gençturk ", 500, 60);
-;   game.font.draw(game.batch, "YOUR SCORE IS : " + this.finishingScore, 300, 300);
-    game.batch.end();
+    game.font.draw(game.batch, "SCORE: " + this.finishingScore, 360, 300);
+    game.font.draw(game.batch, "Unfortunately our brave and big-hearted boy departed this cruel life :(", 170, 250);
+    game.font.draw(game.batch, "This world with all this evilness was never enough for him, he was not meant for this world", 100, 230);
+    game.font.draw(game.batch, "Yet don't you ever give up! He would have wanted you to keep going..." , 180, 210);
+    game.font.draw(game.batch, "Everytime you eat a pickle, just be sure that he is smilingly watching you from somewhere else" , 100, 190);
 
+    game.batch.end();
     stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+
     stage.draw();
   }
 

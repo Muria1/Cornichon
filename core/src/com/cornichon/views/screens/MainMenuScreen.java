@@ -68,7 +68,7 @@ public class MainMenuScreen implements Screen {
     this.stage = new Stage(new ScreenViewport());
     Gdx.input.setInputProcessor(stage);
 
-    table.setDebug(true);
+    table.setDebug(false);
     stage.addActor(table);
 
     Skin skin = new Skin(Gdx.files.internal("images/uiskin.json"));
@@ -109,7 +109,7 @@ public class MainMenuScreen implements Screen {
     leaderBoard.addListener(new ChangeListener() {
     	@Override
     	public void changed(ChangeEvent event, Actor actor) {
-    		game.setScreen(new LeaderboardScreen(game, 0));
+    		game.setScreen(new LeaderboardListScreen(game));
     	}
     });
 
@@ -128,7 +128,7 @@ public class MainMenuScreen implements Screen {
 
     
     Table soundTable = new Table();
-    soundTable.setDebug(true);
+    soundTable.setDebug(false);
     stage.addActor(soundTable);
    
     Drawable drawable = new TextureRegionDrawable(new TextureRegion(new Texture(getImage())));

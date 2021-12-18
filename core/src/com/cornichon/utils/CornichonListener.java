@@ -1,5 +1,6 @@
 package com.cornichon.utils;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -12,6 +13,7 @@ import com.cornichon.models.entities.Entity;
 import com.cornichon.models.entities.aliveEntities.Mob;
 import com.cornichon.models.entities.collectibles.HealthPotion;
 import com.cornichon.models.entities.helpers.Collectible;
+import com.cornichon.models.entities.projectiles.Fireball;
 import com.cornichon.models.entities.projectiles.Projectile;
 import com.cornichon.views.textures.Textures;
 
@@ -25,6 +27,7 @@ public class CornichonListener implements ContactListener {
   private static final String COL_IDENTIFIER = "col";
   private static final String SPHERE_IDENTIFIER = "top";
   private static final String PROJECTILE_IDENTIFIER = "projectile";
+  private static final String SPIKE_IDENTIFIER = "spike";
 
   private int groundContacts;
 
@@ -35,9 +38,6 @@ public class CornichonListener implements ContactListener {
 
   @Override
   public void beginContact(Contact contact) {
-    String userData1 = (String) contact.getFixtureA().getBody().getUserData();
-    String userData2 = (String) contact.getFixtureB().getBody().getUserData();
-
     if (
       (
         PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
@@ -49,7 +49,7 @@ public class CornichonListener implements ContactListener {
       )
     ) {
       groundContacts++;
-      System.out.println("groundContacts" + groundContacts);
+      // System.out.println("groundContacts" + groundContacts);
       if (contact.getFixtureA().getUserData() instanceof Door) {
         Door d = (Door) contact.getFixtureA().getUserData();
         d.setTexture(Textures.DOOR_OPENED);
@@ -85,6 +85,18 @@ public class CornichonListener implements ContactListener {
         MOB_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
       )
     ) {
+      level
+        .getSphere()
+        .getBody()
+        .applyLinearImpulse(
+          new Vector2(
+            4 * (level.getPlayer().getBody().getPosition().x - level.getSphere().getBody().getPosition().x),
+            4 * (level.getPlayer().getBody().getPosition().y - level.getSphere().getBody().getPosition().y)
+          ),
+          level.getSphere().getBody().getPosition(),
+          true
+        );
+
       if (contact.getFixtureA().getUserData() instanceof Mob) {
         Mob m = (Mob) contact.getFixtureA().getUserData();
         m.applyDamage(level.getSphere().getDamage());
@@ -142,6 +154,7 @@ public class CornichonListener implements ContactListener {
       }
     }
 
+    // NOT completely working + may be removed
     if (
       (
         PROJECTILE_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
@@ -154,14 +167,14 @@ public class CornichonListener implements ContactListener {
     ) {
       if (contact.getFixtureA().getUserData() instanceof Mob) {
         Mob m = (Mob) contact.getFixtureA().getUserData();
-        m.applyDamage(25);
+        // m.applyDamage(25);
         if (m.isDead()) {
           level.addDyingEntity(m);
           level.increaseLastScore(Scores.MOB_KILLED);
         }
       } else if (contact.getFixtureB().getUserData() instanceof Mob) {
         Mob m = (Mob) contact.getFixtureB().getUserData();
-        m.applyDamage(25);
+        // m.applyDamage(Constants.FIREBALL_DAMAGE);
         if (m.checkDeath()) {
           level.addDyingEntity(m);
           level.increaseLastScore(Scores.MOB_KILLED);
@@ -191,6 +204,21 @@ public class CornichonListener implements ContactListener {
         level.addDyingEntity((Entity) e);
       }
     }
+
+    if (
+      (
+        PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+        PLAYER_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
+      ) &&
+      (
+        SPIKE_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+        SPIKE_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
+      )
+    ) {
+      level.getPlayer().setHealth(level.getPlayer().getHealth() - Constants.SPIKE_DAMAGE);
+      level.increaseLastScore(Scores.SPIKE_TOUCHED);
+      groundContacts++;
+    }
   }
 
   @Override
@@ -207,6 +235,19 @@ public class CornichonListener implements ContactListener {
     ) {
       groundContacts--;
       System.out.println("groundContacts" + groundContacts);
+    }
+
+    if (
+      (
+        PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+        PLAYER_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
+      ) &&
+      (
+        SPIKE_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+        SPIKE_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
+      )
+    ) {
+      groundContacts--;
     }
   }
 
