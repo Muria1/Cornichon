@@ -8,6 +8,7 @@ public final class DrawableValues {
   public static final int SKELETON = 91;
   public static final int SLIME = 92;
   public static final int SPIKES = 93;
+  public static final int WIZARD = 94;
 
   public static final int BRICK_BACKGROUND = -1;
 

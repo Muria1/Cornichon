@@ -1,5 +1,7 @@
 package com.cornichon.models.entities.projectiles;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.cornichon.utils.Constants;
@@ -27,7 +29,6 @@ public class Fireball extends Projectile {
     );
 
     this.damage = Constants.FIREBALL_DAMAGE;
-
     this.type = "projectile";
   }
 }

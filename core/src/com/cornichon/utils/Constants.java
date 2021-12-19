@@ -14,7 +14,10 @@ public final class Constants {
   public static final int SPIKE_DAMAGE = 25;
 
   public static final int SKELETON_DAMAGE = 20;
+  public static final int WIZARD_DAMAGE = 25;
   public static final int FIREBALL_DAMAGE = 25;
 
   public static final int SLIME_DAMAGE = 15;
+
+
 }

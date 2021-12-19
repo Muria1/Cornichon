@@ -10,6 +10,7 @@ import com.cornichon.models.entities.Spikes;
 import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.models.entities.aliveEntities.Skeleton;
 import com.cornichon.models.entities.aliveEntities.Slime;
+import com.cornichon.models.entities.aliveEntities.Wizard;
 import com.cornichon.models.entities.collectibles.HealthPotion;
 import com.cornichon.models.entities.collectibles.ManaPotion;
 import com.cornichon.views.helpers.DrawableValues;
@@ -46,6 +47,9 @@ public final class LevelReader {
               break;
             case DrawableValues.SLIME:
               entities.add(new Slime(new Vector2(x, map.length - y - 1)));
+              break;
+            case DrawableValues.WIZARD:
+              entities.add(new Wizard(new Vector2(x, map.length - y - 1)));
               break;
             case DrawableValues.POTION_HEALTH:
               entities.add(new HealthPotion(new Vector2(x, map.length - y - 1)));
