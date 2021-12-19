@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.cornichon.models.entities.MovingEntity;
 import com.cornichon.models.entities.helpers.State;
+import com.cornichon.utils.Constants;
 import com.cornichon.views.textures.Textures;
 
 public class Sphere extends MovingEntity {
@@ -27,6 +28,7 @@ public class Sphere extends MovingEntity {
   private int progress;
   private int damage;
   private Sprite sprite;
+  private boolean isBuffed;
 
   public Sphere(Vector2 position) {
     super(
@@ -46,9 +48,11 @@ public class Sphere extends MovingEntity {
     sprite.setOrigin(this.getSizeWidth() / 2, this.getSizeHeight() / 2);
     this.setTexture(Textures.SPHERE);
     b2bBodyDef.type = BodyType.DynamicBody;
+    isBuffed = false;
+
 
     b2bBodyDef.gravityScale = 0f;
-    damage = 25;
+    damage = Constants.SPHERE_DAMAGE;
   }
 
   public void update(float delta) {
@@ -96,5 +100,17 @@ public class Sphere extends MovingEntity {
 
   public int getDamage() {
     return damage;
+  }
+
+  public boolean getBuffed() {
+    return isBuffed;
+  }
+
+  public void setBuffed(boolean buffed){
+    this.isBuffed = buffed;
+  }
+
+  public void setDamage(int d) {
+    damage = d;
   }
 }

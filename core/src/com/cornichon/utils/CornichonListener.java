@@ -112,6 +112,8 @@ public class CornichonListener implements ContactListener {
           level.increaseLastScore(Scores.MOB_KILLED);
         }
       }
+
+      System.out.println(level.getPlayer().getSphere().getDamage());
     }
 
     if (
@@ -165,61 +167,46 @@ public class CornichonListener implements ContactListener {
         MOB_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
       )
     ) {
-      if (contact.getFixtureA().getUserData() instanceof Mob) {
-        Mob m = (Mob) contact.getFixtureA().getUserData();
-        // m.applyDamage(25);
-        if (m.isDead()) {
+      if (contact.getFixtureA().getUserData() instanceof Projectile) {
+        Projectile m = (Projectile) contact.getFixtureA().getUserData();
+        
           level.addDyingEntity(m);
           level.increaseLastScore(Scores.MOB_KILLED);
-        }
-      } else if (contact.getFixtureB().getUserData() instanceof Mob) {
-        Mob m = (Mob) contact.getFixtureB().getUserData();
-        // m.applyDamage(Constants.FIREBALL_DAMAGE);
-        if (m.checkDeath()) {
+        
+      } else if (contact.getFixtureB().getUserData() instanceof Projectile) {
+        Projectile m = (Projectile) contact.getFixtureB().getUserData();
+        
           level.addDyingEntity(m);
           level.increaseLastScore(Scores.MOB_KILLED);
-        }
+        
       }
     }
 
-    if (
-      (
-        PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-        PLAYER_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
-      ) &&
-      (
-        COL_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-        COL_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
-      )
-    ) {
-      System.out.println("COLL");
+  if((PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData())||PLAYER_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))&&(COL_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData())||COL_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())))
 
-      if (contact.getFixtureA().getUserData() instanceof Collectible) {
-        Collectible e = (Collectible) contact.getFixtureA().getUserData();
-        e.applyEffect(level.getPlayer(), level);
-        level.addDyingEntity((Entity) e);
-      } else if (contact.getFixtureB().getUserData() instanceof Collectible) {
-        Collectible e = (Collectible) contact.getFixtureB().getUserData();
-        e.applyEffect(level.getPlayer(), level);
-        level.addDyingEntity((Entity) e);
-      }
-    }
+  {
+    System.out.println("COLL");
 
-    if (
-      (
-        PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-        PLAYER_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
-      ) &&
-      (
-        SPIKE_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-        SPIKE_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
-      )
-    ) {
-      level.getPlayer().setHealth(level.getPlayer().getHealth() - Constants.SPIKE_DAMAGE);
-      level.increaseLastScore(Scores.SPIKE_TOUCHED);
-      groundContacts++;
+    if (contact.getFixtureA().getUserData() instanceof Collectible) {
+      Collectible e = (Collectible) contact.getFixtureA().getUserData();
+      e.applyEffect(level.getPlayer(), level);
+      level.addDyingEntity((Entity) e);
+    } else if (contact.getFixtureB().getUserData() instanceof Collectible) {
+      Collectible e = (Collectible) contact.getFixtureB().getUserData();
+      e.applyEffect(level.getPlayer(), level);
+      level.addDyingEntity((Entity) e);
     }
   }
+
+  if((PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData())||PLAYER_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))&&(SPIKE_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData())||SPIKE_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())))
+  {
+    level.getPlayer().setHealth(level.getPlayer().getHealth() - Constants.SPIKE_DAMAGE);
+    level.increaseLastScore(Scores.SPIKE_TOUCHED);
+    groundContacts++;
+  }
+
+}
+  
 
   @Override
   public void endContact(Contact contact) {

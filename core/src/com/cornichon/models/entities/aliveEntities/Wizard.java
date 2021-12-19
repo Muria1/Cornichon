@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.cornichon.utils.Constants;
 
 public class Wizard extends Mob {
@@ -33,6 +34,7 @@ public class Wizard extends Mob {
                 new Vector2() // Velocity
         );
 
+        this.b2bBodyDef.type = BodyType.StaticBody;
         this.damage = Constants.WIZARD_DAMAGE;
         this.health = Constants.MOB_HEALTH_GENERAL;
         this.setTexture(new Texture(Gdx.files.internal("images/wizard.png")));
