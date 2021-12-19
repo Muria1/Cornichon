@@ -258,15 +258,15 @@ public class Level {
         Fireball fireball;
 
         if (player.getBody().getPosition().x <= e.getBody().getPosition().x) {
-          fireball = new Fireball(new Vector2(e.getPosition().x - player.getPosition().x / 70, e.getPosition().y));
+          fireball = new Fireball(new Vector2(e.getPosition().x - player.getPosition().x / 20, e.getPosition().y));
           fireball
             .getBodyDef()
-            .position.set(new Vector2(e.getPosition().x - player.getPosition().x / 70, e.getPosition().y));
+            .position.set(new Vector2(e.getPosition().x - player.getPosition().x / 20, e.getPosition().y));
         } else {
-          fireball = new Fireball(new Vector2(e.getPosition().x + player.getPosition().x / 70, e.getPosition().y));
+          fireball = new Fireball(new Vector2(e.getPosition().x + player.getPosition().x / 20, e.getPosition().y));
           fireball
             .getBodyDef()
-            .position.set(new Vector2(e.getPosition().x + player.getPosition().x / 70, e.getPosition().y));
+            .position.set(new Vector2(e.getPosition().x + player.getPosition().x / 20, e.getPosition().y));
         }
 
         FixtureDef fireballFixDef = new FixtureDef();
