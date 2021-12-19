@@ -282,10 +282,10 @@ public class Level {
         projectiles.add(fireball);
 
         if ((player.getBody().getPosition().x <= e.getBody().getPosition().x)) {
-          fireball.getBody().setLinearVelocity(new Vector2(-5f, 0));
+          fireball.getBody().setLinearVelocity(new Vector2(-4f, 0));
         }
         if ((player.getBody().getPosition().x > e.getBody().getPosition().x)) {
-          fireball.getBody().setLinearVelocity(new Vector2(5f, 0));
+          fireball.getBody().setLinearVelocity(new Vector2(4f, 0));
         }
       }
     }
