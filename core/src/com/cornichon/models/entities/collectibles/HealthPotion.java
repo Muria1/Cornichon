@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.cornichon.Cornichon;
 import com.cornichon.models.construction.Level;
 import com.cornichon.models.entities.Entity;
 import com.cornichon.models.entities.aliveEntities.Player;
@@ -30,6 +31,11 @@ public class HealthPotion extends Entity implements Collectible {
     player.increaseHealth(10);
     level.getEntities().removeIndex(level.getEntities().indexOf(this, true));
     level.increaseLastScore(Scores.POTION_COLLECTED);
+    
+    if(Cornichon.isSoundOn()){
+      Cornichon.potionDrinking.play();
+    }
+    
   }
 
   @Override

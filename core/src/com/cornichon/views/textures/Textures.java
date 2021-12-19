@@ -21,8 +21,16 @@ public class Textures {
   public static final Texture BLUE_SLIME = new Texture(Gdx.files.internal("images/blueSlime.png"));
   public static final Texture YELLOW_SLIME = new Texture(Gdx.files.internal("images/yellowSlime.png"));
 
+  public static final Texture SKELETON_IDLE = new Texture(Gdx.files.internal("images/skeleton_idle.png"));
+  public static final Texture SKELETON_LEFT1 = new Texture(Gdx.files.internal("images/skeleton_left1.png"));
+  public static final Texture SKELETON_LEFT2 = new Texture(Gdx.files.internal("images/skeleton_left2.png"));
+  public static final Texture SKELETON_RIGHT1 = new Texture(Gdx.files.internal("images/skeleton_right1.png"));
+  public static final Texture SKELETON_RIGHT2 = new Texture(Gdx.files.internal("images/skeleton_right2.png"));
+
   public static final Texture POTIONS_HEALTH = new Texture(Gdx.files.internal("images/health_potion.png"));
   public static final Texture POTIONS_MANA = new Texture(Gdx.files.internal("images/mana_potion.png"));
 
   public static final Texture SPIKES = new Texture(Gdx.files.internal("images/spikes.png"));
+
+  public static final Texture WIZARD = new Texture(Gdx.files.internal("images/wizard.png"));
 }

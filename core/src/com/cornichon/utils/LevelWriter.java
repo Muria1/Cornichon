@@ -46,7 +46,20 @@ public final class LevelWriter {
 
   public void placeMobsAndCollectibles(int[][] map) {
     int[] collectibles = { DrawableValues.POTION_HEALTH, DrawableValues.POTION_MANA };
-    int[] mobs = { DrawableValues.SKELETON, DrawableValues.SLIME, DrawableValues.SPIKES, DrawableValues.WIZARD };
+    int[] mobs = {
+      DrawableValues.SKELETON, // Skeleton x2 chance
+      DrawableValues.SKELETON,
+      DrawableValues.SLIME, // Slime x2 chance
+      DrawableValues.SLIME,
+      DrawableValues.SPIKES, // x1
+      DrawableValues.WIZARD, // x1
+    };
+
+    int mobCount = 0;
+    int collectibleCount = 0;
+
+    int collectibleTestModifier = 6;
+    int mobTestModifier = 6;
 
     try {
       for (int r = 1; r < map.length; r += 1) {
@@ -54,14 +67,19 @@ public final class LevelWriter {
           if (map[r][c] == DrawableValues.BRICK && map[r - 1][c] != DrawableValues.BRICK) {
             if (map[r][c - 1] == DrawableValues.BRICK && map[r][c + 1] == DrawableValues.BRICK) {
               if (map[r - 1][c] == DrawableValues.AIR) {
-                boolean testCollectible = random.nextInt(difficulty / 2 + 12) == 0; // the chance of placing decreases with the difficulty
-                boolean testMob = random.nextInt(10 - difficulty / 2) == 0; // the chance of placing increases with the difficulty
+                if (mobCount > 5) mobTestModifier = 9;
+                if (mobCount > 7) mobTestModifier = 12;
 
-                if (testCollectible) {
-                  map[r - 1][c] = collectibles[(int) (Math.random() * collectibles.length)];
-                }
+                if (collectibleCount > 4) collectibleTestModifier = 9;
+                if (collectibleCount > 6) collectibleTestModifier = 12;
+
+                boolean testCollectible = random.nextInt(difficulty / 2 + collectibleTestModifier) == 0; // the chance of placing decreases with the difficulty
+                boolean testMob = random.nextInt(mobTestModifier - difficulty / 2) == 0; // the chance of placing increases with the difficulty
+
                 if (testMob) {
                   map[r - 1][c] = mobs[(int) (Math.random() * mobs.length)];
+                } else if (testCollectible) {
+                  map[r - 1][c] = collectibles[(int) (Math.random() * collectibles.length)];
                 }
               }
             }

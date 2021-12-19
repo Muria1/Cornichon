@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -23,6 +24,7 @@ public class Cornichon extends Game {
   private boolean isPaused = false;
   public BitmapFont font;
   public static Music backgroundMusic;
+  public static Sound potionDrinking;
   static boolean soundOn = true;
   boolean toggle = false;
 
@@ -35,6 +37,7 @@ public class Cornichon extends Game {
     this.mainMenuScreen = new MainMenuScreen(this);
     this.gameScreen = new GameScreen(this, 1, 0, 100);
     this.backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("images/background_RZGGhSSE.mp3"));
+    this.potionDrinking = Gdx.audio.newSound(Gdx.files.internal("images/potion_drinking.mp3"));
     
     
     backgroundMusic.setLooping(true);
@@ -105,7 +108,7 @@ public class Cornichon extends Game {
     return this.isPaused;
   }
 
-  public boolean isSoundOn(){
+  public static boolean isSoundOn(){
     return soundOn;
   }
 
