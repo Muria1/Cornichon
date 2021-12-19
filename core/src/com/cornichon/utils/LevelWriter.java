@@ -47,11 +47,14 @@ public final class LevelWriter {
   public void placeMobsAndCollectibles(int[][] map) {
     int[] collectibles = { DrawableValues.POTION_HEALTH, DrawableValues.POTION_MANA };
     int[] mobs = {
-      DrawableValues.SKELETON, // Skeleton x2 chance
+      DrawableValues.SKELETON, // Skeleton x3 chance
       DrawableValues.SKELETON,
-      DrawableValues.SLIME, // Slime x2 chance
+      DrawableValues.SKELETON,
+      DrawableValues.SLIME, // Slime x3 chance
       DrawableValues.SLIME,
-      DrawableValues.SPIKES, // x1
+      DrawableValues.SLIME,
+      DrawableValues.SPIKES, // Spikes x2
+      DrawableValues.SPIKES,
       DrawableValues.WIZARD, // x1
     };
 
@@ -67,11 +70,11 @@ public final class LevelWriter {
           if (map[r][c] == DrawableValues.BRICK && map[r - 1][c] != DrawableValues.BRICK) {
             if (map[r][c - 1] == DrawableValues.BRICK && map[r][c + 1] == DrawableValues.BRICK) {
               if (map[r - 1][c] == DrawableValues.AIR) {
-                if (mobCount > 5) mobTestModifier = 9;
-                if (mobCount > 7) mobTestModifier = 12;
+                if (mobCount > 5) mobTestModifier = 12;
+                if (mobCount > 7) mobTestModifier = 16;
 
-                if (collectibleCount > 4) collectibleTestModifier = 9;
-                if (collectibleCount > 6) collectibleTestModifier = 12;
+                if (collectibleCount > 4) collectibleTestModifier = 12;
+                if (collectibleCount > 6) collectibleTestModifier = 16;
 
                 boolean testCollectible = random.nextInt(difficulty / 2 + collectibleTestModifier) == 0; // the chance of placing decreases with the difficulty
                 boolean testMob = random.nextInt(mobTestModifier - difficulty / 2) == 0; // the chance of placing increases with the difficulty
