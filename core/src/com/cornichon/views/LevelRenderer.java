@@ -21,6 +21,7 @@ import com.cornichon.Cornichon;
 import com.cornichon.models.construction.Level;
 import com.cornichon.models.entities.Entity;
 import com.cornichon.models.entities.aliveEntities.Player;
+import com.cornichon.models.entities.aliveEntities.Skeleton;
 import com.cornichon.models.entities.helpers.State;
 import com.cornichon.utils.Constants;
 import com.cornichon.utils.LevelReader;
@@ -97,6 +98,7 @@ public class LevelRenderer {
     spriteBatch.setProjectionMatrix(this.camera.combined);
 
     for (Entity entity : level.getBackground()) {
+
       ((ScreenDrawable) entity).draw(spriteBatch);
     }
 
