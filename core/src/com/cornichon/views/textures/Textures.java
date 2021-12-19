@@ -22,8 +22,8 @@ public class Textures {
   public static final Texture YELLOW_SLIME = new Texture(Gdx.files.internal("images/yellowSlime.png"));
 
   public static final Texture SKELETON_IDLE = new Texture(Gdx.files.internal("images/skeleton_idle.png"));
-  public static final Texture SKELETON_LEFT1 = new Texture(Gdx.files.internal("images/skeleton_left1.png"));
-  public static final Texture SKELETON_LEFT2 = new Texture(Gdx.files.internal("images/skeleton_left2.png"));
+  public static final Texture SKELETON_LEFT1 = new Texture(Gdx.files.internal("images/SKELETON_walking.png"));
+  public static final Texture SKELETON_LEFT2 = new Texture(Gdx.files.internal("images/SKELETON_walking2.png"));
   public static final Texture SKELETON_RIGHT1 = new Texture(Gdx.files.internal("images/skeleton_right1.png"));
   public static final Texture SKELETON_RIGHT2 = new Texture(Gdx.files.internal("images/skeleton_right2.png"));
 
