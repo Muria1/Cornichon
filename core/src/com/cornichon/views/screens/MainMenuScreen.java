@@ -18,14 +18,17 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.cornichon.Cornichon;
+import com.cornichon.views.textures.Textures;
 
 public class MainMenuScreen implements Screen {
 
   Cornichon game;
   OrthographicCamera camera;
   boolean pressedOnce = false;
+  boolean musicPressedOnce = false;
   public Stage stage;
-  public String image;
+  public Texture image;
+  public Texture music;
 
   public MainMenuScreen(Cornichon game) {
     this.game = game;
@@ -46,9 +49,23 @@ public class MainMenuScreen implements Screen {
 
     camera.update();
     game.batch.setProjectionMatrix(camera.combined);
+    if(Cornichon.isSoundOn()){
+      setSoundImage(Textures.SOUND_ON);
+    }
+    else{
+      setSoundImage(Textures.SOUND_OFF);
+    }
+
+    if(Cornichon.isMusicOn()){
+      setMusicImage(Textures.MUSIC_ON);
+    }
+    else{
+      setMusicImage(Textures.MUSIC_OFF);
+    }
 
     game.batch.begin();
     game.batch.draw(game.img, 0, 0);
+  
     drawSoundButton();
 
     game.batch.end();
@@ -77,7 +94,8 @@ public class MainMenuScreen implements Screen {
     TextButton leaderBoard = new TextButton("Leaderboard", skin);
     TextButton exit = new TextButton("Exit", skin);
     TextButton tutorial = new TextButton("Tutorial", skin);
-    setImage("images/ON.png");
+    setSoundImage(Textures.SOUND_ON);
+    setMusicImage(Textures.MUSIC_ON);
 
     table.setBounds(590, 80, 100, 150);
     table.add(newGame).fillX().uniformX();
@@ -131,28 +149,52 @@ public class MainMenuScreen implements Screen {
     soundTable.setDebug(false);
     stage.addActor(soundTable);
    
-    Drawable drawable = new TextureRegionDrawable(new TextureRegion(new Texture(getImage())));
-    ImageButton soundButton = new ImageButton(drawable);
+    Drawable drawableSound = new TextureRegionDrawable(new TextureRegion((getSoundImage())));
+    Drawable drawableMusic = new TextureRegionDrawable(new TextureRegion((getMusicImage())));
+    ImageButton soundButton = new ImageButton(drawableSound);
+    ImageButton musicButton = new ImageButton(drawableMusic);
 
-    soundTable.setBounds(100, 650, 40, 40);
+    soundTable.setBounds(50, 50, 40, 40);
     soundTable.add(soundButton);
+    soundTable.add(musicButton);
 
     soundButton.addListener(new ChangeListener() {
     	@Override
     	public void changed(ChangeEvent event, Actor actor) {
-        Cornichon.setSound(false);
+        
         
         if(!pressedOnce){
-          setImage("images/SOUND_OFF.png");
-          //setImage("images/soundOF.png");
           Cornichon.backgroundMusic.pause();
+          Cornichon.setSound(false);
+          Cornichon.setMusic(false);
           pressedOnce = true;
 
         }
         else{
-          setImage("images/ON.png");
           Cornichon.backgroundMusic.play();
+          Cornichon.setSound(true);
+          Cornichon.setMusic(true);
           pressedOnce = false;
+        }
+        
+    	}
+    });
+
+    musicButton.addListener(new ChangeListener() {
+    	@Override
+    	public void changed(ChangeEvent event, Actor actor) {
+        
+        
+        if(!musicPressedOnce){
+          Cornichon.backgroundMusic.pause();
+          Cornichon.setMusic(false);
+          musicPressedOnce = true;
+
+        }
+        else{
+          Cornichon.backgroundMusic.play();
+          Cornichon.setMusic(true);
+          musicPressedOnce = false;
         }
         
     	}
@@ -162,12 +204,20 @@ public class MainMenuScreen implements Screen {
 
   }
 
-  public void setImage(String image){
+  public void setSoundImage(Texture image){
     this.image = image;
   }
 
-  public String getImage(){
+  public Texture getSoundImage(){
     return image;
+  }
+
+  public void setMusicImage(Texture image){
+    this.music = image;
+  }
+
+  public Texture getMusicImage(){
+    return music;
   }
   @Override
   public void hide() {}

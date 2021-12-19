@@ -27,6 +27,11 @@ public class Textures {
   public static final Texture SKELETON_RIGHT1 = new Texture(Gdx.files.internal("images/skeleton_right1.png"));
   public static final Texture SKELETON_RIGHT2 = new Texture(Gdx.files.internal("images/skeleton_right2.png"));
 
+  public static final Texture SOUND_ON = new Texture(Gdx.files.internal("images/ON.png"));
+  public static final Texture SOUND_OFF = new Texture(Gdx.files.internal("images/SOUND_OFF.png"));
+  public static final Texture MUSIC_ON = new Texture(Gdx.files.internal("images/musicON.png"));
+  public static final Texture MUSIC_OFF = new Texture(Gdx.files.internal("images/musicOFF.png"));
+
   public static final Texture POTIONS_HEALTH = new Texture(Gdx.files.internal("images/health_potion.png"));
   public static final Texture POTIONS_MANA = new Texture(Gdx.files.internal("images/mana_potion.png"));
 
