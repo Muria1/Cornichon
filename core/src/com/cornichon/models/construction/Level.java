@@ -1,6 +1,7 @@
 package com.cornichon.models.construction;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector2;
@@ -28,6 +29,7 @@ import com.cornichon.utils.Scores;
 import com.cornichon.views.maps.Map;
 import com.cornichon.views.screens.GameEndingScreen;
 import com.cornichon.views.screens.GameScreen;
+import com.cornichon.views.textures.Textures;
 
 public class Level {
 
@@ -292,13 +294,20 @@ public class Level {
   // Under construction
   public void moveMobs() {
     for (Entity e : entities) {
+      
       double distanceX = Math.abs(e.getBody().getPosition().x - player.getBody().getPosition().x);
       double distanceY = Math.abs(e.getBody().getPosition().y - player.getBody().getPosition().y);
       if ((e instanceof Slime || e instanceof Skeleton) && distanceX <= 20 && distanceY <= 3) {
         if (player.getBody().getPosition().x <= e.getBody().getPosition().x) {
           e.getBody().setLinearVelocity(new Vector2(-2.5f, e.getBody().getLinearVelocity().y));
+          if(e instanceof Skeleton){
+            e.setTexture(Textures.SKELETON_LEFT1);
+          }
         } else {
           e.getBody().setLinearVelocity(new Vector2(2.5f, e.getBody().getLinearVelocity().y));
+          if(e instanceof Skeleton){
+            e.setTexture(Textures.SKELETON_RIGHT1);
+          }
         }
       }
     }
