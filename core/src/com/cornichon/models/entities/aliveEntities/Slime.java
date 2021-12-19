@@ -18,7 +18,7 @@ public class Slime extends Mob {
 
   public static final float SIZE_HEIGTH = 0.40f; // half a uni
   public static final float SIZE_WIDTH = 0.5f; // half a uni
-  public static final float SPEED = 4f; // unit per second
+  public static final float SPEED = 3f; // unit per second
   public static final float JUMP_VELOCITY = 1f;
   public static final Rectangle BOUNDS = new Rectangle().setWidth(SIZE_HEIGTH).setHeight(SIZE_WIDTH);
   public static final int HEALTH = 100;

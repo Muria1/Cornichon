@@ -258,15 +258,15 @@ public class Level {
         Fireball fireball;
 
         if (player.getBody().getPosition().x <= e.getBody().getPosition().x) {
-          fireball = new Fireball(new Vector2(e.getPosition().x - player.getPosition().x / 70, e.getPosition().y));
+          fireball = new Fireball(new Vector2(e.getPosition().x - 0.5f, e.getPosition().y));
           fireball
             .getBodyDef()
-            .position.set(new Vector2(e.getPosition().x - player.getPosition().x / 70, e.getPosition().y));
+            .position.set(new Vector2(e.getPosition().x - 0.5f, e.getPosition().y));
         } else {
-          fireball = new Fireball(new Vector2(e.getPosition().x + player.getPosition().x / 70, e.getPosition().y));
+          fireball = new Fireball(new Vector2(e.getPosition().x + 0.5f, e.getPosition().y));
           fireball
             .getBodyDef()
-            .position.set(new Vector2(e.getPosition().x + player.getPosition().x / 70, e.getPosition().y));
+            .position.set(new Vector2(e.getPosition().x + 0.5f, e.getPosition().y));
         }
 
         FixtureDef fireballFixDef = new FixtureDef();
@@ -282,10 +282,10 @@ public class Level {
         projectiles.add(fireball);
 
         if ((player.getBody().getPosition().x <= e.getBody().getPosition().x)) {
-          fireball.getBody().setLinearVelocity(new Vector2(-5f, 0));
+          fireball.getBody().setLinearVelocity(new Vector2(-4f, 0));
         }
         if ((player.getBody().getPosition().x > e.getBody().getPosition().x)) {
-          fireball.getBody().setLinearVelocity(new Vector2(5f, 0));
+          fireball.getBody().setLinearVelocity(new Vector2(4f, 0));
         }
       }
     }

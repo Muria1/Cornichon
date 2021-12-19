@@ -20,6 +20,7 @@ public class Textures {
   public static final Texture GREEN_SLIME = new Texture(Gdx.files.internal("images/greenSlime.png"));
   public static final Texture BLUE_SLIME = new Texture(Gdx.files.internal("images/blueSlime.png"));
   public static final Texture YELLOW_SLIME = new Texture(Gdx.files.internal("images/yellowSlime.png"));
+  public static final Texture SPHERE_BUFFED = new Texture(Gdx.files.internal("images/sphere_buffed.png"));
 
   public static final Texture SKELETON_IDLE = new Texture(Gdx.files.internal("images/skeleton_idle.png"));
   public static final Texture SKELETON_LEFT1 = new Texture(Gdx.files.internal("images/SKELETON_walking.png"));
