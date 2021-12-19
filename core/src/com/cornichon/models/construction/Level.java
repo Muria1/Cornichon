@@ -320,4 +320,5 @@ public class Level {
   public int getLatestScore() {
     return this.lastScore;
   }
+
 }

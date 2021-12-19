@@ -8,6 +8,7 @@ public final class Constants {
 
   public static final int PLAYER_HEALTH = 100;
   public static final int SPHERE_DAMAGE = 25;
+  public static final int SPHERE_BUFFED_DAMAGE = 50;
 
   public static final int MOB_HEALTH_GENERAL = 100;
 

@@ -17,8 +17,10 @@ import com.cornichon.controllers.PlayerController;
 import com.cornichon.models.construction.Level;
 import com.cornichon.models.entities.Entity;
 import com.cornichon.models.entities.projectiles.Projectile;
+import com.cornichon.utils.Constants;
 import com.cornichon.views.LevelRenderer;
 import com.cornichon.views.PauseRenderer;
+import com.cornichon.views.textures.Textures;
 
 public class GameScreen implements Screen {
 
@@ -34,6 +36,7 @@ public class GameScreen implements Screen {
   private int difficulty;
   private int lastScore;
   private float lastHealth;
+  private int buffTimer;
 
   public GameScreen(Cornichon game, int difficulty, int lastScore, float lastHealth) {
     this.game = game;
@@ -65,6 +68,20 @@ public class GameScreen implements Screen {
           level.getWorld().destroyBody(e.getBody());
         }
         level.getDyingEntities().clear();
+      }
+
+      if(level.getPlayer().getSphere().getBuffed() && buffTimer == 0) {
+        level.getPlayer().getSphere().setDamage(Constants.SPHERE_BUFFED_DAMAGE);
+        //Texture Change
+        buffTimer++;
+      } else if (level.getPlayer().getSphere().getBuffed() && buffTimer <= 300) {
+        buffTimer++;
+      }else{
+        buffTimer = 0;
+        level.getPlayer().getSphere().setBuffed(false);
+        level.getPlayer().getSphere().setDamage(Constants.SPHERE_DAMAGE);
+
+        //Texture turns to normal
       }
 
       if (fireTrigger == 175) {
