@@ -298,15 +298,30 @@ public class Level {
       double distanceX = Math.abs(e.getBody().getPosition().x - player.getBody().getPosition().x);
       double distanceY = Math.abs(e.getBody().getPosition().y - player.getBody().getPosition().y);
       if ((e instanceof Slime || e instanceof Skeleton) && distanceX <= 20 && distanceY <= 3) {
+        long currentTime = System.currentTimeMillis() / 100;
         if (player.getBody().getPosition().x <= e.getBody().getPosition().x) {
           e.getBody().setLinearVelocity(new Vector2(-2.5f, e.getBody().getLinearVelocity().y));
           if(e instanceof Skeleton){
-            e.setTexture(Textures.SKELETON_LEFT1);
+
+            if (currentTime % 2 == 0){
+              e.setTexture(Textures.SKELETON_LEFT1);
+            }
+
+            else{
+              e.setTexture(Textures.SKELETON_LEFT2);
+            }
+           
           }
         } else {
           e.getBody().setLinearVelocity(new Vector2(2.5f, e.getBody().getLinearVelocity().y));
           if(e instanceof Skeleton){
-            e.setTexture(Textures.SKELETON_RIGHT1);
+            if (currentTime % 2 == 0){
+              e.setTexture(Textures.SKELETON_RIGHT1);
+            }
+
+            else{
+              e.setTexture(Textures.SKELETON_RIGHT2);
+            }
           }
         }
       }
