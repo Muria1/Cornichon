@@ -113,4 +113,9 @@ public class Sphere extends MovingEntity {
   public void setDamage(int d) {
     damage = d;
   }
+
+  public void setSprite(Texture texture){
+      this.sprite.setRegion(texture);   
+      this.setTexture(texture);
+  }
 }
