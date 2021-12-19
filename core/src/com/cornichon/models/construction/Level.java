@@ -18,6 +18,7 @@ import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.models.entities.aliveEntities.Skeleton;
 import com.cornichon.models.entities.aliveEntities.Slime;
 import com.cornichon.models.entities.aliveEntities.Sphere;
+import com.cornichon.models.entities.aliveEntities.Wizard;
 import com.cornichon.models.entities.aliveEntities.Sphere;
 import com.cornichon.models.entities.projectiles.Fireball;
 import com.cornichon.models.entities.projectiles.Projectile;
@@ -251,7 +252,7 @@ public class Level {
         Math.pow(e.getBody().getPosition().x - player.getBody().getPosition().x, 2) +
         Math.pow(e.getBody().getPosition().y - player.getBody().getPosition().y, 2)
       );
-      if (e instanceof Skeleton && distance <= 20) {
+      if (e instanceof Wizard && distance <= 20) {
         Fireball fireball;
 
         if (player.getBody().getPosition().x <= e.getBody().getPosition().x) {
@@ -293,7 +294,7 @@ public class Level {
     for (Entity e : entities) {
       double distanceX = Math.abs(e.getBody().getPosition().x - player.getBody().getPosition().x);
       double distanceY = Math.abs(e.getBody().getPosition().y - player.getBody().getPosition().y);
-      if (e instanceof Slime && distanceX <= 20 && distanceY <= 3) {
+      if ((e instanceof Slime || e instanceof Skeleton) && distanceX <= 20 && distanceY <= 3) {
         if (player.getBody().getPosition().x <= e.getBody().getPosition().x) {
           e.getBody().setLinearVelocity(new Vector2(-2.5f, e.getBody().getLinearVelocity().y));
         } else {
