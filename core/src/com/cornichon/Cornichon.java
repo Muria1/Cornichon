@@ -26,6 +26,7 @@ public class Cornichon extends Game {
   public static Music backgroundMusic;
   public static Sound potionDrinking;
   static boolean soundOn = true;
+  static boolean musicOn = true;
   boolean toggle = false;
 
   
@@ -37,7 +38,7 @@ public class Cornichon extends Game {
     this.mainMenuScreen = new MainMenuScreen(this);
     this.gameScreen = new GameScreen(this, 1, 0, 100);
     this.backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("images/background_RZGGhSSE.mp3"));
-    this.potionDrinking = Gdx.audio.newSound(Gdx.files.internal("images/potion_drinking.mp3"));
+    this.potionDrinking = Gdx.audio.newSound(Gdx.files.internal("images/potion_collect.mp3"));
     
     
     backgroundMusic.setLooping(true);
@@ -57,20 +58,20 @@ public class Cornichon extends Game {
 
     }
 
-    else if(!this.isPaused && soundOn){
-      soundOn = true;
+    else if(!this.isPaused && musicOn){
+      musicOn = true;
       backgroundMusic.play();
     }
 
     if(Gdx.input.isKeyJustPressed(Keys.F10)) {
       if(!toggle){
-        soundOn = false;
+        musicOn = false;
         toggle = true;
         backgroundMusic.pause();
       }
 
       else{
-        soundOn = true;
+        musicOn = true;
         toggle = false;
         backgroundMusic.play();
       }
@@ -114,5 +115,13 @@ public class Cornichon extends Game {
 
   public static void setSound(boolean b){
     soundOn = b;
+  }
+
+  public static boolean isMusicOn(){
+    return musicOn;
+  }
+
+  public static void setMusic(boolean b){
+    musicOn = b;
   }
 }
