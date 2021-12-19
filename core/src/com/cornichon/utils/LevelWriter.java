@@ -61,7 +61,7 @@ public final class LevelWriter {
     int mobCount = 0;
     int collectibleCount = 0;
 
-    int collectibleTestModifier = 6;
+    int collectibleTestModifier = 8;
     int mobTestModifier = 6;
 
     try {
@@ -73,8 +73,8 @@ public final class LevelWriter {
                 if (mobCount > 5) mobTestModifier = 12;
                 if (mobCount > 7) mobTestModifier = 16;
 
-                if (collectibleCount > 4) collectibleTestModifier = 12;
-                if (collectibleCount > 6) collectibleTestModifier = 16;
+                if (collectibleCount > 3) collectibleTestModifier = 12;
+                if (collectibleCount > 5) collectibleTestModifier = 16;
 
                 boolean testCollectible = random.nextInt(difficulty / 2 + collectibleTestModifier) == 0; // the chance of placing decreases with the difficulty
                 boolean testMob = random.nextInt(mobTestModifier - difficulty / 2) == 0; // the chance of placing increases with the difficulty
