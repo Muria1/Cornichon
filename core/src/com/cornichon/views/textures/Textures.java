@@ -38,5 +38,7 @@ public class Textures {
 
   public static final Texture SPIKES = new Texture(Gdx.files.internal("images/spikes.png"));
 
+  public static final Texture FIREBALL = new Texture(Gdx.files.internal("images/fireball.png"));
+
   public static final Texture WIZARD = new Texture(Gdx.files.internal("images/wizard.png"));
 }
