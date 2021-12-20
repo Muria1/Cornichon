@@ -28,7 +28,7 @@ Mahmut Mert Gençtürk <br>
 
 ---
 
-### **3. How to execute the game? **
+### **3. How to execute the game?**
 
 1. You should have downloaded Java.
 2. In order to play the game, you have two choice: (i) cloning the git repository or (ii) download the .jar file. <br>
