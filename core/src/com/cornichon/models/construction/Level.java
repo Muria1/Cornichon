@@ -84,8 +84,17 @@ public class Level {
     this.door.setBody(world.createBody(door.getBodyDef()));
 
     PolygonShape shape = new PolygonShape();
-    shape.setAsBox(player.getSizeWidth() / 2, player.getSizeHeight() / 2);
     FixtureDef fixtureDef = new FixtureDef();
+
+    Vector2[] playerVerts = new Vector2[6];
+    playerVerts[5] = new Vector2((float) -(player.getSizeWidth() / 2), 0);
+    playerVerts[4] = new Vector2((float) -(0.5 * player.getSizeWidth() / 2), (player.getSizeHeight() / 2));
+    playerVerts[3] = new Vector2((float) (0.5 * player.getSizeWidth() / 2), (player.getSizeHeight() / 2));
+    playerVerts[2] = new Vector2((float) (player.getSizeWidth() / 2), 0);
+    playerVerts[1] = new Vector2((float) (0.5 * player.getSizeWidth() / 2), -(player.getSizeHeight() / 2));
+    playerVerts[0] = new Vector2((float) -(0.5 * player.getSizeWidth() / 2), -(player.getSizeHeight() / 2));
+    shape.set(playerVerts);
+
     fixtureDef.shape = shape;
     player.getBody().createFixture(fixtureDef);
     player.getBody().setUserData("player");
@@ -223,9 +232,7 @@ public class Level {
   }
 
   public void addDyingProjectile(Projectile p) {
-    p.setDead(true);
-    dyingEntities.add(p);
-    deadEntities.add(p);
+    addDyingEntity((Entity) p);
 
     if (projectiles.contains(p, false)) {
       projectiles.removeValue(p, false);
@@ -251,26 +258,23 @@ public class Level {
   public void fire() {
     for (Entity e : entities) {
       double distance = Math.sqrt(
-        Math.pow(e.getBody().getPosition().x - player.getBody().getPosition().x, 2) +
-        Math.pow(e.getBody().getPosition().y - player.getBody().getPosition().y, 2)
-      );
+          Math.pow(e.getBody().getPosition().x - player.getBody().getPosition().x, 2) +
+              Math.pow(e.getBody().getPosition().y - player.getBody().getPosition().y, 2));
       if (e instanceof Wizard && distance <= 20) {
         Fireball fireball;
 
         if (player.getBody().getPosition().x <= e.getBody().getPosition().x) {
           fireball = new Fireball(new Vector2(e.getPosition().x - 0.5f, e.getPosition().y));
           fireball
-            .getBodyDef()
-            .position.set(new Vector2(e.getPosition().x - 0.5f, e.getPosition().y));
-            fireball.setTexture(Textures.FIREBALL);
-            entities.add(fireball);
+              .getBodyDef().position.set(new Vector2(e.getPosition().x - 0.5f, e.getPosition().y));
+          fireball.setTexture(Textures.FIREBALL);
+          entities.add(fireball);
         } else {
           fireball = new Fireball(new Vector2(e.getPosition().x + 0.5f, e.getPosition().y));
           fireball
-            .getBodyDef()
-            .position.set(new Vector2(e.getPosition().x + 0.5f, e.getPosition().y));
-            fireball.setTexture(Textures.FIREBALL);
-            entities.add(fireball);
+              .getBodyDef().position.set(new Vector2(e.getPosition().x + 0.5f, e.getPosition().y));
+          fireball.setTexture(Textures.FIREBALL);
+          entities.add(fireball);
         }
 
         FixtureDef fireballFixDef = new FixtureDef();
@@ -298,32 +302,32 @@ public class Level {
   // Under construction
   public void moveMobs() {
     for (Entity e : entities) {
-      
+
       double distanceX = Math.abs(e.getBody().getPosition().x - player.getBody().getPosition().x);
       double distanceY = Math.abs(e.getBody().getPosition().y - player.getBody().getPosition().y);
       if ((e instanceof Slime || e instanceof Skeleton) && distanceX <= 20 && distanceY <= 3) {
         long currentTime = System.currentTimeMillis() / 100;
         if (player.getBody().getPosition().x <= e.getBody().getPosition().x) {
           e.getBody().setLinearVelocity(new Vector2(-2.5f, e.getBody().getLinearVelocity().y));
-          if(e instanceof Skeleton){
+          if (e instanceof Skeleton) {
 
-            if (currentTime % 2 == 0){
+            if (currentTime % 2 == 0) {
               e.setTexture(Textures.SKELETON_LEFT1);
             }
 
-            else{
+            else {
               e.setTexture(Textures.SKELETON_LEFT2);
             }
-           
+
           }
         } else {
           e.getBody().setLinearVelocity(new Vector2(2.5f, e.getBody().getLinearVelocity().y));
-          if(e instanceof Skeleton){
-            if (currentTime % 2 == 0){
+          if (e instanceof Skeleton) {
+            if (currentTime % 2 == 0) {
               e.setTexture(Textures.SKELETON_RIGHT1);
             }
 
-            else{
+            else {
               e.setTexture(Textures.SKELETON_RIGHT2);
             }
           }
