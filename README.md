@@ -5,10 +5,12 @@
 
 [**Table Of Contents**](#cornichon)
 
-- [**1. What is Cornichon?**](#1-what-is-castive)
-- [**2. Who are we? - MURIA**](#2-who-are-we)
+- [**1. What is Cornichon?**](#1-what-is-Cornichon?)
+- [**2. Who are we? - MURIA**](#2-who-are-we?)
 - [**3. How to execute the game?**](#3-how-to-execute-the-game)
 - [**4. Dependencies**](#4-dependencies)
+
+---
 
 ### **1. What is Cornichon?**
 
@@ -18,7 +20,7 @@ experience by implementing an algorithm to generate a unique level each time the
 > 
 
 ---
-### **2. Who are we? - MURIA**
+### **2. Who are we?**
 
 <strong> Creators, CS102 Group 1G: </strong> <br>
 Ahmet Berke Gökmen <br>
@@ -52,11 +54,10 @@ By just downloading the .jar file we provided, you should be able to execute the
 ---
 
 ### **4. Dependencies**
+
 - Chevrotain / chevrotain <br>
 - jhipster / prettier-java java-parser <br>
 - lodash / lodash <br>
 - prettier / prettier <br>
 - jhipster / prettier prettier-plugin-java <br>
 - bd82 / regexp-to-ast <br>
-
----
