@@ -7,7 +7,7 @@
 
 - [**1. What is Cornichon?**](#1-what-is-castive)
 - [**2. Who are we? - MURIA**](#2-who-are-we)
-- [**3. How to execute the game?**](#6-how-to-execute-the-game)
+- [**3. How to execute the game?**](#3-how-to-execute-the-game)
 
 ### **1. What is Cornichon?**
 
@@ -31,7 +31,7 @@ Mahmut Mert Gençtürk <br>
 ### **3. How to execute the game?**
 
 1. You should have downloaded Java.
-2. In order to play the game, you have two choice: (i) cloning the git repository or (ii) download the .jar file. <br>
+2. In order to play the game, you have two choice: (i) cloning the git repository or (ii) downloading the .jar file. <br>
 
 (i) By writing the following code on your terminal you can clone Cornichon repository:
 
