@@ -38,7 +38,7 @@ public class Cornichon extends Game {
     this.mainMenuScreen = new MainMenuScreen(this);
     this.gameScreen = new GameScreen(this, 1, 0, 100);
     this.backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("images/background_RZGGhSSE.mp3"));
-    this.potionDrinking = Gdx.audio.newSound(Gdx.files.internal("images/potion_collect.mp3"));
+    this.potionDrinking = Gdx.audio.newSound(Gdx.files.internal("images/potion-collect.mp3"));
     
     
     backgroundMusic.setLooping(true);
