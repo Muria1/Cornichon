@@ -124,26 +124,6 @@ public class CornichonListener implements ContactListener {
       }
     }
 
-    // NOT completely working + may be removed
-    if ((PROJECTILE_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-        PROJECTILE_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())) &&
-        (MOB_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-            MOB_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))) {
-      if (contact.getFixtureA().getUserData() instanceof Projectile) {
-        Projectile m = (Projectile) contact.getFixtureA().getUserData();
-
-        level.addDyingEntity(m);
-        level.increaseLastScore(Scores.MOB_KILLED);
-
-      } else if (contact.getFixtureB().getUserData() instanceof Projectile) {
-        Projectile m = (Projectile) contact.getFixtureB().getUserData();
-
-        level.addDyingEntity(m);
-        level.increaseLastScore(Scores.MOB_KILLED);
-
-      }
-    }
-
     if ((PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData())
         || PLAYER_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))
         && (COL_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData())

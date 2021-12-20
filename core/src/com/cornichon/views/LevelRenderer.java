@@ -23,6 +23,7 @@ import com.cornichon.models.entities.Entity;
 import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.models.entities.aliveEntities.Skeleton;
 import com.cornichon.models.entities.helpers.State;
+import com.cornichon.models.entities.projectiles.Projectile;
 import com.cornichon.utils.Constants;
 import com.cornichon.utils.LevelReader;
 import com.cornichon.utils.LevelWriter;
@@ -107,6 +108,14 @@ public class LevelRenderer {
         ((ScreenDrawable) entity).draw(spriteBatch);
       } else if (!level.getDeadEntities().contains(entity, false)) {
         ((ScreenDrawable) entity).draw(spriteBatch);
+      }
+    }
+
+    for(Projectile p : level.getProjectiles()) {
+      if (level.getDeadEntities().size == 0) {
+        ((ScreenDrawable) p).draw(spriteBatch);
+      } else if (!level.getDeadEntities().contains(p, false)) {
+        ((ScreenDrawable) p).draw(spriteBatch);
       }
     }
 
