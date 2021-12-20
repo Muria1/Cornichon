@@ -5,8 +5,8 @@
 
 [**Table Of Contents**](#cornichon)
 
-- [**1. What is Cornichon?**](#1-what-is-cornichon?)
-- [**2. Who are we?**](#2-who-are-we?)
+- [**1. What is Cornichon?**](#1-what-is-cornichon)
+- [**2. Who are we?**](#2-who-are-we)
 - [**3. How to execute the game?**](#3-how-to-execute-the-game)
 - [**4. Dependencies**](#4-dependencies)
 
