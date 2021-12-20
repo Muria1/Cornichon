@@ -54,10 +54,7 @@ By just downloading the .jar file we provided, you should be able to execute the
 ---
 
 ### **4. Dependencies**
-
-- Chevrotain / chevrotain <br>
-- jhipster / prettier-java java-parser <br>
-- lodash / lodash <br>
-- prettier / prettier <br>
-- jhipster / prettier prettier-plugin-java <br>
-- bd82 / regexp-to-ast <br>
+ 
+- libGDX <br>
+- Box2D <br>
+- MongoDB 
