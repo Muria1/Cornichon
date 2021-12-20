@@ -79,8 +79,14 @@ public class HowToPlayScreen implements Screen{
         pauseMap.setColor(1.0f, 1.0f, 1.0f, 1.0f);
         pauseMap.getData().setScale(1, 1);
         pauseMap.draw(game.batch, "Use the second entity (Cornichon) to help you finish the game, it can defend you", 180, 150);
-        pauseMap.draw(game.batch, "Try to find the exit door while escaping from slimes and skeletons", 200, 120);
-        pauseMap.draw(game.batch, "PS: Skeletons can shoot, be careful", 280, 90);
+        pauseMap.draw(game.batch, "Try to find the exit door while escaping from slimes, skeletons and wizards", 200, 120);
+        pauseMap.draw(game.batch, "PS: Wizard can shoot, be careful", 280, 90);
+        pauseMap.draw(game.batch, "SCORES", 620, 350);
+        pauseMap.draw(game.batch, "mob killed +100", 620, 330);
+        pauseMap.draw(game.batch, "level passed +25", 620, 310);
+        pauseMap.draw(game.batch, "potion collected +10", 620, 290);
+        pauseMap.draw(game.batch, "spike touched -10", 620, 270);
+
     
         game.batch.end();
     
