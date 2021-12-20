@@ -23,6 +23,7 @@ import com.cornichon.models.entities.aliveEntities.Wizard;
 import com.cornichon.models.entities.aliveEntities.Sphere;
 import com.cornichon.models.entities.projectiles.Fireball;
 import com.cornichon.models.entities.projectiles.Projectile;
+import com.cornichon.utils.Constants;
 import com.cornichon.utils.CornichonListener;
 import com.cornichon.utils.LevelReader;
 import com.cornichon.utils.Scores;
@@ -96,6 +97,9 @@ public class Level {
     shape.set(playerVerts);
 
     fixtureDef.shape = shape;
+    fixtureDef.filter.categoryBits = Constants.CATEGORY_PLAYER;
+    fixtureDef.filter.maskBits = Constants.MASK_PLAYER;
+
     player.getBody().createFixture(fixtureDef);
     player.getBody().setUserData("player");
 
@@ -110,6 +114,9 @@ public class Level {
     sShape.set(verts);
     FixtureDef sFDef = new FixtureDef();
     sFDef.shape = sShape;
+    sFDef.filter.categoryBits = Constants.CATEGORY_TOP;
+    sFDef.filter.maskBits = Constants.MASK_TOP;
+
     sphere.getBody().createFixture(sFDef).setUserData(sphere);
     sphere.getBody().setUserData("top");
 
@@ -117,6 +124,10 @@ public class Level {
     dShape.setAsBox(0.02f, 0.01f);
     FixtureDef dFDef = new FixtureDef();
     dFDef.shape = dShape;
+
+    dFDef.filter.categoryBits = Constants.CATEGORY_DOOR;
+    dFDef.filter.maskBits = Constants.MASK_DOOR;
+
     door.getBody().createFixture(dFDef).setUserData(door);
     door.getBody().setUserData("block");
 
@@ -139,16 +150,24 @@ public class Level {
 
         // add every entity data to b2body and fixture
         if (e.getType().equals("block")) {
+          eFDef.filter.categoryBits = Constants.CATEGORY_BLOCK;
+          eFDef.filter.maskBits = Constants.MASK_BLOCK;
           e.getBody().createFixture(eFDef).setUserData(e);
           e.getBody().setUserData("block");
         } else if (e.getType().equals("spike")) {
+          eFDef.filter.categoryBits = Constants.CATEGORY_SPIKES;
+          eFDef.filter.maskBits = Constants.MASK_SPIKES;
           eShape.setAsBox(e.getSizeWidth() / 2, e.getSizeHeight() / 3);
           e.getBody().createFixture(eFDef).setUserData(e);
           e.getBody().setUserData("spike");
         } else if (e.getType().equals("mob")) {
+          eFDef.filter.categoryBits = Constants.CATEGORY_MOB;
+          eFDef.filter.maskBits = Constants.MASK_MOB;
           e.getBody().createFixture(eFDef).setUserData(e);
           e.getBody().setUserData("mob");
         } else if (e.getType().equals("col")) {
+          eFDef.filter.categoryBits = Constants.CATEGORY_COLLECTIBLE;
+          eFDef.filter.maskBits = Constants.MASK_COLLECTIBLES;
           e.getBody().createFixture(eFDef).setUserData(e);
           e.getBody().setUserData("col");
         } else {
@@ -282,6 +301,8 @@ public class Level {
 
         fireballShape.setAsBox(fireball.getSizeWidth() / 2, fireball.getSizeHeight() / 2);
         fireballFixDef.shape = fireballShape;
+        fireballFixDef.filter.categoryBits = Constants.CATEGORY_PROJECTILE;
+        fireballFixDef.filter.maskBits = Constants.MASK_PROJECTILES;
 
         fireball.setBody(world.createBody(fireball.getBodyDef()));
         fireball.getBody().setUserData("projectile");
