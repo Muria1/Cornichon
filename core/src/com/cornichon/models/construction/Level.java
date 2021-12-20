@@ -19,10 +19,11 @@ import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.models.entities.aliveEntities.Skeleton;
 import com.cornichon.models.entities.aliveEntities.Slime;
 import com.cornichon.models.entities.aliveEntities.Sphere;
-import com.cornichon.models.entities.aliveEntities.Wizard;
 import com.cornichon.models.entities.aliveEntities.Sphere;
+import com.cornichon.models.entities.aliveEntities.Wizard;
 import com.cornichon.models.entities.projectiles.Fireball;
 import com.cornichon.models.entities.projectiles.Projectile;
+import com.cornichon.utils.Constants;
 import com.cornichon.utils.CornichonListener;
 import com.cornichon.utils.LevelReader;
 import com.cornichon.utils.Scores;
@@ -96,6 +97,9 @@ public class Level {
     shape.set(playerVerts);
 
     fixtureDef.shape = shape;
+    fixtureDef.filter.categoryBits = Constants.CATEGORY_PLAYER;
+    fixtureDef.filter.maskBits = Constants.MASK_PLAYER;
+
     player.getBody().createFixture(fixtureDef);
     player.getBody().setUserData("player");
 
@@ -110,6 +114,9 @@ public class Level {
     sShape.set(verts);
     FixtureDef sFDef = new FixtureDef();
     sFDef.shape = sShape;
+    sFDef.filter.categoryBits = Constants.CATEGORY_TOP;
+    sFDef.filter.maskBits = Constants.MASK_TOP;
+
     sphere.getBody().createFixture(sFDef).setUserData(sphere);
     sphere.getBody().setUserData("top");
 
@@ -117,6 +124,10 @@ public class Level {
     dShape.setAsBox(0.02f, 0.01f);
     FixtureDef dFDef = new FixtureDef();
     dFDef.shape = dShape;
+
+    dFDef.filter.categoryBits = Constants.CATEGORY_DOOR;
+    dFDef.filter.maskBits = Constants.MASK_DOOR;
+
     door.getBody().createFixture(dFDef).setUserData(door);
     door.getBody().setUserData("block");
 
@@ -132,23 +143,44 @@ public class Level {
         eBody = world.createBody(e.getBodyDef());
         e.setBody(eBody);
 
-        eShape.setAsBox(e.getSizeWidth() / 2, e.getSizeHeight() / 2);
+        if (e.getType().equals("block")) {
+          eShape.setAsBox(e.getSizeWidth() / 2, e.getSizeHeight() / 2);
+        } else if (e.getType().equals("col")) {
+          eShape.setAsBox(e.getSizeWidth() / 4, e.getSizeHeight() / 2);
+        } else {
+          Vector2[] eVerts = new Vector2[6];
+          eVerts[5] = new Vector2((float) -(e.getSizeWidth() / 2), 0);
+          eVerts[4] = new Vector2((float) -(0.5 * e.getSizeWidth() / 2), (e.getSizeHeight() / 2));
+          eVerts[3] = new Vector2((float) (0.5 * e.getSizeWidth() / 2), (e.getSizeHeight() / 2));
+          eVerts[2] = new Vector2((float) (e.getSizeWidth() / 2), 0);
+          eVerts[1] = new Vector2((float) (0.5 * e.getSizeWidth() / 2), -(e.getSizeHeight() / 2));
+          eVerts[0] = new Vector2((float) -(0.5 * e.getSizeWidth() / 2), -(e.getSizeHeight() / 2));
+          eShape.set(eVerts);
+        }
         eFDef.shape = eShape;
 
         // Adjusting Fixtures
 
         // add every entity data to b2body and fixture
         if (e.getType().equals("block")) {
+          eFDef.filter.categoryBits = Constants.CATEGORY_BLOCK;
+          eFDef.filter.maskBits = Constants.MASK_BLOCK;
           e.getBody().createFixture(eFDef).setUserData(e);
           e.getBody().setUserData("block");
         } else if (e.getType().equals("spike")) {
+          eFDef.filter.categoryBits = Constants.CATEGORY_SPIKES;
+          eFDef.filter.maskBits = Constants.MASK_SPIKES;
           eShape.setAsBox(e.getSizeWidth() / 2, e.getSizeHeight() / 3);
           e.getBody().createFixture(eFDef).setUserData(e);
           e.getBody().setUserData("spike");
         } else if (e.getType().equals("mob")) {
+          eFDef.filter.categoryBits = Constants.CATEGORY_MOB;
+          eFDef.filter.maskBits = Constants.MASK_MOB;
           e.getBody().createFixture(eFDef).setUserData(e);
           e.getBody().setUserData("mob");
         } else if (e.getType().equals("col")) {
+          eFDef.filter.categoryBits = Constants.CATEGORY_COLLECTIBLE;
+          eFDef.filter.maskBits = Constants.MASK_COLLECTIBLES;
           e.getBody().createFixture(eFDef).setUserData(e);
           e.getBody().setUserData("col");
         } else {
@@ -232,7 +264,9 @@ public class Level {
   }
 
   public void addDyingProjectile(Projectile p) {
-    addDyingEntity((Entity) p);
+    p.setDead(true);
+    dyingEntities.add(p);
+    deadEntities.add(p);
 
     if (projectiles.contains(p, false)) {
       projectiles.removeValue(p, false);
@@ -258,23 +292,22 @@ public class Level {
   public void fire() {
     for (Entity e : entities) {
       double distance = Math.sqrt(
-          Math.pow(e.getBody().getPosition().x - player.getBody().getPosition().x, 2) +
-              Math.pow(e.getBody().getPosition().y - player.getBody().getPosition().y, 2));
+        Math.pow(e.getBody().getPosition().x - player.getBody().getPosition().x, 2) +
+        Math.pow(e.getBody().getPosition().y - player.getBody().getPosition().y, 2)
+      );
       if (e instanceof Wizard && distance <= 20) {
         Fireball fireball;
 
         if (player.getBody().getPosition().x <= e.getBody().getPosition().x) {
           fireball = new Fireball(new Vector2(e.getPosition().x - 0.5f, e.getPosition().y));
-          fireball
-              .getBodyDef().position.set(new Vector2(e.getPosition().x - 0.5f, e.getPosition().y));
+          fireball.getBodyDef().position.set(new Vector2(e.getPosition().x - 0.5f, e.getPosition().y));
           fireball.setTexture(Textures.FIREBALL);
-          entities.add(fireball);
+          // entities.add(fireball);
         } else {
           fireball = new Fireball(new Vector2(e.getPosition().x + 0.5f, e.getPosition().y));
-          fireball
-              .getBodyDef().position.set(new Vector2(e.getPosition().x + 0.5f, e.getPosition().y));
+          fireball.getBodyDef().position.set(new Vector2(e.getPosition().x + 0.5f, e.getPosition().y));
           fireball.setTexture(Textures.FIREBALL);
-          entities.add(fireball);
+          // entities.add(fireball);
         }
 
         FixtureDef fireballFixDef = new FixtureDef();
@@ -282,6 +315,8 @@ public class Level {
 
         fireballShape.setAsBox(fireball.getSizeWidth() / 2, fireball.getSizeHeight() / 2);
         fireballFixDef.shape = fireballShape;
+        fireballFixDef.filter.categoryBits = Constants.CATEGORY_PROJECTILE;
+        fireballFixDef.filter.maskBits = Constants.MASK_PROJECTILES;
 
         fireball.setBody(world.createBody(fireball.getBodyDef()));
         fireball.getBody().setUserData("projectile");
@@ -302,7 +337,6 @@ public class Level {
   // Under construction
   public void moveMobs() {
     for (Entity e : entities) {
-
       double distanceX = Math.abs(e.getBody().getPosition().x - player.getBody().getPosition().x);
       double distanceY = Math.abs(e.getBody().getPosition().y - player.getBody().getPosition().y);
       if ((e instanceof Slime || e instanceof Skeleton) && distanceX <= 20 && distanceY <= 3) {
@@ -310,24 +344,18 @@ public class Level {
         if (player.getBody().getPosition().x <= e.getBody().getPosition().x) {
           e.getBody().setLinearVelocity(new Vector2(-2.5f, e.getBody().getLinearVelocity().y));
           if (e instanceof Skeleton) {
-
             if (currentTime % 2 == 0) {
               e.setTexture(Textures.SKELETON_LEFT1);
-            }
-
-            else {
+            } else {
               e.setTexture(Textures.SKELETON_LEFT2);
             }
-
           }
         } else {
           e.getBody().setLinearVelocity(new Vector2(2.5f, e.getBody().getLinearVelocity().y));
           if (e instanceof Skeleton) {
             if (currentTime % 2 == 0) {
               e.setTexture(Textures.SKELETON_RIGHT1);
-            }
-
-            else {
+            } else {
               e.setTexture(Textures.SKELETON_RIGHT2);
             }
           }
@@ -352,5 +380,4 @@ public class Level {
   public int getLatestScore() {
     return this.lastScore;
   }
-
 }

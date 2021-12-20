@@ -55,13 +55,14 @@ public final class LevelWriter {
       DrawableValues.SLIME,
       DrawableValues.SPIKES, // Spikes x2
       DrawableValues.SPIKES,
-      DrawableValues.WIZARD, // x1
+      DrawableValues.WIZARD, // Wizard x2
+      DrawableValues.WIZARD,
     };
 
     int mobCount = 0;
     int collectibleCount = 0;
 
-    int collectibleTestModifier = 8;
+    int collectibleTestModifier = 10;
     int mobTestModifier = 6;
 
     try {
@@ -80,7 +81,18 @@ public final class LevelWriter {
                 boolean testMob = random.nextInt(mobTestModifier - difficulty / 2) == 0; // the chance of placing increases with the difficulty
 
                 if (testMob) {
-                  map[r - 1][c] = mobs[(int) (Math.random() * mobs.length)];
+                  int mobValue = mobs[(int) (Math.random() * mobs.length)];
+
+                  if (mobValue == DrawableValues.WIZARD) {
+                    // Empty left and right of the wizard
+                    if (map[r - 1][c - 1] != DrawableValues.BRICK) {
+                      map[r - 1][c - 1] = DrawableValues.AIR;
+                    }
+                    map[r - 1][c] = DrawableValues.WIZARD;
+                    c += 1;
+                  } else {
+                    map[r - 1][c] = mobValue;
+                  }
                 } else if (testCollectible) {
                   map[r - 1][c] = collectibles[(int) (Math.random() * collectibles.length)];
                 }
