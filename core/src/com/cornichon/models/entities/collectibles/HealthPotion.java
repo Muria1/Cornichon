@@ -11,7 +11,6 @@ import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.models.entities.helpers.Collectible;
 import com.cornichon.utils.Scores;
 import com.cornichon.views.textures.Textures;
-import java.util.Random;
 
 public class HealthPotion extends Entity implements Collectible {
 
@@ -31,11 +30,10 @@ public class HealthPotion extends Entity implements Collectible {
     player.increaseHealth(10);
     level.getEntities().removeIndex(level.getEntities().indexOf(this, true));
     level.increaseLastScore(Scores.POTION_COLLECTED);
-    
-    if(Cornichon.isSoundOn()){
+
+    if (Cornichon.isSoundOn()) {
       Cornichon.potionDrinking.play();
     }
-    
   }
 
   @Override
@@ -47,7 +45,7 @@ public class HealthPotion extends Entity implements Collectible {
   public void draw(SpriteBatch batch) {
     batch.draw(
       this.getTexture(),
-      this.getBody().getPosition().x - 0.2f,
+      this.getBody().getPosition().x - 0.25f,
       this.getBody().getPosition().y - 0.3f,
       this.getSizeWidth(),
       this.getSizeHeight()

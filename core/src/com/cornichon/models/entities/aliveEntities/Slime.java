@@ -1,7 +1,5 @@
 package com.cornichon.models.entities.aliveEntities;
 
-import java.util.Random;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -11,7 +9,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.cornichon.models.entities.projectiles.Projectile;
 import com.cornichon.utils.Constants;
-
+import java.util.Random;
 import java.util.Random;
 
 public class Slime extends Mob {
@@ -32,15 +30,15 @@ public class Slime extends Mob {
 
   public Slime(Vector2 position) {
     super(
-        position,
-        SIZE_HEIGTH,
-        SIZE_WIDTH,
-        BOUNDS,
-        SPEED,
-        JUMP_VELOCITY,
-        new Vector2(), // Acceleration
-        new Vector2());
-
+      position,
+      SIZE_HEIGTH,
+      SIZE_WIDTH,
+      BOUNDS,
+      SPEED,
+      JUMP_VELOCITY,
+      new Vector2(), // Acceleration
+      new Vector2()
+    );
     this.damage = Constants.SLIME_DAMAGE;
 
     ran = new Random();
@@ -66,10 +64,11 @@ public class Slime extends Mob {
   @Override
   public void draw(SpriteBatch batch) {
     batch.draw(
-        this.getTexture(),
-        this.getBody().getPosition().x - 0.25f,
-        this.getBody().getPosition().y - 0.30f,
-        this.getSizeWidth(),
-        this.getSizeHeight());
+      this.getTexture(),
+      this.getBody().getPosition().x - 0.25f,
+      this.getBody().getPosition().y - 0.20f,
+      this.getSizeWidth(),
+      this.getSizeHeight()
+    );
   }
 }

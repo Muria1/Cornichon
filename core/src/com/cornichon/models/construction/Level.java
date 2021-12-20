@@ -19,8 +19,8 @@ import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.models.entities.aliveEntities.Skeleton;
 import com.cornichon.models.entities.aliveEntities.Slime;
 import com.cornichon.models.entities.aliveEntities.Sphere;
-import com.cornichon.models.entities.aliveEntities.Wizard;
 import com.cornichon.models.entities.aliveEntities.Sphere;
+import com.cornichon.models.entities.aliveEntities.Wizard;
 import com.cornichon.models.entities.projectiles.Fireball;
 import com.cornichon.models.entities.projectiles.Projectile;
 import com.cornichon.utils.Constants;
@@ -143,7 +143,20 @@ public class Level {
         eBody = world.createBody(e.getBodyDef());
         e.setBody(eBody);
 
-        eShape.setAsBox(e.getSizeWidth() / 2, e.getSizeHeight() / 2);
+        if (e.getType().equals("block")) {
+          eShape.setAsBox(e.getSizeWidth() / 2, e.getSizeHeight() / 2);
+        } else if (e.getType().equals("col")) {
+          eShape.setAsBox(e.getSizeWidth() / 4, e.getSizeHeight() / 2);
+        } else {
+          Vector2[] eVerts = new Vector2[6];
+          eVerts[5] = new Vector2((float) -(e.getSizeWidth() / 2), 0);
+          eVerts[4] = new Vector2((float) -(0.5 * e.getSizeWidth() / 2), (e.getSizeHeight() / 2));
+          eVerts[3] = new Vector2((float) (0.5 * e.getSizeWidth() / 2), (e.getSizeHeight() / 2));
+          eVerts[2] = new Vector2((float) (e.getSizeWidth() / 2), 0);
+          eVerts[1] = new Vector2((float) (0.5 * e.getSizeWidth() / 2), -(e.getSizeHeight() / 2));
+          eVerts[0] = new Vector2((float) -(0.5 * e.getSizeWidth() / 2), -(e.getSizeHeight() / 2));
+          eShape.set(eVerts);
+        }
         eFDef.shape = eShape;
 
         // Adjusting Fixtures
@@ -279,21 +292,20 @@ public class Level {
   public void fire() {
     for (Entity e : entities) {
       double distance = Math.sqrt(
-          Math.pow(e.getBody().getPosition().x - player.getBody().getPosition().x, 2) +
-              Math.pow(e.getBody().getPosition().y - player.getBody().getPosition().y, 2));
+        Math.pow(e.getBody().getPosition().x - player.getBody().getPosition().x, 2) +
+        Math.pow(e.getBody().getPosition().y - player.getBody().getPosition().y, 2)
+      );
       if (e instanceof Wizard && distance <= 20) {
         Fireball fireball;
 
         if (player.getBody().getPosition().x <= e.getBody().getPosition().x) {
           fireball = new Fireball(new Vector2(e.getPosition().x - 0.5f, e.getPosition().y));
-          fireball
-              .getBodyDef().position.set(new Vector2(e.getPosition().x - 0.5f, e.getPosition().y));
+          fireball.getBodyDef().position.set(new Vector2(e.getPosition().x - 0.5f, e.getPosition().y));
           fireball.setTexture(Textures.FIREBALL);
           // entities.add(fireball);
         } else {
           fireball = new Fireball(new Vector2(e.getPosition().x + 0.5f, e.getPosition().y));
-          fireball
-              .getBodyDef().position.set(new Vector2(e.getPosition().x + 0.5f, e.getPosition().y));
+          fireball.getBodyDef().position.set(new Vector2(e.getPosition().x + 0.5f, e.getPosition().y));
           fireball.setTexture(Textures.FIREBALL);
           // entities.add(fireball);
         }
@@ -325,7 +337,6 @@ public class Level {
   // Under construction
   public void moveMobs() {
     for (Entity e : entities) {
-
       double distanceX = Math.abs(e.getBody().getPosition().x - player.getBody().getPosition().x);
       double distanceY = Math.abs(e.getBody().getPosition().y - player.getBody().getPosition().y);
       if ((e instanceof Slime || e instanceof Skeleton) && distanceX <= 20 && distanceY <= 3) {
@@ -333,24 +344,18 @@ public class Level {
         if (player.getBody().getPosition().x <= e.getBody().getPosition().x) {
           e.getBody().setLinearVelocity(new Vector2(-2.5f, e.getBody().getLinearVelocity().y));
           if (e instanceof Skeleton) {
-
             if (currentTime % 2 == 0) {
               e.setTexture(Textures.SKELETON_LEFT1);
-            }
-
-            else {
+            } else {
               e.setTexture(Textures.SKELETON_LEFT2);
             }
-
           }
         } else {
           e.getBody().setLinearVelocity(new Vector2(2.5f, e.getBody().getLinearVelocity().y));
           if (e instanceof Skeleton) {
             if (currentTime % 2 == 0) {
               e.setTexture(Textures.SKELETON_RIGHT1);
-            }
-
-            else {
+            } else {
               e.setTexture(Textures.SKELETON_RIGHT2);
             }
           }
@@ -375,5 +380,4 @@ public class Level {
   public int getLatestScore() {
     return this.lastScore;
   }
-
 }

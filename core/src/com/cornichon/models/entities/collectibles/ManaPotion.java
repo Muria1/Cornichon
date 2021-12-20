@@ -29,11 +29,11 @@ public class ManaPotion extends Entity implements Collectible {
   public void collected(Player player, Level level) {
     player.increaseMana(10f);
     level.getEntities().removeIndex(level.getEntities().indexOf(this, true));
-    
-    if(Cornichon.isSoundOn()){
+
+    if (Cornichon.isSoundOn()) {
       Cornichon.potionDrinking.play();
     }
-    
+
     level.increaseLastScore(Scores.POTION_COLLECTED);
   }
 
@@ -46,7 +46,7 @@ public class ManaPotion extends Entity implements Collectible {
   public void draw(SpriteBatch batch) {
     batch.draw(
       this.getTexture(),
-      this.getBody().getPosition().x - 0.2f,
+      this.getBody().getPosition().x - 0.25f,
       this.getBody().getPosition().y - 0.3f,
       this.getSizeWidth(),
       this.getSizeHeight()
