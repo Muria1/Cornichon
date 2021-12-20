@@ -2,6 +2,7 @@ package com.cornichon.models.entities.projectiles;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.cornichon.utils.Constants;
@@ -31,4 +32,15 @@ public class Fireball extends Projectile {
     this.damage = Constants.FIREBALL_DAMAGE;
     this.type = "projectile";
   }
+
+  @Override
+  public void draw(SpriteBatch batch) {
+    batch.draw(
+        this.getTexture(),
+        this.getBody().getPosition().x - 0.12f,
+        this.getBody().getPosition().y - 0.12f,
+        this.getSizeWidth(),
+        this.getSizeHeight());
+  }
+
 }

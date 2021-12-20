@@ -262,11 +262,15 @@ public class Level {
           fireball
             .getBodyDef()
             .position.set(new Vector2(e.getPosition().x - 0.5f, e.getPosition().y));
+            fireball.setTexture(Textures.FIREBALL);
+            entities.add(fireball);
         } else {
           fireball = new Fireball(new Vector2(e.getPosition().x + 0.5f, e.getPosition().y));
           fireball
             .getBodyDef()
             .position.set(new Vector2(e.getPosition().x + 0.5f, e.getPosition().y));
+            fireball.setTexture(Textures.FIREBALL);
+            entities.add(fireball);
         }
 
         FixtureDef fireballFixDef = new FixtureDef();
