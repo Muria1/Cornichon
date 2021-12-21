@@ -75,7 +75,7 @@ public class LevelRenderer {
   }
 
   private void toggleDebug() {
-    // Cheat keys for demonstration purposes
+    // Cheating keys for demonstration purposes
     if (Gdx.input.isKeyJustPressed(Keys.NUM_0)) debug = !debug;
     if (Gdx.input.isKeyJustPressed(Keys.NUM_9)) {
       level.getPlayer().setHealth(100);
