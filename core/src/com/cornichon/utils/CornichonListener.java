@@ -68,7 +68,13 @@ public class CornichonListener implements ContactListener {
         MOB_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
       )
     ) {
-      level.getPlayer().setHealth(level.getPlayer().getHealth() - 5);
+       if (contact.getFixtureA().getUserData() instanceof Mob) {
+        Mob m = (Mob) contact.getFixtureA().getUserData();
+        level.getPlayer().decreaseHealth(m.getDamage());
+      } else if (contact.getFixtureB().getUserData() instanceof Mob) {
+        Mob m = (Mob) contact.getFixtureB().getUserData();
+        level.getPlayer().decreaseHealth(m.getDamage());
+      }
       System.out.println("MOB");
     }
 
