@@ -49,7 +49,7 @@ cd Cornichon/
 
 - (ii) By just downloading the .jar file on releases page , you should be able to execute the game easily by double clicking.
 
-#### If the game does not run by double clicking type the following in terminal
+If the game does not run by double clicking type the following in terminal
 
 ```
 java -jar /PATH/TO/FILE/Cornichon.jar
