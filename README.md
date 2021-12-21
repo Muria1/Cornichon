@@ -52,7 +52,7 @@ cd Cornichon/
 #### If the game does not run by double clicking type the following in terminal
 
 ```
-java -jar /PATH/TO/FILE/Cornichon.java
+java -jar /PATH/TO/FILE/Cornichon.jar
 ```
 
 ---
