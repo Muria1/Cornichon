@@ -1,37 +1,21 @@
 package com.cornichon.views;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.utils.TimeUtils;
-import com.cornichon.Cornichon;
 import com.cornichon.models.construction.Level;
 import com.cornichon.models.entities.Entity;
 import com.cornichon.models.entities.aliveEntities.Player;
-import com.cornichon.models.entities.aliveEntities.Skeleton;
 import com.cornichon.models.entities.helpers.State;
 import com.cornichon.models.entities.projectiles.Projectile;
-import com.cornichon.utils.Constants;
-import com.cornichon.utils.LevelReader;
-import com.cornichon.utils.LevelWriter;
 import com.cornichon.views.components.HealthBar;
 import com.cornichon.views.components.ManaBar;
 import com.cornichon.views.helpers.ScreenDrawable;
 import com.cornichon.views.textures.Textures;
-import java.time.Instant;
 
 public class LevelRenderer {
 
@@ -47,7 +31,6 @@ public class LevelRenderer {
   private SpriteBatch spriteBatch;
   private HealthBar healthBar;
   private ManaBar manaBar;
-  private long startTime;
 
   private int width;
   private int height;
@@ -82,7 +65,7 @@ public class LevelRenderer {
     this.drawEverything();
     this.drawBars();
     this.drawHudTexts();
-    this.toggleDebug();
+    // this.toggleDebug();
 
     spriteBatch.end();
 
@@ -92,14 +75,18 @@ public class LevelRenderer {
   }
 
   private void toggleDebug() {
+    // Cheat keys for demonstration purposes
     if (Gdx.input.isKeyJustPressed(Keys.NUM_0)) debug = !debug;
+    if (Gdx.input.isKeyJustPressed(Keys.NUM_9)) {
+      level.getPlayer().setHealth(100);
+      level.getPlayer().setMana(100);
+    }
   }
 
   private void drawEverything() {
     spriteBatch.setProjectionMatrix(this.camera.combined);
 
     for (Entity entity : level.getBackground()) {
-
       ((ScreenDrawable) entity).draw(spriteBatch);
     }
 
@@ -111,7 +98,7 @@ public class LevelRenderer {
       }
     }
 
-    for(Projectile p : level.getProjectiles()) {
+    for (Projectile p : level.getProjectiles()) {
       if (level.getDeadEntities().size == 0) {
         ((ScreenDrawable) p).draw(spriteBatch);
       } else if (!level.getDeadEntities().contains(p, false)) {

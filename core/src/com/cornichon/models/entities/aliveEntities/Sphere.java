@@ -1,12 +1,10 @@
 package com.cornichon.models.entities.aliveEntities;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.cornichon.models.entities.MovingEntity;
 import com.cornichon.models.entities.helpers.State;
@@ -25,7 +23,6 @@ public class Sphere extends MovingEntity {
 
   private State state;
   private boolean facingLeft;
-  private int progress;
   private int damage;
   private Sprite sprite;
   private boolean isBuffed;
@@ -49,7 +46,6 @@ public class Sphere extends MovingEntity {
     this.setTexture(Textures.SPHERE);
     b2bBodyDef.type = BodyType.DynamicBody;
     isBuffed = false;
-
 
     b2bBodyDef.gravityScale = 0f;
     damage = Constants.SPHERE_DAMAGE;
@@ -106,7 +102,7 @@ public class Sphere extends MovingEntity {
     return isBuffed;
   }
 
-  public void setBuffed(boolean buffed){
+  public void setBuffed(boolean buffed) {
     this.isBuffed = buffed;
   }
 
@@ -114,8 +110,8 @@ public class Sphere extends MovingEntity {
     damage = d;
   }
 
-  public void setSprite(Texture texture){
-      this.sprite.setRegion(texture);   
-      this.setTexture(texture);
+  public void setSprite(Texture texture) {
+    this.sprite.setRegion(texture);
+    this.setTexture(texture);
   }
 }

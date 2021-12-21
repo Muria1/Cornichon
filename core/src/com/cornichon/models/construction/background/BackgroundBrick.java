@@ -1,7 +1,5 @@
 package com.cornichon.models.construction.background;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.cornichon.views.textures.Textures;
 

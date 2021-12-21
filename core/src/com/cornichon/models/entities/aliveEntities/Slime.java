@@ -6,10 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.cornichon.models.entities.projectiles.Projectile;
 import com.cornichon.utils.Constants;
-import java.util.Random;
 import java.util.Random;
 
 public class Slime extends Mob {
@@ -24,9 +21,7 @@ public class Slime extends Mob {
 
   public BodyDef b2bBody;
 
-  private Projectile projectile;
   private Random ran;
-  private int slimeDecisionMaker;
 
   public Slime(Vector2 position) {
     super(

@@ -4,13 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.cornichon.models.entities.aliveEntities.Player;
-import com.cornichon.views.LevelRenderer;
 
 public class HealthBar extends Bar {
 
   private Texture heart;
   private Texture bar;
-  private float health;
   private Player player;
 
   public HealthBar(Player player) {

@@ -4,16 +4,13 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.cornichon.models.construction.Level;
 import com.cornichon.models.construction.components.Door;
 import com.cornichon.models.entities.Entity;
 import com.cornichon.models.entities.aliveEntities.Mob;
-import com.cornichon.models.entities.collectibles.HealthPotion;
 import com.cornichon.models.entities.helpers.Collectible;
-import com.cornichon.models.entities.projectiles.Fireball;
 import com.cornichon.models.entities.projectiles.Projectile;
 import com.cornichon.views.textures.Textures;
 
@@ -38,10 +35,16 @@ public class CornichonListener implements ContactListener {
 
   @Override
   public void beginContact(Contact contact) {
-    if ((PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-        PLAYER_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())) &&
-        (GROUND_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-            GROUND_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))) {
+    if (
+      (
+        PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+        PLAYER_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
+      ) &&
+      (
+        GROUND_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+        GROUND_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
+      )
+    ) {
       groundContacts++;
       // System.out.println("groundContacts" + groundContacts);
       if (contact.getFixtureA().getUserData() instanceof Door) {
@@ -55,27 +58,41 @@ public class CornichonListener implements ContactListener {
       }
     }
 
-    if ((PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-        PLAYER_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())) &&
-        (MOB_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-            MOB_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))) {
+    if (
+      (
+        PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+        PLAYER_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
+      ) &&
+      (
+        MOB_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+        MOB_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
+      )
+    ) {
       level.getPlayer().setHealth(level.getPlayer().getHealth() - 5);
       System.out.println("MOB");
     }
 
-    if ((SPHERE_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-        SPHERE_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())) &&
-        (MOB_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-            MOB_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))) {
+    if (
+      (
+        SPHERE_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+        SPHERE_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
+      ) &&
+      (
+        MOB_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+        MOB_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
+      )
+    ) {
       level
-          .getSphere()
-          .getBody()
-          .applyLinearImpulse(
-              new Vector2(
-                  4 * (level.getPlayer().getBody().getPosition().x - level.getSphere().getBody().getPosition().x),
-                  4 * (level.getPlayer().getBody().getPosition().y - level.getSphere().getBody().getPosition().y)),
-              level.getSphere().getBody().getPosition(),
-              true);
+        .getSphere()
+        .getBody()
+        .applyLinearImpulse(
+          new Vector2(
+            4 * (level.getPlayer().getBody().getPosition().x - level.getSphere().getBody().getPosition().x),
+            4 * (level.getPlayer().getBody().getPosition().y - level.getSphere().getBody().getPosition().y)
+          ),
+          level.getSphere().getBody().getPosition(),
+          true
+        );
 
       if (contact.getFixtureA().getUserData() instanceof Mob) {
         Mob m = (Mob) contact.getFixtureA().getUserData();
@@ -96,10 +113,16 @@ public class CornichonListener implements ContactListener {
       System.out.println(level.getPlayer().getSphere().getDamage());
     }
 
-    if ((PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-        PLAYER_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())) &&
-        (PROJECTILE_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-            PROJECTILE_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))) {
+    if (
+      (
+        PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+        PLAYER_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
+      ) &&
+      (
+        PROJECTILE_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+        PROJECTILE_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
+      )
+    ) {
       if (contact.getFixtureA().getUserData() instanceof Projectile) {
         Projectile e = (Projectile) contact.getFixtureA().getUserData();
         level.getPlayer().setHealth(level.getPlayer().getHealth() - e.getDamage());
@@ -111,10 +134,16 @@ public class CornichonListener implements ContactListener {
       }
     }
 
-    if ((PROJECTILE_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-        PROJECTILE_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())) &&
-        (GROUND_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-            GROUND_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))) {
+    if (
+      (
+        PROJECTILE_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+        PROJECTILE_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
+      ) &&
+      (
+        GROUND_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+        GROUND_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
+      )
+    ) {
       if (contact.getFixtureA().getUserData() instanceof Projectile) {
         Projectile e = (Projectile) contact.getFixtureA().getUserData();
         level.addDyingProjectile(e);
@@ -124,12 +153,16 @@ public class CornichonListener implements ContactListener {
       }
     }
 
-    if ((PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData())
-        || PLAYER_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))
-        && (COL_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData())
-            || COL_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())))
-
-    {
+    if (
+      (
+        PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+        PLAYER_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
+      ) &&
+      (
+        COL_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+        COL_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
+      )
+    ) {
       System.out.println("COLL");
 
       if (contact.getFixtureA().getUserData() instanceof Collectible) {
@@ -143,31 +176,48 @@ public class CornichonListener implements ContactListener {
       }
     }
 
-    if ((PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData())
-        || PLAYER_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))
-        && (SPIKE_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData())
-            || SPIKE_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))) {
+    if (
+      (
+        PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+        PLAYER_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
+      ) &&
+      (
+        SPIKE_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+        SPIKE_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
+      )
+    ) {
       level.getPlayer().setHealth(level.getPlayer().getHealth() - Constants.SPIKE_DAMAGE);
       level.increaseLastScore(Scores.SPIKE_TOUCHED);
       groundContacts++;
     }
-
   }
 
   @Override
   public void endContact(Contact contact) {
-    if ((PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-        PLAYER_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())) &&
-        (GROUND_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-            GROUND_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))) {
+    if (
+      (
+        PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+        PLAYER_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
+      ) &&
+      (
+        GROUND_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+        GROUND_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
+      )
+    ) {
       groundContacts--;
       System.out.println("groundContacts" + groundContacts);
     }
 
-    if ((PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-        PLAYER_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())) &&
-        (SPIKE_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
-            SPIKE_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData()))) {
+    if (
+      (
+        PLAYER_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+        PLAYER_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
+      ) &&
+      (
+        SPIKE_IDENTIFIER.equals(contact.getFixtureA().getBody().getUserData()) ||
+        SPIKE_IDENTIFIER.equals(contact.getFixtureB().getBody().getUserData())
+      )
+    ) {
       groundContacts--;
     }
   }

@@ -2,7 +2,6 @@ package com.cornichon.models.entities.projectiles;
 
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.cornichon.models.entities.MovingEntity;
 
 public class Projectile extends MovingEntity {
@@ -19,17 +18,8 @@ public class Projectile extends MovingEntity {
     Vector2 acceleration,
     Vector2 velocity
   ) {
-    super(
-      position,
-      sizeHeight,
-      sizeWidth,
-      bounds,
-      speed,
-      jumpVelocity,
-      acceleration,
-      velocity
-    );
-    this.b2bBodyDef.gravityScale = 0f;;
+    super(position, sizeHeight, sizeWidth, bounds, speed, jumpVelocity, acceleration, velocity);
+    this.b2bBodyDef.gravityScale = 0f;
     this.type = "projectile";
   }
 

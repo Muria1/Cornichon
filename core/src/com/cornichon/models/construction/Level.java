@@ -1,24 +1,17 @@
 package com.cornichon.models.construction;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.cornichon.Cornichon;
-import com.cornichon.models.construction.components.Block;
 import com.cornichon.models.construction.components.Door;
 import com.cornichon.models.entities.Entity;
 import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.models.entities.aliveEntities.Skeleton;
 import com.cornichon.models.entities.aliveEntities.Slime;
-import com.cornichon.models.entities.aliveEntities.Sphere;
 import com.cornichon.models.entities.aliveEntities.Sphere;
 import com.cornichon.models.entities.aliveEntities.Wizard;
 import com.cornichon.models.entities.projectiles.Fireball;

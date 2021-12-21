@@ -1,7 +1,5 @@
 package com.cornichon.views.maps;
 
-import com.badlogic.gdx.utils.Array;
-import com.cornichon.models.entities.Entity;
 import com.cornichon.utils.LevelWriter;
 
 public class Map {

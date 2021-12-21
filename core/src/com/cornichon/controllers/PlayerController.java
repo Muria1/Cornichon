@@ -7,9 +7,7 @@ import com.cornichon.models.construction.Level;
 import com.cornichon.models.entities.aliveEntities.Player;
 import com.cornichon.models.entities.aliveEntities.Sphere;
 import com.cornichon.models.entities.helpers.State;
-import com.cornichon.models.entities.projectiles.Projectile;
 import com.cornichon.utils.CornichonListener;
-import com.cornichon.views.LevelRenderer;
 import com.cornichon.views.textures.Textures;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,10 +54,10 @@ public class PlayerController extends GeneralController {
   }
 
   public PlayerController(Level level) {
-    this.player = level.getPlayer();
-    this.sphere = player.getSphere();
     this.level = level;
-    listener = level.getListener();
+    this.player = this.level.getPlayer();
+    this.sphere = this.player.getSphere();
+    this.listener = this.level.getListener();
   }
 
   /** The main update method **/
@@ -103,17 +101,13 @@ public class PlayerController extends GeneralController {
       player.getBody().setLinearVelocity(new Vector2(0, player.getBody().getLinearVelocity().y));
     }
 
-
     //Buff Spell
     if (keys.get(Actions.SPELL)) {
-      if(player.getMana() >= 70){
+      if (player.getMana() >= 70) {
         player.setMana(player.getMana() - 70);
         player.getSphere().setBuffed(true);
-      } 
+      }
     }
-
-
-
 
     // Sphere's actions
 

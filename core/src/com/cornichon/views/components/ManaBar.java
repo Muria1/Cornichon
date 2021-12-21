@@ -5,11 +5,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.cornichon.models.entities.aliveEntities.Player;
-import com.cornichon.views.LevelRenderer;
 
 public class ManaBar extends Bar {
 
-  private float progress;
   private Texture mana;
   private Texture bar;
   private Player player;
@@ -19,7 +17,6 @@ public class ManaBar extends Bar {
   public ManaBar(Player player) {
     this.mana = new Texture(Gdx.files.internal("images/mana.png"));
     this.bar = new Texture(Gdx.files.internal("images/manabar.png"));
-    this.progress = 0;
     this.player = player;
     this.startTime = TimeUtils.nanoTime();
   }

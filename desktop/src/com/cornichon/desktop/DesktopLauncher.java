@@ -7,13 +7,12 @@ import com.cornichon.utils.Constants;
 
 public class DesktopLauncher {
 
-  public static void main(String[] args){
-    
+  public static void main(String[] args) {
     final LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
     config.title = Constants.GAME_NAME;
     config.width = Constants.WINDOW_WIDTH;
     config.height = Constants.WINDOW_HEIGHT;
-    config.resizable = false;
+    config.resizable = true; // Has some issues in the menus but it's ok
 
     new LwjglApplication(new Cornichon(), config);
   }
