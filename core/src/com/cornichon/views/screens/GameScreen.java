@@ -66,7 +66,7 @@ public class GameScreen implements Screen {
       if (level.getPlayer().getSphere().getBuffed() && buffTimer == 0) {
         level.getPlayer().getSphere().setDamage(Constants.SPHERE_BUFFED_DAMAGE);
         level.getSphere().setSprite(Textures.SPHERE_BUFFED); //Texture Change
-        System.out.println("anan");
+        
         buffTimer++;
       } else if (level.getPlayer().getSphere().getBuffed() && buffTimer <= 300) {
         buffTimer++;
