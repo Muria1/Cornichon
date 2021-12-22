@@ -66,8 +66,14 @@ public class Database {
         JsonReader jsonReader = new JsonReader();
         JsonValue data = jsonReader.parse(doc.toJson());
 
-        result.add(data.get(1).toString().split(":")[1]);
-        result.add(data.get(2).toString().split(":")[1]);
+        String result1 = data.get(1).toString().split(":")[1];
+        String result2 = data.get(2).toString().split(":")[1];
+        try {
+          result.add(result1);
+          result.add(result2);
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
       }
     };
 
