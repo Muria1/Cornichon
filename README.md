@@ -42,7 +42,7 @@ _(in alphabetical order)_
 - (i) By writing the following code on your terminal you can clone Cornichon repository:
 
 ```bash
-git clone https://github.com/Muria1/Cornichon
+git clone https://github.com/Muria1/Cornichon.git
 cd Cornichon/
 ./gradlew desktop:run
 ```
